@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset= "utf-8">
+<title> Конвертер  </title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div class="header">
+			<a href="index.php">Главная</a>
+			<span>/</span>
+			<a href="puzzles3.php">Задачки</a>
+			<span>/</span>
+			<a href="guess (2).html">Угадайка</a>
+			<span>/</span>
+			<a href="guess.html">Угадайка мультиплеер</a>
+			<span>/</span>
+			<a href="converter.html">Конвертер валют</a>
+			<span>/</span>
+			<a href="bank.html">Банковская программа</a>
+			<span>/</span>
+	</div>
+<script>
+	var rub = +prompt ("Пожалуйста, введите сумму в рублях, которую Вы хотите конвертировать в инвалюту");
+	var usd = 57;
+	var euro = 68;
+	var resultUsd = rub / usd;
+	var resultEuro = rub / euro;
+	alert ("Сумма в $ " + resultUsd.toFixed(2) + "\nСумма в евро " + resultEuro.toFixed(2));
+</script>
+<div class="footer">
+	Andreev V.A. 2017 &copy <a href="https://vk.com/volodyaandr" target="_blank"> VK </a>
+</div>
+</body>
+</html>
