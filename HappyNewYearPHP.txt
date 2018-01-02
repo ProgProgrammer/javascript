@@ -1,0 +1,8 @@
+<?php>
+	$newYear = 365 - date('z');
+		if ($newYear == 0) {
+			echo "С Новым Годом!";
+		} else {
+			echo "До Нового года осталось " . "$newYear" . " дня.";
+		}
+?>
