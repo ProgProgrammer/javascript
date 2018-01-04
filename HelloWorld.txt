@@ -1,6 +1,6 @@
 <meta charset= "utf-8">
 <script>
-	alert ("Hello world!");
-	alert ("Hello, my dear friend!");
-	alert ("Glad to see you!");
+	alert ("Hello world;");
+	alert ("Hello, my dear friend;");
+	alert ("Glad to see you;");
 </script>
