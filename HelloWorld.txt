@@ -3,4 +3,5 @@
 	alert ("Hello world;");
 	alert ("Hello, my dear friend;");
 	alert ("Glad to see you;");
+	alert ("Goodbye");
 </script>
