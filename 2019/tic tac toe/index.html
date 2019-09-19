@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>НАЧАЛО РАБОТЫ С BRACKETS</title>
+    <meta name="description" content="Интерактивное руководство по началу работы в Brackets.">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+        }
+        
+        .buttons {
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .button {
+          margin: 20px 10px;
+          padding: 0 20px;
+          font-size: 18px;
+          cursor: pointer;
+        }
+        
+        .button:hover {
+            background: transparent;
+            border: 2px solid black;
+        }
+
+        .container {
+            padding: 15px;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .row {
+            margin: 30px auto 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .col {
+            display: flex;
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            background: red;
+            cursor: pointer;
+            outline: 2px solid black;
+            display: flex;
+            align-items: center;
+        }
+
+        .cross {
+            margin: 0 auto;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cross::before,
+        .cross::after {
+            border: 1px solid black;
+            content: '';
+            width: 1px;
+            height: 40px;
+            background: black;
+        }
+
+        .cross::after {
+            transform: rotate(45deg) translate(-1px, 1px);
+        }
+
+        .cross::before {
+            transform: rotate(-45deg) translate(1px, 0px);
+        }
+
+        .zero {
+            margin: 0 auto;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid black;
+            z-index: 1;
+        }
+        
+        @media all and (max-width: 1024px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .buttons {
+                max-width: 300px;
+                flex-direction: column;
+            }
+            
+            .button {
+                margin: 20px 0;
+                padding: 10px 20px;
+                font-size: 16px;
+            }
+            
+            .cell {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .cross,
+            .zero {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .cross::before, .cross::after {
+                height: 80px;
+            }
+        }
+        
+        @media all and (max-width: 320px) {
+            .buttons {
+                max-width: 750px !important;
+            }
+            
+            .button {
+                margin: 10px 0;
+                font-size: 14px;
+            }
+            
+            .cell {
+                width: 96px !important;
+                height: 96px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+   
+
+    <div class="container">
+      <div class="buttons">
+            <button class="button button_x">Начать с X</button>
+            <button class="button button_o">Начать с 0</button>
+            <button class="button clean">Очистить</button>
+       </div>
+       <div class="row">
+          <div class="col">
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+          </div>
+          <div class="col">
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+              <div class="cell">
+                 <div class="symbol"></div>
+              </div>
+          </div>
+       </div>
+    </div>
+<script>
+const cells = document.getElementsByClassName("cell");
+const symbols = document.getElementsByClassName("symbol");
+const button_x = document.querySelector(".button_x");
+const button_o = document.querySelector(".button_o");
+const clean = document.querySelector(".clean");
+const container = document.querySelector(".container");
+const numbers_of_cells_top = 3;
+const numbers_of_cells_middle = 6;
+const numbers_of_cells_bottom = 9;
+let symbol_x = "";
+let symbol_o = "";
+let clicks = 0;
+let array_of_strings = [
+            ['-', '-', '-'],
+            ['-', '-', '-'],
+            ['-', '-', '-']
+        ];
+
+button_x.addEventListener('click', function () {
+    const parameter = "x";
+    classChecking(parameter);
+});
+
+button_o.addEventListener('click', function () {
+    const parameter = "o";
+    classChecking(parameter);
+});
+
+function classChecking(parameter) {
+    if (container.classList.contains("o") || container.classList.contains("x")) {
+        return alert("Символ уже выбран");
+    } else {
+        container.classList.add(parameter);
+    }
+}
+
+clean.addEventListener('click', matrixCleaning);
+
+for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener('click', function () {
+        if (container.classList.contains("x")) {
+            symbol_x = "X";
+            symbol_o = "O";
+        } else if (container.classList.contains("o")) {
+            symbol_x = "O";
+            symbol_o = "X";
+        } else {
+            return alert("Не выбран первый символ");
+        }
+
+        if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
+
+        } else {
+            ++clicks;
+        }
+
+        console.log(clicks);
+
+        if (i < numbers_of_cells_top) {
+            const subarray_value = 0;
+            const value_in_subarray = i;
+            return theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            /*console.log(array_of_strings);
+            console.log(theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_y, i));*/
+        } else if (i >= numbers_of_cells_top && i < numbers_of_cells_middle) {
+            const subarray_value = 1;
+            const value_in_subarray = i - 3;
+            return theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            /*console.log(array_of_strings);*/
+        } else if (i >= numbers_of_cells_middle && i < numbers_of_cells_bottom) {
+            const subarray_value = 2;
+            const value_in_subarray = i - 6;
+            return theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            /*console.log(array_of_strings);*/
+        }
+    });
+}
+
+function theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i) {
+    if (clicks % 2 === 0) {
+        if (container.classList.contains("x")) {
+            if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
+                alert("Ячейка заполнена");
+            } else {
+                symbols[i].classList.add("zero");
+                array_of_strings[subarray_value][value_in_subarray] = symbol_o;
+            }
+            if (ticTacTooWin(array_of_strings) == 0) {
+                matrixCleaning();
+                return alert("Победил O");
+            }
+        } else if (container.classList.contains("o")) {
+            if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
+                alert("Ячейка заполнена");
+            } else {
+                symbols[i].classList.add("cross");
+                array_of_strings[subarray_value][value_in_subarray] = symbol_o;
+            }
+            if (ticTacTooWin(array_of_strings) === "X") {
+                matrixCleaning();
+                return alert("Победил X");
+            }
+        }
+    } else {
+        if (container.classList.contains("x")) {
+            if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
+                alert("Ячейка заполнена");
+            } else {
+                symbols[i].classList.add("cross");
+                array_of_strings[subarray_value][value_in_subarray] = symbol_x;
+            }
+            if (ticTacTooWin(array_of_strings) === "X") {
+                matrixCleaning();
+                return alert("Победил X");
+            }
+        } else if (container.classList.contains("o")) {
+            if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
+                alert("Ячейка заполнена");
+            } else {
+                symbols[i].classList.add("zero");
+                array_of_strings[subarray_value][value_in_subarray] = symbol_x;
+            }
+            if (ticTacTooWin(array_of_strings) == 0) {
+                matrixCleaning();
+                return alert("Победил O");
+            }
+        }
+    }
+
+    if (clicks === 9) {
+        matrixCleaning();
+        return alert("Ничья");
+    }
+}
+
+function matrixCleaning() {
+    for (let i = 0; i < numbers_of_cells_top; i++) {
+        for (let a = 0; a < array_of_strings[i].length; a++) {
+            array_of_strings[i][a] = '-';
+        }
+    }
+
+    for (let i = 0; i < symbols.length; i++) {
+        if (symbols[i].classList.contains("zero")) {
+            symbols[i].classList.remove("zero");
+        } else if (symbols[i].classList.contains("cross")) {
+            symbols[i].classList.remove("cross");
+        }
+    }
+
+    if (container.classList.contains("x")) {
+        container.classList.remove("x");
+    } else if (container.classList.contains("o")) {
+        container.classList.remove("o");
+    }
+
+    clicks = 0;
+}
+
+function ticTacTooWin(array_of_strings) {
+    let array_letters = "";
+    let array_letters_right_left = "";
+    let result;
+    let number_string_diagonal = array_of_strings.length;
+
+    for (let i = 0; i < array_of_strings.length; i++) {
+        const part_array_of_strings = array_of_strings[i];
+        array_letters = "";
+
+        for (let a = 0; a < part_array_of_strings.length; a++) {
+            array_letters = array_letters + part_array_of_strings[a];
+            console.log(array_letters);
+            result = array_letters;
+
+            if (array_letters.length == part_array_of_strings.length) {
+                if (result === "XXX") {
+                    const x = "X";
+                    return x;
+                } else if (result === "OOO") {
+                    const o = 0;
+                    return o;
+                }
+                array_letters = "";
+            }
+        }
+    }
+
+    for (let i = 0; i < array_of_strings.length; i++) {
+        array_letters = "";
+
+        for (let a = 0; a < array_of_strings.length; a++) {
+            const part_array_of_strings = array_of_strings[a];
+            array_letters = array_letters + part_array_of_strings[i];
+            result = array_letters;
+
+            if (array_letters.length == part_array_of_strings.length) {
+                if (result === "XXX") {
+                    const x = "X";
+                    return x;
+                } else if (result === "OOO") {
+                    const o = 0;
+                    return o;
+                }
+                array_letters = "";
+            }
+        }
+    }
+
+    for (let i = 0; i < array_of_strings.length; i++) {
+        const part_array_of_strings = array_of_strings[i];
+        number_string_diagonal--;
+        array_letters = array_letters + part_array_of_strings[i];
+        result = array_letters;
+
+        if (array_letters.length == part_array_of_strings.length) {
+
+            if (result === "XXX") {
+                const x = "X";
+                return x;
+            } else if (result === "OOO") {
+                const o = 0;
+                return o;
+            }
+            array_letters = "";
+        }
+
+        array_letters_right_left = array_letters_right_left + part_array_of_strings[number_string_diagonal];
+        result = array_letters_right_left;
+
+        if (array_letters_right_left.length == part_array_of_strings.length) {
+            if (result === "XXX") {
+                const x = "X";
+                return x;
+            } else if (result === "OOO") {
+                const o = 0;
+                return o;
+            }
+            array_letters_right_left = "";
+        }
+    }
+}
+</script>
+
+</body>
+
+</html>
