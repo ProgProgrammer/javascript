@@ -1,4 +1,4 @@
-let array_of_strings = [
+let matrix = [
             ['-', '-', '-'],
             ['-', '-', '-'],
             ['-', '-', '-']
@@ -9,10 +9,10 @@ function getAllLines(matrix) {
     let array_letters = "";
     let array_letters_right_left = "";
     let result;
-    let number_string_diagonal = array_of_strings.length;
+    let number_string_diagonal = matrix.length;
 
-    for (let i = 0; i < array_of_strings.length; i++) {
-        const part_array_of_strings = array_of_strings[i];
+    for (let i = 0; i < matrix.length; i++) {
+        const part_array_of_strings = matrix[i];
         array_letters = "";
 
         for (let a = 0; a < part_array_of_strings.length; a++) {
@@ -33,11 +33,11 @@ function getAllLines(matrix) {
         }
     }
 
-    for (let i = 0; i < array_of_strings.length; i++) {
+    for (let i = 0; i < matrix.length; i++) {
         array_letters = "";
 
-        for (let a = 0; a < array_of_strings.length; a++) {
-            const part_array_of_strings = array_of_strings[a];
+        for (let a = 0; a < matrix.length; a++) {
+            const part_array_of_strings = matrix[a];
             array_letters = array_letters + part_array_of_strings[i];
             result = array_letters;
 
@@ -54,8 +54,8 @@ function getAllLines(matrix) {
         }
     }
 
-    for (let i = 0; i < array_of_strings.length; i++) {
-        const part_array_of_strings = array_of_strings[i];
+    for (let i = 0; i < matrix.length; i++) {
+        const part_array_of_strings = matrix[i];
         number_string_diagonal--;
         array_letters = array_letters + part_array_of_strings[i];
         result = array_letters;
