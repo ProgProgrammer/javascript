@@ -29,8 +29,8 @@ function getHorizontalLines(matrix) {
             lines = array_letters;
 
             if (array_letters.length == part_array_of_strings.length) {
-                if (isSymbolWin(lines) === "X" || isSymbolWin(lines) === 0) {
-                    return isSymbolWin(lines);
+                if (isSymbolWin(lines, symbol) === "X" || isSymbolWin(lines, symbol) === 0) {
+                    return isSymbolWin(lines, symbol);
                 }
                 array_letters = "";
             }
@@ -50,8 +50,8 @@ function getVerticalLines(matrix) {
             lines = array_letters;
 
             if (array_letters.length == part_array_of_strings.length) {
-                if (isSymbolWin(lines) === "X" || isSymbolWin(lines) === 0) {
-                    return isSymbolWin(lines);
+                if (isSymbolWin(lines, symbol) === "X" || isSymbolWin(lines, symbol) === 0) {
+                    return isSymbolWin(lines, symbol);
                 }
                 array_letters = "";
             }
@@ -71,8 +71,8 @@ function getDiagonalLines(matrix) {
         lines = array_letters;
 
         if (array_letters.length == part_array_of_strings.length) {
-            if (isSymbolWin(lines) === "X" || isSymbolWin(lines) === 0) {
-                return isSymbolWin(lines);
+            if (isSymbolWin(lines, symbol) === "X" || isSymbolWin(lines, symbol) === 0) {
+                return isSymbolWin(lines, symbol);
             }
             array_letters = "";
         }
@@ -81,15 +81,15 @@ function getDiagonalLines(matrix) {
         lines = array_letters_right_left;
 
         if (array_letters_right_left.length == part_array_of_strings.length) {
-            if (isSymbolWin(lines) === "X" || isSymbolWin(lines) === 0) {
-                return isSymbolWin(lines);
+            if (isSymbolWin(lines, symbol) === "X" || isSymbolWin(lines, symbol) === 0) {
+                return isSymbolWin(lines, symbol);
             }
             array_letters_right_left = "";
         }
     }
 }
 
-function isSymbolWin(lines) {
+function isSymbolWin(lines, symbol) {
     if (lines === "XXX") {
         const x = "X";
         return x;
