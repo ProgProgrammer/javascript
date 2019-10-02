@@ -40,7 +40,7 @@ function getVerticalLines(matrix) {
 
 function getDiagonalLines(matrix) {
     let line = [];
-    let countdown = 3;
+    let countdown = matrix.length;
     
     for (let total_array = 0; total_array < matrix.length; total_array++) {
         line += matrix[total_array][total_array];
