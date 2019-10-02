@@ -9,6 +9,7 @@ function getAllLines(matrix) {
     lines.push(getHorisontalLines(matrix));
     lines.push(getVerticalLines(matrix));
     lines.push(getDiagonalLines(matrix));
+    return lines;
 }
 
 function getHorisontalLines(matrix) {    
