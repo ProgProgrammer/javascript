@@ -19,7 +19,7 @@ function getHorisontalLines(matrix) {
         for (let internal_array = 0; internal_array < matrix.length; internal_array++) {
             line += matrix[total_array][internal_array];
             
-            if(total_array == 2) {
+            if(total_array == matrix.length-1) {
                 return line;
             }
         }
@@ -32,7 +32,7 @@ function getVerticalLines(matrix) {
         for (let internal_array = 0; internal_array < matrix.length; internal_array++) {
             let line += matrix[internal_array][total_array];
             
-            if(total_array == 2) {
+            if(total_array == matrix.length-1) {
                 return line;
             }
         }
