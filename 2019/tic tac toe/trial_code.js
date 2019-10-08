@@ -1,7 +1,9 @@
+let clicks = 0;
+
 let matrix = [
-            'XXX',
-            '-',
-            '-'
+            'OOX',
+            'OX-',
+            'XOO'
         ];
 
 function ticTacTooWin(matrix) {
@@ -12,6 +14,20 @@ function ticTacTooWin(matrix) {
     return result;
 }
 
+function getResult(isXWin, isOWin) {
+    clicks++;
+    
+    if (isXWin === "X") {
+        const x = "X";
+        return x;
+    } else if (isOWin === 0) {
+        const o = 0;
+        return o;
+    } else if (clicks === 9) {
+        return "Ничья";
+    }
+}
+
 function isSymbolWin(lines, symbol) {
     for (let line = 0; line < lines.length; line++) {
 
@@ -20,21 +36,25 @@ function isSymbolWin(lines, symbol) {
             let countSymbolsO = 0;
 
             for (let internal_internal_line = 0; internal_internal_line < lines.length; internal_internal_line++) {
-                
+
                 if (lines[line][internal_line][internal_internal_line] === 'X') {
+
+                    if (countSymbolsX === lines.length - 1) {
+                        const x = "X";
+                        return x;
+                    }
+                    
                     countSymbolsX += 1;
-                    
-                    if (countSymbolsX === lines.length-1) {
-                        return X;
-                    }
                 }
-                
+
                 if (lines[line][internal_line][internal_internal_line] === 'O') {
-                    countSymbolsO += 1;
-                    
-                    if (countSymbolsO === lines.length-1) {
-                        return O;
+
+                    if (countSymbolsO === lines.length - 1) {
+                        const o = 0;
+                        return o;
                     }
+                    
+                    countSymbolsO += 1;
                 }
             }
         }
