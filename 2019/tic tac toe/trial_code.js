@@ -1,29 +1,28 @@
-let clicks = 0;
+let count_clicks = 0;
 
-let matrix = [
-            'OOX',
-            'OX-',
-            'XOO'
-        ];
+/*let matrix = [
+            'OXO',
+            'XOO',
+            'XOX'
+        ];*/
 
-function ticTacTooWin(matrix) {
+function ticTacTooWin(matrix, count_clicks) {
     const lines = getAllLines(matrix);
-    const isXWin = isSymbolWin(lines, 'X');
-    const isOWin = isSymbolWin(lines, 'O');
-    let result = getResult(isXWin, isOWin);
+    const isXWin = isSymbolWin(lines, "X");
+    const isOWin = isSymbolWin(lines, "O");
+    let result = getResult(isXWin, isOWin, count_clicks);
     return result;
 }
 
-function getResult(isXWin, isOWin) {
-    clicks++;
+function getResult(isXWin, isOWin, count_clicks) {
     
     if (isXWin === "X") {
         const x = "X";
         return x;
-    } else if (isOWin === 0) {
+    } else if (isOWin === "O") {
         const o = 0;
         return o;
-    } else if (clicks === 9) {
+    } else if (count_clicks === matrix.length * 3) {
         return "Ничья";
     }
 }
@@ -37,7 +36,7 @@ function isSymbolWin(lines, symbol) {
 
             for (let internal_internal_line = 0; internal_internal_line < lines.length; internal_internal_line++) {
 
-                if (lines[line][internal_line][internal_internal_line] === 'X') {
+                if (lines[line][internal_line][internal_internal_line] === symbol) {
 
                     if (countSymbolsX === lines.length - 1) {
                         const x = "X";
@@ -47,10 +46,10 @@ function isSymbolWin(lines, symbol) {
                     countSymbolsX += 1;
                 }
 
-                if (lines[line][internal_line][internal_internal_line] === 'O') {
+                if (lines[line][internal_line][internal_internal_line] === symbol) {
 
                     if (countSymbolsO === lines.length - 1) {
-                        const o = 0;
+                        const o = "O";
                         return o;
                     }
                     
@@ -113,4 +112,10 @@ function getDiagonalLines(matrix) {
     }
 
     return line;
+}
+
+if(ticTacTooWin(["OOX", "OX-", "XOO"], count_clicks) === 'X' && ticTacTooWin(["XOX", "OX-", "OOO"], count_clicks) === 0  && ticTacTooWin(["XOX", "XO-", "XXO"], count_clicks) === "X" && ticTacTooWin(["XOX", "OX-", "XOO"], count_clicks) === "X" && ticTacTooWin(["XOX", "OX-", "OOX"], count_clicks) === "X" && ticTacTooWin(["OXO", "XO-", "XOO"], count_clicks) === 0 && ticTacTooWin(["OXO", "XO-", "OOX"], count_clicks) === 0 && ticTacTooWin(["---", "---", "---"], count_clicks) === undefined) {
+	alert('OK');
+} else {
+	alert('NO OK');
 }
