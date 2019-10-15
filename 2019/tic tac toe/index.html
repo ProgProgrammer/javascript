@@ -208,7 +208,8 @@ const numbers_of_cells_middle = 6;
 const numbers_of_cells_bottom = 9;
 let symbol_x = "";
 let symbol_o = "";
-let clicks = 0;
+let count_clicks = 0;
+let matrix = [];
 let array_of_strings = [
             ['-', '-', '-'],
             ['-', '-', '-'],
@@ -236,6 +237,7 @@ function classChecking(parameter) {
 clean.addEventListener('click', matrixCleaning);
 
 for (let i = 0; i < cells.length; i++) {
+    
     cells[i].addEventListener('click', function () {
         if (container.classList.contains("x")) {
             symbol_x = "X";
@@ -250,35 +252,54 @@ for (let i = 0; i < cells.length; i++) {
         if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
 
         } else {
-            ++clicks;
+            ++count_clicks;
         }
-
-        console.log(clicks);
 
         if (i < numbers_of_cells_top) {
             const subarray_value = 0;
             const value_in_subarray = i;
-            return theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            return theWinner(count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            
             /*console.log(array_of_strings);
             console.log(theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_y, i));*/
         } else if (i >= numbers_of_cells_top && i < numbers_of_cells_middle) {
             const subarray_value = 1;
             const value_in_subarray = i - 3;
-            return theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            return theWinner(count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            
             /*console.log(array_of_strings);*/
         } else if (i >= numbers_of_cells_middle && i < numbers_of_cells_bottom) {
             const subarray_value = 2;
             const value_in_subarray = i - 6;
-            return theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            return theWinner(count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            
             /*console.log(array_of_strings);*/
         }
     });
 }
-    
-    
 
-function theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i) {
-    if (clicks % 2 === 0) {
+function matrixFor() {
+    let intermediary_matrix = "";
+            
+    for(let number_of_matrix_string = 0; number_of_matrix_string < array_of_strings.length; number_of_matrix_string++) {
+                
+        intermediary_matrix = "";
+                
+        for(let number_of_matrix_cell = 0; number_of_matrix_cell < array_of_strings.length; number_of_matrix_cell++) {
+            intermediary_matrix = intermediary_matrix + array_of_strings[number_of_matrix_string][number_of_matrix_cell];
+            matrix[number_of_matrix_string] = intermediary_matrix;
+            console.log(matrix);
+                    
+            if (number_of_matrix_string == array_of_strings.length-1 && number_of_matrix_cell == array_of_strings.length-1) {
+                return matrix;
+            }
+        }
+    }
+}
+
+function theWinner(count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i) {
+    
+    if (count_clicks % 2 === 0) {
         if (container.classList.contains("x")) {
             if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
                 alert("Ячейка заполнена");
@@ -286,7 +307,8 @@ function theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o
                 symbols[i].classList.add("zero");
                 array_of_strings[subarray_value][value_in_subarray] = symbol_o;
             }
-            if (ticTacTooWin(array_of_strings) == 0) {
+            
+            if (ticTacTooWin(matrixFor(), count_clicks) === "O") {
                 matrixCleaning();
                 return alert("Победил O");
             }
@@ -297,7 +319,8 @@ function theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o
                 symbols[i].classList.add("cross");
                 array_of_strings[subarray_value][value_in_subarray] = symbol_o;
             }
-            if (ticTacTooWin(array_of_strings) === "X") {
+            
+            if (ticTacTooWin(matrixFor(), count_clicks) === "X") {
                 matrixCleaning();
                 return alert("Победил X");
             }
@@ -310,7 +333,8 @@ function theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o
                 symbols[i].classList.add("cross");
                 array_of_strings[subarray_value][value_in_subarray] = symbol_x;
             }
-            if (ticTacTooWin(array_of_strings) === "X") {
+            
+            if (ticTacTooWin(matrixFor(), count_clicks) === "X") {
                 matrixCleaning();
                 return alert("Победил X");
             }
@@ -321,14 +345,15 @@ function theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_o
                 symbols[i].classList.add("zero");
                 array_of_strings[subarray_value][value_in_subarray] = symbol_x;
             }
-            if (ticTacTooWin(array_of_strings) == 0) {
+            
+            if (ticTacTooWin(matrixFor(), count_clicks) == "O") {
                 matrixCleaning();
                 return alert("Победил O");
             }
         }
     }
 
-    if (clicks === 9) {
+    if (ticTacTooWin(matrixFor(), count_clicks) === "Ничья") {
         matrixCleaning();
         return alert("Ничья");
     }
@@ -355,90 +380,111 @@ function matrixCleaning() {
         container.classList.remove("o");
     }
 
-    clicks = 0;
+    count_clicks = 0;
 }
 
-function ticTacTooWin(array_of_strings) {
-    let array_letters = "";
-    let array_letters_right_left = "";
-    let result;
-    let number_string_diagonal = array_of_strings.length;
+function ticTacTooWin(matrix, count_clicks) {
+    const lines = getAllLines(matrix);
+    const isXWin = isSymbolWin(lines, "X");
+    const isOWin = isSymbolWin(lines, "O");
+    let result = getResult(isXWin, isOWin, count_clicks, matrix);
+    return result;
+}
 
-    for (let i = 0; i < array_of_strings.length; i++) {
-        const part_array_of_strings = array_of_strings[i];
-        array_letters = "";
+function getResult(isXWin, isOWin, count_clicks, matrix) {
+    
+    if (isXWin === "X") {
+        const x = "X";
+        return x;
+    } else if (isOWin === "O") {
+        const o = "O";
+        return o;
+    } else if (count_clicks === matrix.length * 3) {
+        return "Ничья";
+    } else {
+        return;
+    }
+}
 
-        for (let a = 0; a < part_array_of_strings.length; a++) {
-            array_letters = array_letters + part_array_of_strings[a];
-            console.log(array_letters);
-            result = array_letters;
+function isSymbolWin(lines, symbol) {
+    for (let line = 0; line < lines.length; line++) {
 
-            if (array_letters.length == part_array_of_strings.length) {
-                if (result === "XXX") {
-                    const x = "X";
-                    return x;
-                } else if (result === "OOO") {
-                    const o = 0;
-                    return o;
+        for (let internal_line = 0; internal_line < lines.length; internal_line++) {
+            let countSymbols = 0;
+
+            for (let internal_internal_line = 0; internal_internal_line < lines.length; internal_internal_line++) {
+                    
+                if (lines[line][internal_line][internal_internal_line] === symbol) {
+
+                    if (countSymbols === lines.length - 1) {
+                        const xo = symbol;
+                        return xo;
+                    }
+                    
+                    countSymbols += 1;
                 }
-                array_letters = "";
+            }
+        }
+        
+        if (line === lines.length - 1) {
+            return;
+        }
+    }
+}
+
+function getAllLines(matrix) {
+    let lines = [];
+    lines.push(getHorisontalLines(matrix));
+    lines.push(getVerticalLines(matrix));
+    lines.push(getDiagonalLines(matrix));
+    return lines;
+}
+
+function getHorisontalLines(matrix) {
+    let line = ['', '', ''];
+
+    for (let total_array = 0; total_array < matrix.length; total_array++) {
+
+        for (let internal_array = 0; internal_array < matrix.length; internal_array++) {
+            line[total_array] += matrix[total_array][internal_array];
+
+            if (total_array == matrix.length - 1 && internal_array == matrix.length - 1) {
+                return line;
             }
         }
     }
+}
 
-    for (let i = 0; i < array_of_strings.length; i++) {
-        array_letters = "";
+function getVerticalLines(matrix) {
+    let line = ['', '', ''];
 
-        for (let a = 0; a < array_of_strings.length; a++) {
-            const part_array_of_strings = array_of_strings[a];
-            array_letters = array_letters + part_array_of_strings[i];
-            result = array_letters;
+    for (let total_array = 0; total_array < matrix.length; total_array++) {
 
-            if (array_letters.length == part_array_of_strings.length) {
-                if (result === "XXX") {
-                    const x = "X";
-                    return x;
-                } else if (result === "OOO") {
-                    const o = 0;
-                    return o;
-                }
-                array_letters = "";
+        for (let internal_array = 0; internal_array < matrix.length; internal_array++) {
+            line[internal_array] += matrix[total_array][internal_array];
+
+            if (total_array == matrix.length - 1 && internal_array == matrix.length - 1) {
+                return line;
             }
         }
     }
+}
 
-    for (let i = 0; i < array_of_strings.length; i++) {
-        const part_array_of_strings = array_of_strings[i];
-        number_string_diagonal--;
-        array_letters = array_letters + part_array_of_strings[i];
-        result = array_letters;
+function getDiagonalLines(matrix) {
+    let line = ['', '', ''];
+    let countdown = matrix.length;
 
-        if (array_letters.length == part_array_of_strings.length) {
-
-            if (result === "XXX") {
-                const x = "X";
-                return x;
-            } else if (result === "OOO") {
-                const o = 0;
-                return o;
-            }
-            array_letters = "";
-        }
-
-        array_letters_right_left = array_letters_right_left + part_array_of_strings[number_string_diagonal];
-        result = array_letters_right_left;
-
-        if (array_letters_right_left.length == part_array_of_strings.length) {
-            if (result === "XXX") {
-                const x = "X";
-                return x;
-            } else if (result === "OOO") {
-                const o = 0;
-                return o;
-            }
-            array_letters_right_left = "";
-        }
+    for (let total_array = 0; total_array < matrix.length; total_array++) {
+        line[0] += matrix[total_array][total_array];
     }
+
+    for (let total_array = 0; total_array < matrix.length; total_array++) {
+        countdown -= 1;
+        line[1] += matrix[total_array][countdown];
+        line[2] += "-";
+    }
+
+    return line;
 }
 </script>
 
