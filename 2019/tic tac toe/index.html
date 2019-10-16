@@ -160,6 +160,16 @@
             <button class="button button_o">Начать с 0</button>
             <button class="button clean">Очистить</button>
        </div>
+       <div class="block-top top" style="width: 100%; display: flex;">
+            <div class="block-inset" style="margin: 0 auto; display: flex; align-items: center;">
+                <p class="block-p" style="margin-right: 10px; font-size: 16px;">Результат:</p>
+                <div class="block-inset-inset" style="padding: 5px; width: 150px; min-height: 20px; height: auto; display: flex; align-items: center; border: 1px solid black; font-size: 14px;">
+                    <p class="block-p" style="margin: 0;">
+                        <span class="block-p-span"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
        <div class="row">
           <div class="col">
               <div class="cell">
@@ -225,11 +235,27 @@ button_o.addEventListener('click', function () {
     const parameter = "o";
     classChecking(parameter);
 });
+    
+function stringEmpty() {
+    const line_result = document.querySelector(".block-p-span");
+    let text_result;
+    text_result = "";
+    line_result.innerHTML = text_result;
+}
+    
+function stringComplete(string) {
+    const line_result = document.querySelector(".block-p-span");
+    let text_result;
+    text_result = string;
+    line_result.innerHTML = text_result;
+}
 
 function classChecking(parameter) {
     if (container.classList.contains("o") || container.classList.contains("x")) {
-        return alert("Символ уже выбран");
+        stringComplete("Символ уже выбран");
+        return;
     } else {
+        stringEmpty();
         container.classList.add(parameter);
     }
 }
@@ -239,6 +265,7 @@ clean.addEventListener('click', matrixCleaning);
 for (let i = 0; i < cells.length; i++) {
     
     cells[i].addEventListener('click', function () {
+        
         if (container.classList.contains("x")) {
             symbol_x = "X";
             symbol_o = "O";
@@ -246,7 +273,8 @@ for (let i = 0; i < cells.length; i++) {
             symbol_x = "O";
             symbol_o = "X";
         } else {
-            return alert("Не выбран первый символ");
+            stringComplete("Не выбран первый символ");
+            return;
         }
 
         if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
@@ -302,64 +330,75 @@ function theWinner(count_clicks, subarray_value, value_in_subarray, symbol_x, sy
     if (count_clicks % 2 === 0) {
         if (container.classList.contains("x")) {
             if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
-                alert("Ячейка заполнена");
+                stringComplete("Ячейка заполнена");
             } else {
+                stringEmpty();
                 symbols[i].classList.add("zero");
                 array_of_strings[subarray_value][value_in_subarray] = symbol_o;
             }
             
             if (ticTacTooWin(matrixFor(), count_clicks) === "O") {
                 matrixCleaning();
-                return alert("Победил O");
+                stringComplete("Победил O");
+                return;
             }
         } else if (container.classList.contains("o")) {
             if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
-                alert("Ячейка заполнена");
+                stringComplete("Ячейка заполнена");
             } else {
+                stringEmpty();
                 symbols[i].classList.add("cross");
                 array_of_strings[subarray_value][value_in_subarray] = symbol_o;
             }
             
             if (ticTacTooWin(matrixFor(), count_clicks) === "X") {
                 matrixCleaning();
-                return alert("Победил X");
+                stringComplete("Победил X");
+                return;
             }
         }
     } else {
         if (container.classList.contains("x")) {
             if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
-                alert("Ячейка заполнена");
+                stringComplete("Ячейка заполнена");
             } else {
+                stringEmpty();
                 symbols[i].classList.add("cross");
                 array_of_strings[subarray_value][value_in_subarray] = symbol_x;
             }
             
             if (ticTacTooWin(matrixFor(), count_clicks) === "X") {
                 matrixCleaning();
-                return alert("Победил X");
+                stringComplete("Победил X");
+                return;
             }
         } else if (container.classList.contains("o")) {
             if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
-                alert("Ячейка заполнена");
+                stringComplete("Ячейка заполнена");
             } else {
+                stringEmpty();
                 symbols[i].classList.add("zero");
                 array_of_strings[subarray_value][value_in_subarray] = symbol_x;
             }
             
             if (ticTacTooWin(matrixFor(), count_clicks) == "O") {
                 matrixCleaning();
-                return alert("Победил O");
+                stringComplete("Победил O");
+                return;
             }
         }
     }
 
     if (ticTacTooWin(matrixFor(), count_clicks) === "Ничья") {
         matrixCleaning();
-        return alert("Ничья");
+        stringComplete("Ничья");
+        return;
     }
 }
 
 function matrixCleaning() {
+    stringEmpty();
+    
     for (let i = 0; i < numbers_of_cells_top; i++) {
         for (let a = 0; a < array_of_strings[i].length; a++) {
             array_of_strings[i][a] = '-';
