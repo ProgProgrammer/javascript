@@ -218,7 +218,10 @@ const numbers_of_cells_middle = 6;
 const numbers_of_cells_bottom = 9;
 let symbol_x = "";
 let symbol_o = "";
-let count_clicks = 0;
+let clicks = {
+    count_clicks: 0
+};
+
 let matrix = [];
 let array_of_strings = [
             ['-', '-', '-'],
@@ -280,26 +283,26 @@ for (let i = 0; i < cells.length; i++) {
         if (symbols[i].classList.contains("zero") || symbols[i].classList.contains("cross")) {
 
         } else {
-            ++count_clicks;
+            clicks.count_clicks = clicks.count_clicks + 1;
         }
 
         if (i < numbers_of_cells_top) {
             const subarray_value = 0;
             const value_in_subarray = i;
-            return theWinner(count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            return theWinner(clicks.count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
             
             /*console.log(array_of_strings);
             console.log(theWinner(clicks, subarray_value, value_in_subarray, symbol_x, symbol_y, i));*/
         } else if (i >= numbers_of_cells_top && i < numbers_of_cells_middle) {
             const subarray_value = 1;
             const value_in_subarray = i - 3;
-            return theWinner(count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            return theWinner(clicks.count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
             
             /*console.log(array_of_strings);*/
         } else if (i >= numbers_of_cells_middle && i < numbers_of_cells_bottom) {
             const subarray_value = 2;
             const value_in_subarray = i - 6;
-            return theWinner(count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
+            return theWinner(clicks.count_clicks, subarray_value, value_in_subarray, symbol_x, symbol_o, i);
             
             /*console.log(array_of_strings);*/
         }
@@ -419,7 +422,7 @@ function matrixCleaning() {
         container.classList.remove("o");
     }
 
-    count_clicks = 0;
+    clicks.count_clicks = 0;
 }
 
 function ticTacTooWin(matrix, count_clicks) {
