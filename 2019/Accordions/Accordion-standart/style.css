@@ -8,6 +8,7 @@
     padding: 15px;
     width: 100%;
     display: flex;
+    flex-direction: column;
 }
 
 .accrordion {
@@ -23,6 +24,7 @@
     height: 50px;
     display: flex;
     align-items: center;
+    border: 1px solid black;
     background: green;
     cursor: pointer;
 }
