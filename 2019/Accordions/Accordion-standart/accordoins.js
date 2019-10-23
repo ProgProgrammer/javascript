@@ -4,7 +4,7 @@ const blocks = document.getElementsByClassName("accordion-blocks-block-contents"
 const time = 100;
 const time_interval = 1;
 
-for (let button in buttons) {
+for (let button = 0; buttons.length; button++) {
     buttons[button].addEventListener('click', function() {
         let block_height_parent = block_parents[button].offsetHeight;
         let block_height = blocks[button].offsetHeight;
@@ -14,11 +14,23 @@ for (let button in buttons) {
         if (block_height_parent > 0) {
             closeAccordoin(button, time_interval, block_height, height_interval); 
         } else if (block_height_parent <= 0) {
-            openAccordoin(button, height_block_interval, time_interval, block_height, height_interval); 
+            accordionCheck(button, time_interval, block_height, height_interval);
+            openAccordoin(button, height_block_interval, time_interval, block_height, height_interval);
         } else {
             return;
         }
     });
+}
+
+function accordionCheck(button, time_interval, block_height, height_interval) {
+    for (let content = 0; content < buttons.length; content++) {
+        let block_height_parent_check = block_parents[content].offsetHeight;
+        let block_height_check = blocks[button].offsetHeight;
+        
+        if(block_height_parent_check > 0 && content != button) {
+            closeAccordoin(content, time_interval, block_height_check, height_interval);
+        }
+    }
 }
 
 function closeAccordoin(button_function, time_interval_function, block_height_function, height_interval_function) {
@@ -37,7 +49,6 @@ function closeAccordoin(button_function, time_interval_function, block_height_fu
 function openAccordoin(button_function, height_block_interval, time_interval_function, block_height_function, height_interval_function) {
     let delay = time_interval_function;
     height_block_interval = height_block_interval + height_interval_function;
-    console.log(height_block_interval);
     setTimeout(function() {
         if (height_block_interval < block_height_function) {
             block_parents[button_function].style.height = height_block_interval + 'px';
