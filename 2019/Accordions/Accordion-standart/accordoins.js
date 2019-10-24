@@ -1,26 +1,28 @@
 const buttons = document.getElementsByClassName("accrodion-button");
 const block_parents = document.getElementsByClassName("accordion-blocks-block");
 const blocks = document.getElementsByClassName("accordion-blocks-block-contents");
-const time = 100;
-const time_interval = 1;
 
-for (let button = 0; buttons.length; button++) {
-    buttons[button].addEventListener('click', function() {
-        let block_height_parent = block_parents[button].offsetHeight;
-        let block_height = blocks[button].offsetHeight;
-        let height_block_interval = 0;
-        const height_interval = block_height / time;
+function main() {
+    const time = 100;
+    const time_interval = 1;
+    
+    for (let button = 0; button < buttons.length; button++) {
+        buttons[button].addEventListener('click', function() {
+            let block_height_parent = block_parents[button].offsetHeight;
+            let block_height = blocks[button].offsetHeight;
+            let height_block_interval = 0;
+            const height_interval = block_height / time;
 
-        if (block_height_parent > 0) {
-            closeAccordoin(button, time_interval, block_height, height_interval); 
-        } else if (block_height_parent <= 0) {
-            accordionCheck(button, time_interval, block_height, height_interval);
-            openAccordoin(button, height_block_interval, time_interval, block_height, height_interval);
-        } else {
-            return;
-        }
-    });
+            if (block_height_parent > 0) {
+                closeAccordoin(button, time_interval, block_height, height_interval); 
+            } else if (block_height_parent <= 0) {
+                accordionCheck(button, time_interval, block_height, height_interval);
+                openAccordoin(button, height_block_interval, time_interval, block_height, height_interval);
+            }
+        });
+    }
 }
+
 
 function accordionCheck(button, time_interval, block_height, height_interval) {
     for (let content = 0; content < buttons.length; content++) {
@@ -58,3 +60,5 @@ function openAccordoin(button_function, height_block_interval, time_interval_fun
         }
     }, delay);
 }
+
+main();
