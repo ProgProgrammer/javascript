@@ -9,11 +9,12 @@ function main() {
     for (let button = 0; button < buttons.length; button++) {
         buttons[button].addEventListener('click', function() {
             let block_height_parent = block_parents[button].offsetHeight;
+            let block_height_parent_style_height = block_parents[button].style.height;
             let block_height = blocks[button].offsetHeight;
             let height_block_interval = 0;
             const height_interval = block_height / time;
 
-            if (block_height_parent > 0) {
+            if (block_height_parent_style_height === 'auto') {
                 closeAccordoin(button, time_interval, block_height, height_interval); 
             } else if (block_height_parent <= 0) {
                 accordionCheck(button, time_interval, block_height, height_interval);
