@@ -8,30 +8,42 @@ function main() {
     
     for (let button = 0; button < buttons.length; button++) {
         buttons[button].addEventListener('click', function() {
-            let block_height_parent = block_parents[button].offsetHeight;
-            let block_height_parent_style_height = block_parents[button].style.height;
-            let block_height = blocks[button].offsetHeight;
-            let height_block_interval = 0;
-            const height_interval = block_height / time;
-
-            if (block_height_parent_style_height === 'auto') {
-                closeAccordoin(button, time_interval, block_height, height_interval); 
-            } else if (block_height_parent <= 0) {
-                accordionCheck(button, time_interval, block_height, height_interval);
-                openAccordoin(button, height_block_interval, time_interval, block_height, height_interval);
-            }
+            accordionClicks(button, time, time_interval);
         });
     }
 }
 
+function accordionClicks(button, time, time_interval) {
+    let block_height_parent = block_parents[button].offsetHeight;
+    let block_height_parent_style_height = block_parents[button].style.height;
+    let block_height = blocks[button].offsetHeight;
+    let height_block_interval = 0;
+    const height_interval = block_height / time;
+    
+    for (let button_accordion = 0; button_accordion < buttons.length; button_accordion++) {
+        let button_parent = block_parents[button_accordion].style.height;
+        console.log(button_parent);
+                
+        if (block_height_parent_style_height === 'auto') {
+            closeAccordoin(button, time_interval, block_height, height_interval);
+        } else if (block_height_parent == 0) {
+            accordionCheck(button, time_interval, block_height, height_interval, height_block_interval);
+        }
+    }
+}
 
-function accordionCheck(button, time_interval, block_height, height_interval) {
+function accordionCheck(button, time_interval, block_height, height_interval, height_block_interval) {
     for (let content = 0; content < buttons.length; content++) {
-        let block_height_parent_check = block_parents[content].offsetHeight;
+        let block_height_parent_check = block_parents[content].style.height;
+        let block_height_parent_check_height = block_parents[content].offsetHeight;
         let block_height_check = blocks[button].offsetHeight;
         
-        if(block_height_parent_check > 0 && content != button) {
+        if(block_height_parent_check == 'auto' && content != button) {
             closeAccordoin(content, time_interval, block_height_check, height_interval);
+        }
+        
+        if (block_height_parent_check_height == 0 && content == buttons.length - 1 || block_height_parent_check == 'auto' && content == buttons.length - 1) {
+            openAccordoin(button, height_block_interval, time_interval, block_height, height_interval);
         }
     }
 }
