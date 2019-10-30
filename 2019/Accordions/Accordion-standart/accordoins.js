@@ -21,8 +21,6 @@ function accordionClicks(button, time, time_interval) {
     const height_interval = block_height / time;
     
     for (let button_accordion = 0; button_accordion < buttons.length; button_accordion++) {
-        let button_parent = block_parents[button_accordion].style.height;
-        console.log(button_parent);
                 
         if (block_height_parent_style_height === 'auto') {
             closeAccordoin(button, time_interval, block_height, height_interval);
@@ -42,7 +40,9 @@ function accordionCheck(button, time_interval, block_height, height_interval, he
             closeAccordoin(content, time_interval, block_height_check, height_interval);
         }
         
-        if (block_height_parent_check_height == 0 && content == buttons.length - 1 || block_height_parent_check == 'auto' && content == buttons.length - 1) {
+        if (block_parents[content].classList.contains("opening_accordion") || block_parents[content].classList.contains("closing_accordion")) {
+            
+        } else if (block_height_parent_check_height == 0 && content == buttons.length - 1 || block_height_parent_check == 'auto' && content == buttons.length - 1) {
             openAccordoin(button, height_block_interval, time_interval, block_height, height_interval);
         }
     }
@@ -53,10 +53,17 @@ function closeAccordoin(button_function, time_interval_function, block_height_fu
     block_height_function = block_height_function - height_interval_function;
     setTimeout(function() {
         if (block_height_function > 0) {
+            if (block_parents[button_function].classList.contains("opening_accordion")) {
+                
+            } else {
+                classElementsClose();
+            }
+            
             block_parents[button_function].style.height = block_height_function + 'px';
             closeAccordoin(button_function, time_interval_function, block_height_function, height_interval_function);
         } else if (block_height_function <= 0) {
             block_parents[button_function].style.height = 0;
+            classElementsClose();
         }
     }, delay);
 }
@@ -66,12 +73,39 @@ function openAccordoin(button_function, height_block_interval, time_interval_fun
     height_block_interval = height_block_interval + height_interval_function;
     setTimeout(function() {
         if (height_block_interval < block_height_function) {
+            if (block_parents[button_function].classList.contains("opening_accordion")) {
+                
+            } else {
+                classElementsOpen();
+            }
+            
             block_parents[button_function].style.height = height_block_interval + 'px';
             openAccordoin(button_function, height_block_interval, time_interval_function, block_height_function, height_interval_function);
         } else {
             block_parents[button_function].style.height = 'auto';
+            classElementsOpen();
         }
     }, delay);
+}
+
+function classElementsOpen() {
+    for (let element = 0; element < block_parents.length; element++) {
+        if (block_parents[element].classList.contains("opening_accordion")) {
+            block_parents[element].classList.remove("opening_accordion");
+        } else {
+            block_parents[element].classList.add("opening_accordion");
+        }
+    }
+}
+
+function classElementsClose() {
+    for (let element = 0; element < block_parents.length; element++) {
+        if (block_parents[element].classList.contains("closing_accordion")) {
+            block_parents[element].classList.remove("closing_accordion");
+        } else {
+            block_parents[element].classList.add("closing_accordion");
+        }
+    }
 }
 
 main();
