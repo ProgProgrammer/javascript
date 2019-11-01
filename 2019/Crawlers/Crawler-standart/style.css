@@ -1,0 +1,15 @@
+.main-showcase-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-showcase-form-label {
+    margin-top: 30px;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-block-gazprombank-buttons {
+    margin-top: 30px;
+}
