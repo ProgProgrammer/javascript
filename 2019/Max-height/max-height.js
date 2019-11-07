@@ -1,5 +1,3 @@
-let contents = {};
-
 window.onload = function() {
     const blocks = document.getElementsByClassName("col-xs-4");
     const images = document.getElementsByTagName("img");
@@ -8,6 +6,7 @@ window.onload = function() {
 }
 
 function check_blocks(blocks, images, texts) {
+    let contents = {};
     contents.blocks = blocks;
     contents.images = images;
     contents.texts = texts;
@@ -23,11 +22,8 @@ function check_height(max, blocks) {
 		if(blocks[block].offsetHeight > max) {
     	   max = blocks[block].offsetHeight;
         }
-    
-        if(block == blocks.length - 1) {
-            return max;
-        }
     }
+    return max;
 }
 
 function appropriation_styles(blocks_height, blocks) {
