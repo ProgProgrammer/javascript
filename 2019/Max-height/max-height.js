@@ -1,32 +1,29 @@
 window.onload = function() {
-    const blocks = document.getElementsByClassName("col-xs-4");
-    const images = document.getElementsByTagName("img");
-    const texts = document.getElementsByClassName("caption");
-    resizeBlocks(blocks, images, texts);
+    let contents = {};
+    contents.blocks = document.getElementsByClassName("col-xs-4");
+    contents.images = document.getElementsByTagName("img");
+    contents.texts = document.getElementsByClassName("caption");
+    for (let property in contents) {
+        autoSizeBlocks(contents[property]);
+    }
 }
 
-function resizeBlocks(blocks, images, texts) {
-    let contents = {};
-    contents.blocks = blocks;
-    contents.images = images;
-    contents.texts = texts;
-    for (let property in contents) {
-        const blocks_height = getMaxHeight(contents[property]);
-        appropriation_styles(blocks_height, contents[property]);
-    }
+function autoSizeBlocks(blocks) {
+    const blocks_height = getMaxHeight(blocks);
+    applyHeight(blocks_height, blocks);
 }
 
 function getMaxHeight(blocks) {
-    let max = blocks[0].offsetHeight;
+    let max_height = blocks[0].offsetHeight;
 	for (let block = 0; block < blocks.length; block++) {
-		if(blocks[block].offsetHeight > max) {
-    	   max = blocks[block].offsetHeight;
+		if(blocks[block].offsetHeight > max_height) {
+    	   max_height = blocks[block].offsetHeight;
         }
     }
-    return max;
+    return max_height;
 }
 
-function appropriation_styles(blocks_height, blocks) {
+function applyHeight(blocks_height, blocks) {
     for (let i = 0; i < blocks.length; i++) {
         blocks[i].style.height = blocks_height + "px";
     }
