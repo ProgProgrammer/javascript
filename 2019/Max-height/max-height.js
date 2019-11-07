@@ -1,4 +1,7 @@
-window.onload = function() {
+window.addEventListener('load', autoSizeAllPage);
+window.addEventListener('resize', autoSizeAllPage);
+    
+function autoSizeAllPage() {
     let contents = {};
     contents.blocks = document.getElementsByClassName("col-xs-4");
     contents.images = document.getElementsByTagName("img");
