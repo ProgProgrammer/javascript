@@ -10,7 +10,7 @@ function autoSizeAllPage() {
         autoSizeBlocks(contents[property]);
     }
     const buttons = document.getElementsByClassName("btn-primary");
-    buttonAlignment(contents.texts, buttons);
+    buttonsAlignment(contents.texts, buttons);
 }
 
 function autoSizeBlocks(blocks) {
@@ -34,7 +34,7 @@ function applyHeight(blocks_height, blocks) {
     }
 }
 
-function buttonAlignment(texts, buttons) {
+function buttonsAlignment(texts, buttons) {
     for (let button = 0; button < texts.length; button++) {
         texts[button].style.position = "relative";
         const button_height = buttons[button].offsetHeight;
