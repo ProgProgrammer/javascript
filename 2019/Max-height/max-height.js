@@ -9,6 +9,8 @@ function autoSizeAllPage() {
     for (let property in contents) {
         autoSizeBlocks(contents[property]);
     }
+    const buttons = document.getElementsByClassName("btn-primary");
+    buttonAlignment(contents.texts, buttons);
 }
 
 function autoSizeBlocks(blocks) {
@@ -29,5 +31,14 @@ function getMaxHeight(blocks) {
 function applyHeight(blocks_height, blocks) {
     for (let i = 0; i < blocks.length; i++) {
         blocks[i].style.height = blocks_height + "px";
+    }
+}
+
+function buttonAlignment(texts, buttons) {
+    for (let button = 0; button < texts.length; button++) {
+        texts[button].style.position = "relative";
+        const button_height = buttons[button].offsetHeight;
+        texts[button].style.paddingBottom = button_height + "px";
+        buttons[button].style = "position: absolute; bottom: 0;";
     }
 }
