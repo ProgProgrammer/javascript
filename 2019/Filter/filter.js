@@ -6,7 +6,7 @@ function startFilter() {
     clicks += 1;
     const blocks = document.getElementsByClassName("block");
     const texts = document.getElementsByClassName("block-p");
-    let id_elements = [];
+    const id_elements = [];
     const max_number = maxNumber(texts);
     const min_number = minNumber(texts);
     allNumbers(texts, max_number, min_number, id_elements);
