@@ -1,55 +1,56 @@
 const button = document.querySelector(".button");
+let clicks = 1;
 
 button.addEventListener('click', function () {
+    clicks += 1;
     const blocks = document.getElementsByClassName("block");
     const texts = document.getElementsByClassName("block-p");
-    let id_min_element = [];
-    let id_max_element = [];
-    let id_other_elements = [];
-    minNumber(texts, id_min_element);
-    console.log(id_min_element);
-    maxNumber(texts, id_max_element);
-    console.log(id_max_element);
-    intermediateNumbers(texts, id_min_element, id_max_element, id_other_elements);
-    console.log(id_other_elements);
+    let id_elements = [];
+    const max_number = maxNumber(texts);
+    const min_number = minNumber(texts);
+    allNumbers(texts, max_number, min_number, id_elements);
+    styleAssignment(id_elements, blocks, clicks);
 });
 
-function minNumber(texts, id_min_element) {
+function minNumber(texts) {
     let min_number = Number(texts[0].innerHTML);
-    console.log(min_number);
     let min_number_id = 0;
     for (let text = 0; text < texts.length; text++) {
         if (texts[text].innerHTML < min_number) {
-            min_number = texts[text].innerHTML;
-            min_number_id = text;
-            console.log(min_number_id);
+            min_number = Number(texts[text].innerHTML);
         }
     }
-    id_min_element[0] = min_number_id;
-    console.log(id_min_element);
+    return min_number;
 }
 
-function maxNumber(texts, id_max_element) {
+function maxNumber(texts) {
     let max_number = Number(texts[0].innerHTML);
-    let max_number_id = 0;
     for (let text = 0; text < texts.length; text++) {
         if (texts[text].innerHTML > max_number) {
-            max_number = texts[text].innerHTML;
-            max_number_id = text;
+            max_number = Number(texts[text].innerHTML);
         }
     }
-    id_max_element[0] = max_number_id;
-    console.log(id_max_element);
+    return max_number;
 }
 
-function intermediateNumbers(texts, id_min_element, id_max_element, id_other_elements) {
-    for (let number = 0; number < texts.length; number++) {
-
+function allNumbers(texts, max_number, min_number, id_elements) {
+    let counter_id = -1;
+    for (let number = min_number; number < max_number + 1; number++) {
+        counter_id += 1;
         for (let element_array = 0; element_array < texts.length; element_array++) {
-            if (Number(texts[element_array].innerHTML) == number && element_array != id_min_element[0] && element_array != id_max_element[0]) {
-                id_other_elements[number] = element_array;
-                console.log(id_other_elements);
+            if (Number(texts[element_array].innerHTML) == number) {
+                id_elements[counter_id] = element_array;
             }
+        }
+    }
+}
+
+function styleAssignment(id_elements, blocks, clicks) {
+    for (let id_element = 0; id_element < id_elements.length; id_element++) {
+        if (clicks % 2) {
+            blocks[id_elements[id_element]].style.order = id_element;
+        } else {
+            blocks[id_elements[id_element]].style.order = id_elements.length - id_element;
         }
     }
 }
