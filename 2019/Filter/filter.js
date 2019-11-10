@@ -21,7 +21,6 @@ function minNumber(texts) {
             min_number = texts[text].innerHTML.replace(/\D+/g, str => "");
         }
     }
-    console.log(min_number);
     return min_number;
 }
 
