@@ -14,22 +14,23 @@ function startFilter() {
 }
 
 function minNumber(texts) {
-    let min_number = texts[0].innerHTML.replace(",", "");
+    let min_number = texts[0].innerHTML.replace(/\D+/g, str => "");
     min_number = Number(min_number);
     for (let text = 0; text < texts.length; text++) {
-        if (texts[text].innerHTML.replace(",", "") < min_number) {
-            min_number = Number(texts[text].innerHTML.replace(",", ""));
+        if (texts[text].innerHTML.replace(/\D+/g, str => "") < min_number) {
+            min_number = texts[text].innerHTML.replace(/\D+/g, str => "");
         }
     }
+    console.log(min_number);
     return min_number;
 }
 
 function maxNumber(texts) {
-    let max_number = texts[0].innerHTML.replace(",", "");
+    let max_number = texts[0].innerHTML.replace(/\D+/g, str => "");
     max_number = Number(max_number);
     for (let text = 0; text < texts.length; text++) {
-        if (texts[text].innerHTML.replace(",", "") > max_number) {
-            max_number = Number(texts[text].innerHTML.replace(",", ""));
+        if (texts[text].innerHTML.replace(/\D+/g, str => "") > max_number) {
+            max_number = texts[text].innerHTML.replace(/\D+/g, str => "");
         }
     }
     return max_number;
@@ -39,7 +40,7 @@ function allNumbers(texts, max_number, min_number, id_elements) {
     let counter_id = -1;
     for (let number = min_number; number < max_number + 1; number++) {
         for (let element_array = 0; element_array < texts.length; element_array++) {
-            const text = texts[element_array].innerHTML.replace(",", "");
+            const text = texts[element_array].innerHTML.replace(/\D+/g, str => "");
             if (Number(text) == number) {
                 counter_id += 1;
                 id_elements[counter_id] = element_array;
