@@ -7,28 +7,29 @@ function startFilter() {
     const blocks = document.getElementsByClassName("block");
     const texts = document.getElementsByClassName("block-p");
     const id_elements = [];
-    const max_number = maxNumber(texts);
     const min_number = minNumber(texts);
+    const max_number = maxNumber(texts);
     allNumbers(texts, max_number, min_number, id_elements);
     elementsFiltering(id_elements, blocks, clicks);
 }
 
 function minNumber(texts) {
-    let min_number = Number(texts[0].innerHTML);
-    let min_number_id = 0;
+    let min_number = texts[0].innerHTML.replace(",", "");
+    min_number = Number(min_number);
     for (let text = 0; text < texts.length; text++) {
-        if (texts[text].innerHTML < min_number) {
-            min_number = Number(texts[text].innerHTML);
+        if (texts[text].innerHTML.replace(",", "") < min_number) {
+            min_number = Number(texts[text].innerHTML.replace(",", ""));
         }
     }
     return min_number;
 }
 
 function maxNumber(texts) {
-    let max_number = Number(texts[0].innerHTML);
+    let max_number = texts[0].innerHTML.replace(",", "");
+    max_number = Number(max_number);
     for (let text = 0; text < texts.length; text++) {
-        if (texts[text].innerHTML > max_number) {
-            max_number = Number(texts[text].innerHTML);
+        if (texts[text].innerHTML.replace(",", "") > max_number) {
+            max_number = Number(texts[text].innerHTML.replace(",", ""));
         }
     }
     return max_number;
@@ -37,9 +38,10 @@ function maxNumber(texts) {
 function allNumbers(texts, max_number, min_number, id_elements) {
     let counter_id = -1;
     for (let number = min_number; number < max_number + 1; number++) {
-        counter_id += 1;
         for (let element_array = 0; element_array < texts.length; element_array++) {
-            if (Number(texts[element_array].innerHTML) == number) {
+            const text = texts[element_array].innerHTML.replace(",", "");
+            if (Number(text) == number) {
+                counter_id += 1;
                 id_elements[counter_id] = element_array;
             }
         }
