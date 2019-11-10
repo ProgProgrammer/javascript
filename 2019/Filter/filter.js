@@ -10,8 +10,8 @@ function startFilter() {
     const max_number = maxNumber(texts);
     const min_number = minNumber(texts);
     allNumbers(texts, max_number, min_number, id_elements);
-    styleAssignment(id_elements, blocks, clicks);
-});
+    elementsFiltering(id_elements, blocks, clicks);
+}
 
 function minNumber(texts) {
     let min_number = Number(texts[0].innerHTML);
@@ -46,7 +46,7 @@ function allNumbers(texts, max_number, min_number, id_elements) {
     }
 }
 
-function styleAssignment(id_elements, blocks, clicks) {
+function elementsFiltering(id_elements, blocks, clicks) {
     for (let id_element = 0; id_element < id_elements.length; id_element++) {
         if (clicks % 2) {
             blocks[id_elements[id_element]].style.order = id_element;
