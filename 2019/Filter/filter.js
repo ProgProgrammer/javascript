@@ -1,7 +1,8 @@
 const button = document.querySelector(".button");
 let clicks = 1;
+button.addEventListener('click', startFilter);
 
-button.addEventListener('click', function () {
+function startFilter() {
     clicks += 1;
     const blocks = document.getElementsByClassName("block");
     const texts = document.getElementsByClassName("block-p");
