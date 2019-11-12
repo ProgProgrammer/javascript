@@ -1,17 +1,46 @@
-.button {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.button,
+.button-summ {
+    outline: none;
+}
+
+.button,
+.button-summ {
     margin: 0 auto 15px;
-    width: 150px;
+    max-width: 150px;
+    width: 100%;
     height: 25px;
+    border: none;
+}
+
+.button.arrow-table,
+.button-summ.arrow-table {
+    background: red;
 }
 
 .container {
     margin: 0 auto;
-    width: 150px;
+    max-width: 360px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row {
+    margin-top: 30px;
+    padding: 0 15px;
+    min-width: 180px;
     display: flex;
     flex-direction: column;
 }
 
-.block {
+.block,
+.block-summ {
     width: 100%;
     height: 50px;
     display: flex;
@@ -19,7 +48,8 @@
     border: 1px solid black;
 }
 
-.block-p {
+.block-p,
+.block-p-summ {
     margin: 0 auto;
     font-size: 14px;
 }
@@ -42,4 +72,17 @@
 
 .order-5 {
     order: 5;
+}
+
+@media all and (max-width: 575px) {
+
+    .container,
+    .button,
+    .button-summ {
+        max-width: 100%;
+    }
+
+    .row {
+        min-width: 100%;
+    }
 }
