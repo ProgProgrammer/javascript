@@ -52,7 +52,7 @@ function maxNumber(texts, button) {
 
 function allNumbers(texts, max_number, min_number, id_elements, button) {
     let counter_id = -1;
-    for (let number = min_number; number < max_number + 1; number++) {
+    for (let number = min_number; number <= max_number; number++) {
         for (let element_array = 0; element_array < texts.length; element_array++) {
             let text = regularExpressions(texts, element_array, button);
             if (Number(text) == number) {
@@ -65,7 +65,7 @@ function allNumbers(texts, max_number, min_number, id_elements, button) {
 
 function regularExpressions(blocks, blocks_element, button) {
     if (button.classList.contains("button")) {
-        return blocks[blocks_element].innerHTML.replace(/от\s/g, "").replace(/,\d+%/g, str => "");
+        return blocks[blocks_element].innerHTML.replace(/от\s/g, "").replace(/,\d+%/g, "");
     } else if (button.classList.contains("button-summ")) {
         return blocks[blocks_element].innerHTML.replace(/\s/g, "").replace(/.{3}$/, "");
     }
