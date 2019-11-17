@@ -1,3 +1,5 @@
+window.addEventListener("load", main);
+
 function main() {
     const button = document.querySelector(".button");
     const button_summ = document.querySelector(".button-summ");
@@ -89,5 +91,3 @@ function elementsFiltering(id_elements, numbers_array, blocks, clicks, button) {
         }
     }
 }
-
-main();
