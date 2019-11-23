@@ -11,7 +11,6 @@ function main() {
 
             let target = event.target;
             accordions_object.buttons = blocks[block].getElementsByClassName("accrodion-button");
-            console.log(accordions_object.buttons);
             const block_parents = blocks[block].getElementsByClassName("accordion-blocks-block");
             accordions_object.block_parents_accordions = document.getElementsByClassName("accordion-blocks-block");
             accordions_object.blocks = blocks[block].getElementsByClassName("accordion-blocks-block-contents");
@@ -54,13 +53,13 @@ function accordionCheck(button, block_height, height_interval, block_parents, he
 
         if (block_parents[content].classList.contains("opening_accordion") || block_parents[content].classList.contains("closing_accordion")) {
 
-        } else if (block_height_parent_check == 'auto' && content == accordions_object.buttons.length - 1) {
+        } else if (block_height_parent_check == 'auto' && content != button) {
             closeAccordoin(content, block_height_check, block_parents, height_interval, accordions_object);
         }
 
         if (block_parents[content].classList.contains("opening_accordion") || block_parents[content].classList.contains("closing_accordion")) {
 
-        } else if (block_height_parent_check_height == 0 && content == accordions_object.buttons.length - 1) {
+        } else if (block_height_parent_check_height == 0 && content == accordions_object.buttons.length - 1 || block_height_parent_check == 'auto' && content == accordions_object.buttons.length - 1) {
             openAccordoin(button, height_block_interval, block_parents, block_height, height_interval, accordions_object);
         }
     }
