@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.accrodions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.blocks {
+    margin: 15px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.block-center {
+    margin: 10px;
+    width: 150px;
+    height: 50px;
+    background: red;
+}
