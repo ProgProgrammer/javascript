@@ -1,8 +1,11 @@
 const accordions = document.querySelector(".accrodions");
 
 accordions.addEventListener("click", function (event) {
+    const blocks = accordions.getElementsByClassName("blocks");
     const target = event.target;
-    const parent_main = target.parentNode;
-    const block = parent_main.cloneNode(true);
-    accordions.append(block);
+    console.log(target.classList.contains("block-center"));
+    if (target.classList.contains("block-center")) {
+        const clone_block = blocks[0].cloneNode(true);
+        accordions.append(clone_block);
+    }
 });
