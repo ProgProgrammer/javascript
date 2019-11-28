@@ -11,7 +11,11 @@ function main() {
 
     main_blocks.addEventListener('click', function (event) {
         const target = event.target;
-        copyBlock(main_blocks, target);
+        if (target.classList.contains("main-blocks-block-copy")) {
+            copyBlock(main_blocks, target);
+        } else if (target.classList.contains("main-blocks-block-remove")) {
+            removeBlock(main_blocks, target);
+        }
     });
 }
 
@@ -29,4 +33,19 @@ function addText(input_text, button, main_blocks) {
         text.textContent = input_text.value;
         clone_block.classList.remove("display-none");
     }
+}
+
+function copyBlock(main_blocks, target) {
+    const block = target.closest(".main-blocks-block");
+    let text_block = block.querySelector(".main-blocks-block-line-p");
+    text_block = text_block.textContent;
+    const clone_block = block.cloneNode(true);
+    main_blocks.append(clone_block);
+    const text = clone_block.querySelector(".main-blocks-block-line-p");
+    text.textContent = text_block + " - copy";
+}
+
+function removeBlock(main_blocks, target) {
+    const block = target.closest(".main-blocks-block");
+    block.remove();
 }
