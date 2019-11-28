@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input:focus,
+button:focus {
+    outline: none;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.main {
+    margin: 15px auto;
+    padding: 15px;
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 6px;
+    background: grey;
+}
+
+.main-top,
+.main-blocks {
+    width: 100%;
+}
+
+.main-top {
+    display: flex;
+}
+
+.main-blocks {
+    margin-top: 10px;
+    padding: 0 5px 5px;
+    min-height: 50px;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.main-top-input {
+    margin-right: 15px;
+    padding: 5px 10px;
+    width: 100%;
+    min-height: 40px;
+    border-radius: 6px;
+    border: 1px solid black;
+}
+
+.main-top-input.color-red::placeholder {
+    color: red;
+}
+
+.main-top-button {
+    min-width: 100px;
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.main-top-button:hover,
+.main-top-button:active {
+    background: blue;
+}
+
+.main-blocks-block {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    border: 1px solid black;
+    position: relative;
+    background: white;
+}
+
+.main-blocks-block-line {
+    padding: 5px 120px 5px 10px;
+    width: 100%;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.main-blocks-block-buttons {
+    top: 15px;
+    right: 10px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.main-blocks-block-copy,
+.main-blocks-block-remove {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.main-blocks-block-copy {
+    margin-right: 20px;
+}
+
+.main-blocks-block-copy:hover,
+.main-blocks-block-copy:active,
+.main-blocks-block-remove:hover,
+.main-blocks-block-remove:active {
+    background: blue;
+}
