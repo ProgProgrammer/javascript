@@ -8,10 +8,14 @@ function main() {
     button.addEventListener('click', function () {
         addText(input_text, button, main_blocks);
     });
+
+    main_blocks.addEventListener('click', function (event) {
+        const target = event.target;
+        copyBlock(main_blocks, target);
+    });
 }
 
 function addText(input_text, button, main_blocks) {
-    console.log(input_text.value == "");
     if (input_text.value == "") {
         input_text.classList.add("color-red");
     } else if (input_text.value != "") {
