@@ -15,8 +15,14 @@ button:focus {
 
 .main {
     margin: 15px auto;
-    padding: 15px;
+    padding: 5px;
     max-width: 500px;
+    width: 100%;
+    display: flex;
+}
+
+.main-column {
+    padding: 10px;
     width: 100%;
     display: flex;
     flex-direction: column;
