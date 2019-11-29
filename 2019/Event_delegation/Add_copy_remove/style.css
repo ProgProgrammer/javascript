@@ -94,7 +94,7 @@ button:focus {
 }
 
 .main-blocks-block-buttons {
-    top: 15px;
+    top: 20px;
     right: 10px;
     width: 80px;
     display: flex;
@@ -105,22 +105,39 @@ button:focus {
 
 .main-blocks-block-copy,
 .main-blocks-block-remove {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
     cursor: pointer;
 }
 
 .main-blocks-block-copy {
     margin-right: 20px;
+    background: url(img/copy.svg);
+}
+
+.main-blocks-block-remove {
+    background: url(img/delete.svg);
 }
 
 .main-blocks-block-copy:hover,
+.main-blocks-block-copy:active {
+    background: url(img/copy-hover.svg);
+}
+
+.main-blocks-block-remove:hover,
+.main-blocks-block-remove:active {
+    background: url(img/delete-hover.svg);
+}
+
+/*.main-blocks-block-copy:hover,
 .main-blocks-block-copy:active,
 .main-blocks-block-remove:hover,
 .main-blocks-block-remove:active {
     background: blue;
-}
+}*/
