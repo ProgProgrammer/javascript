@@ -93,6 +93,10 @@ button:focus {
     align-items: center;
 }
 
+.main-blocks-block-line-p {
+    display: flex;
+}
+
 .main-blocks-block-buttons {
     top: 20px;
     right: 10px;

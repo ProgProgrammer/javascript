@@ -14,6 +14,7 @@ function main() {
         const target = event.target;
         if (target.classList.contains("main-blocks-block-copy")) {
             clicks++;
+            console.log(clicks);
             clicks = clickCounter(main_blocks, target, clicks);
             console.log(clicks);
             copyBlock(main_blocks, target, clicks);
@@ -33,7 +34,7 @@ function addText(input_text, button, main_blocks) {
         }
         const clone_block = block.cloneNode(true);
         main_blocks.append(clone_block);
-        const text = clone_block.querySelector(".main-blocks-block-line-p");
+        const text = clone_block.querySelector(".main-blocks-block-line-p-span");
         text.textContent = input_text.value;
         clone_block.classList.remove("display-none");
     }
@@ -43,9 +44,9 @@ function clickCounter(main_blocks, target, clicks) {
     const blocks = main_blocks.getElementsByClassName("main-blocks-block");
     for (let i = 0; i < blocks.length; i++) {
         if (blocks[i].querySelector(".main-blocks-block-copy") == target) {
-            let text_block = blocks[i].querySelector(".main-blocks-block-line-p");
+            let text_block = blocks[i].querySelector(".main-blocks-block-line-p-span-copy");
             text_block = text_block.textContent;
-            text_block = text_block.replace(/[a-zA-ZА-Яа-яЁё\s]/g, "").replace(/ - /g, "").replace(/copy/g, "").replace(/[(]/g, "").replace(/[)]/g, "");
+            text_block = text_block.replace(/- /g, "").replace(/copy/g, "").replace(/[(]/g, "").replace(/[)]/g, "");
             text_block == Number(text_block);
             console.log(text_block);
             const max_number = maxNumber(blocks, text_block);
@@ -65,9 +66,9 @@ function clickCounter(main_blocks, target, clicks) {
 function maxNumber(blocks, number) {
     console.log(number);
     for (let i = 0; i < blocks.length; i++) {
-        let text_block = blocks[i].querySelector(".main-blocks-block-line-p");
+        let text_block = blocks[i].querySelector(".main-blocks-block-line-p-span-copy");
         text_block = text_block.textContent;
-        text_block = text_block.replace(/copy/g, "").replace(/[(]/g, "").replace(/[)]/g, "").replace(/ - /g, "").replace(/[a-zA-ZА-Яа-яЁё\s]/g, "");
+        text_block = text_block.replace(/copy/g, "").replace(/[(]/g, "").replace(/[)]/g, "").replace(/- /g, "");
         text_block == Number(text_block);
         console.log(text_block);
         if (text_block > number) {
@@ -83,23 +84,13 @@ function maxNumber(blocks, number) {
 
 function copyBlock(main_blocks, target, clicks) {
     const block = target.closest(".main-blocks-block");
-    let text_block = block.querySelector(".main-blocks-block-line-p");
-    text_block = text_block.textContent;
     const clone_block = block.cloneNode(true);
     main_blocks.append(clone_block);
-    const text = clone_block.querySelector(".main-blocks-block-line-p");
-    const text_index = text.textContent;
+    const text = clone_block.querySelector(".main-blocks-block-line-p-span-copy");
     if (clicks >= 1) {
-        if (text_index.indexOf("copy")) {
-            text_block = text_index.replace(/ - copy/g, "");
-            text_block = text_block.replace(/[(][0-9][)]/g, "");
-            console.log(text_block);
-            text.textContent = text_block + " - copy(" + clicks + ")";
-        } else {
-            text.textContent = text_block + " - copy";
-        }
+        text.textContent = "- copy(" + clicks + ")";
     } else {
-        text.textContent = text_block + " - copy";
+        text.textContent = "- copy";
     }
 }
 
