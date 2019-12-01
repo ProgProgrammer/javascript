@@ -49,10 +49,13 @@ function clickCounter(main_blocks, target, clicks) {
             text_block = text_block.replace(/- /g, "").replace(/copy/g, "").replace(/[(]/g, "").replace(/[)]/g, "");
             text_block == Number(text_block);
             console.log(text_block);
-            const max_number = maxNumber(blocks, text_block);
+            let text_block_span = blocks[i].querySelector(".main-blocks-block-line-p-span");
+            text_block_span = text_block_span.textContent;
+            console.log(text_block_span);
+            const max_number = maxNumber(blocks, text_block, text_block_span);
             console.log(Number(max_number) + 1);
             if (text_block < Number(max_number)) {
-                console.log(max_number + 1);
+                console.log(Number(max_number) + 1);
                 return Number(max_number) + 1;
             } else if (text_block == Number(max_number)) {
                 return Number(max_number) + 1;
@@ -63,23 +66,27 @@ function clickCounter(main_blocks, target, clicks) {
     }
 }
 
-function maxNumber(blocks, number) {
-    console.log(number);
+function maxNumber(blocks, number, text_block_span) {
+    console.log(text_block_span);
     for (let i = 0; i < blocks.length; i++) {
-        let text_block = blocks[i].querySelector(".main-blocks-block-line-p-span-copy");
-        text_block = text_block.textContent;
-        text_block = text_block.replace(/copy/g, "").replace(/[(]/g, "").replace(/[)]/g, "").replace(/- /g, "");
-        text_block == Number(text_block);
-        console.log(text_block);
-        if (text_block > number) {
-            number = Number(text_block);
+        let text = blocks[i].querySelector(".main-blocks-block-line-p-span");
+        text = text.textContent;
+        if (text == text_block_span) {
+            console.log(text);
+            let text_block = blocks[i].querySelector(".main-blocks-block-line-p-span-copy");
+            text_block = text_block.textContent;
+            text_block = text_block.replace(/copy/g, "").replace(/[(]/g, "").replace(/[)]/g, "").replace(/- /g, "");
+            console.log(text_block);
             console.log(number);
-        }
-        if (i == blocks.length - 1) {
-            console.log(number);
-            return number;
+            console.log(Number(text_block) > Number(number));
+            if (Number(text_block) > Number(number)) {
+                number = text_block;
+                console.log(number);
+            }
         }
     }
+    console.log(number);
+    return number;
 }
 
 function copyBlock(main_blocks, target, clicks) {
