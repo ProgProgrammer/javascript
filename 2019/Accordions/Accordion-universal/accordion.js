@@ -12,11 +12,12 @@ function main() {
                 main_object.accordion_block = main_object.accordion_blocks[x];
                 let target = event.target;
                 main_object.buttons = main_object.accordion_block.getElementsByClassName("accrodion-button");
+                main_object.accordion_p = main_object.accordion_block.getElementsByClassName("accrodion-button-text");
                 main_object.accordion_hidden = main_object.accordion_block.getElementsByClassName("accordion-blocks-block");
                 main_object.accordion_content = main_object.accordion_block.getElementsByClassName("accordion-blocks-block-contents");
                 main_object.speed = main_object.accordion_block.dataset.speed;
                 for (let i = 0; i < main_object.buttons.length; i++) {
-                    if (main_object.buttons[i] == target) {
+                    if (main_object.buttons[i] == target.closest(".accrodion-button")) {
                         main_object.i = i;
                         openCloseAccordion(main_object);
                     }
