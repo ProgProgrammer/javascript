@@ -22,38 +22,42 @@ function main() {
 
 function startSorting(clicks, button, blocks, texts) {
     let id_elements = [];
-    custNumbers(blocks, id_elements, button);
+    custNumbers(blocks, id_elements, button, texts);
     const copy_id_elements = [];
     for (let i = 0; i < id_elements.length; i++) {
         copy_id_elements[i] = id_elements[i];
     }
     const id_order_array = [];
     const numbers_array = [];
-    const max_number = maxNumber(id_elements, copy_id_elements, numbers_array);
+    const max_number = maxNumber(id_elements, copy_id_elements);
     for (let element = 0; element < id_elements.length; element++) {
         minNumber(copy_id_elements, numbers_array, element, max_number);
     }
     elementsFiltering(id_elements, numbers_array, blocks, clicks, button);
 }
 
-function custNumbers(blocks, id_elements, button) {
+function custNumbers(blocks, id_elements, button, texts) {
     for (let i = 0; i < blocks.length; i++) {
-        let number = regularExpressions(blocks, i, button);
+        let number = regularExpressions(i, button, texts);
         id_elements[i] = number;
     }
 }
 
-function regularExpressions(blocks, blocks_element, button) {
+function regularExpressions(blocks_element, button, texts) {
+    const text_p = texts[blocks_element].textContent;
     if (button.classList.contains("button")) {
-        const number = blocks[blocks_element].textContent.replace(/от\s/g, "").replace(/,\d+%/g, "");
+        let number = text_p.replace(/от\s/g, "");
+        number = number.replace(/,/g, ".");
+        number = number.replace(/%/g, "");
         return Number(number);
     } else if (button.classList.contains("button-summ")) {
-        const number = blocks[blocks_element].textContent.replace(/\s/g, "").replace(/,/g, "");
+        let number = text_p.replace(/\s/g, "");
+        number = number.replace(/,/g, ".");
         return Number(number);
     }
 }
 
-function maxNumber(id_elements, copy_id_elements, numbers_array) {
+function maxNumber(id_elements, copy_id_elements) {
     let max_number = id_elements[0];
     for (let i = 0; i < copy_id_elements.length; i++) {
         if (copy_id_elements[i] > max_number) {
