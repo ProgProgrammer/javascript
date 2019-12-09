@@ -39,6 +39,22 @@ function addText(main_object) {
         main_object.main_blocks.append(clone_block);
         const text = clone_block.querySelector(".main-blocks-block-line-p-span");
         text.textContent = main_object.input_text.value;
+        /*main_object.target = clone_block.querySelector(".main-blocks-block-copy");
+        console.log(main_object.target);
+        console.log(main_object.clicks);
+        console.log(main_object.clicks_add);
+        main_object.clicks = clickCounter(main_object);
+        console.log(main_object.clicks);
+        if (main_object.clicks < 2) {
+            main_object.clicks += main_object.clicks_add;
+            console.log(main_object.clicks);
+        }
+        console.log(main_object.clicks);
+        console.log(clone_block);
+        if (main_object.clicks > 0) {
+            main_object.text = clone_block.querySelector(".main-blocks-block-line-p-span-copy");
+            copyBlockCopy(main_object);
+        }*/
         clone_block.classList.remove("display-none");
     }
 }

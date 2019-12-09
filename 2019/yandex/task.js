@@ -2,7 +2,11 @@ function OneEditApart(...args) {
     const main_object = {};
     main_object.array_main = [[], []];
     main_object.array_numbers = [];
-    main_object.i = [];
+    //main_object.i = [];
+    main_object.i = 0;
+    main_object.a = 0;
+    main_object.run = 0;
+    main_object.letter = "";
     main_object.dissimilarity = 0;
     main_object.not_similarity = 0;
     main_object.string_check = "";
@@ -22,7 +26,54 @@ function OneEditApart(...args) {
         main_object.min_i = 0;
     }
 
-    for (let i = 0; i < main_object.array_main[main_object.min_i].length; i++) {
+    if (main_object.max_i.length - 1 > main_object.min_i.length) {
+        return false;
+    }
+
+    for (let i = 0; i < main_object.array_main[main_object.max_i].length; i++) {
+        if (main_object.array_main[main_object.max_i].length > main_object.array_main[main_object.min_i].length) {
+            i += main_object.run;
+            if (main_object.array_main[main_object.max_i][i] !== main_object.array_main[main_object.min_i][main_object.a]) {
+                main_object.run++;
+                main_object.i = i;
+                if (main_object.max_i === 1) {
+                    main_object.letter = main_object.array_main[main_object.max_i][i];
+                    console.log(main_object.array_main[main_object.max_i][i]);
+                    console.log(main_object.letter);
+                } else {
+                    main_object.letter = main_object.array_main[main_object.min_i][i];
+                    console.log(main_object.array_main[main_object.min_i][i]);
+                    console.log(main_object.letter);
+                }
+            }
+        } else {
+            if (main_object.array_main[main_object.max_i][i] !== main_object.array_main[main_object.min_i][main_object.a]) {
+                main_object.run++;
+                main_object.i = i;
+                if (main_object.max_i === 1) {
+                    main_object.letter = main_object.array_main[main_object.max_i][i];
+                    console.log(main_object.array_main[main_object.max_i][i]);
+                    console.log(main_object.letter);
+                } else {
+                    main_object.letter = main_object.array_main[main_object.min_i][i];
+                    console.log(main_object.array_main[main_object.min_i][i]);
+                    console.log(main_object.letter);
+                }
+            }
+        }
+
+        main_object.a++;
+        console.log(main_object.a);
+        console.log(i);
+        console.log(main_object.run);
+        console.log(main_object.letter);
+
+        if (main_object.run > 1) {
+            return false;
+        }
+    }
+
+    /*for (let i = 0; i < main_object.array_main[main_object.min_i].length; i++) {
         for (let a = 0; a < main_object.array_main[main_object.max_i].length; a++) {
             if (main_object.array_main[main_object.min_i][i] === main_object.array_main[main_object.max_i][a]) {
                 main_object.not_similarity++;
@@ -44,7 +95,7 @@ function OneEditApart(...args) {
             main_object.string = main_object.array_main[main_object.max_i][i];
             main_object.index = i;
         }
-    }
+    }*/
 
     if (main_object.max_i === 1) {
         for (let a = main_object.array_main[main_object.max_i].length - 1; a >= main_object.index; a--) {
