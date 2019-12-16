@@ -56,7 +56,6 @@ function main() {
             if (number_Round >= 0) {
                 object.number_Made = true;
             }
-            console.log(number_Round);
         }
 
         if (Number(numbers[2].value) < number_Round) {
