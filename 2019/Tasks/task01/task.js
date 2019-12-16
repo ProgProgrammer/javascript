@@ -6,12 +6,16 @@ function main() {
     const input_Window = document.getElementsByClassName("label-span-window");
     const button_Enter = document.querySelector(".button");
     const button_Reset = document.querySelector(".reset");
+    let number_Round = 0;
+    const object = {};
+    object.number_Made = false;
 
     button_Enter.addEventListener('click', () => {
         const number_Min = numbers[0];
         const number_Max = numbers[1];
         input_Window[0].style.display = "none";
         input_Window[1].style.display = "none";
+
         for (let i = 0; i < numbers.length - 1; i++) {
 
             if (numbers[i].value == "") {
@@ -46,9 +50,14 @@ function main() {
             return;
         }
 
-        let number_Random = number_Min.value - 0.5 + Math.random() * (number_Max.value - number_Min.value + 1);
-        let number_Round = Math.round(number_Random);
-        console.log(number_Round);
+        if (object.number_Made === false) {
+            let number_Random = number_Min.value - 0.5 + Math.random() * (number_Max.value - number_Min.value + 1);
+            number_Round = Math.round(number_Random);
+            if (number_Round >= 0) {
+                object.number_Made = true;
+            }
+            console.log(number_Round);
+        }
 
         if (Number(numbers[2].value) < number_Round) {
             numbers[3].setAttribute("value", "Число меньше рандомного");
@@ -56,6 +65,7 @@ function main() {
             numbers[3].setAttribute("value", "Число больше рандомного");
         } else {
             numbers[3].setAttribute("value", "Угадал");
+            object.number_Made = false;
             return;
         }
     });
