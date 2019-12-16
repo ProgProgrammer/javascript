@@ -69,4 +69,13 @@ function main() {
             return;
         }
     });
+
+    button_Reset.addEventListener('click', () => {
+        object.number_Made = false;
+        number_Round = 0;
+        numbers[0].value = "";
+        numbers[1].value = "";
+        numbers[2].value = "";
+        numbers[3].setAttribute("value", "");
+    });
 }
