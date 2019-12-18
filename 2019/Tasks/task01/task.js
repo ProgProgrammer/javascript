@@ -15,7 +15,6 @@ function main() {
 
     for (let i = 0; i < numbers.length - 1; i++) {
         numbers[i].oninput = function () {
-            console.log(i);
             if (checkInputs(numbers, object, input_Window, number_Min, number_Max, "part", i) === false) {
                 return;
             }
@@ -24,10 +23,8 @@ function main() {
 
     button_Enter.addEventListener('click', () => {
         if (checkInputs(numbers, object, input_Window, number_Min, number_Max, "all") === false) {
-            console.log(checkInputs(numbers, input_Window, number_Min, number_Max, "all") === false);
             return;
         }
-        console.log("hello");
         if (object.number_Made === false) {
             let number_Random = number_Min.value - 0.5 + Math.random() * (number_Max.value - number_Min.value + 1);
             number_Round = Math.round(number_Random);
@@ -60,21 +57,28 @@ function main() {
 function checkInputs(numbers, object, input_Window, number_Min, number_Max, word, i) {
     for (let i = 0; i < numbers.length - 1; i++) {
         if (word == "all") {
-            console.log(i);
             if (numbers[i].value == "") {
                 numbers[i].style.borderColor = "red";
                 object.input_NoValidate = true;
             }
             if (i == numbers.length - 2 && object.input_NoValidate === true) {
-                console.log("false");
                 object.input_NoValidate = false;
                 return false;
             }
         }
     }
-    console.log(i);
+
+    if (numbers[0].value == "" &&
+        input_Window[0].innerText == "Число больше максимального") {
+        numbers[0].style.borderColor = "black";
+        input_Window[0].style.display = "none";
+    } else if (numbers[1].value == "" &&
+        input_Window[1].innerText == "Число меньше минимального") {
+        numbers[1].style.borderColor = "black";
+        input_Window[1].style.display = "none";
+    }
+
     if (i !== undefined) {
-        console.log("undefined");
         if (numbers[i].value < 0 || numbers[i].value > 100) {
             numbers[i].style.borderColor = "red";
             input_Window[i].innerText = "Допускаются числа от 0 до 100";
@@ -89,7 +93,6 @@ function checkInputs(numbers, object, input_Window, number_Min, number_Max, word
             return false;
         } else if (numbers[i].value >= 0 && numbers[i].value <= 100 &&
             numbers[i].style.borderColor == "red") {
-            console.log(numbers[i].value);
             numbers[i].style.borderColor = "black";
             input_Window[i].style.display = "none";
         }
@@ -97,7 +100,9 @@ function checkInputs(numbers, object, input_Window, number_Min, number_Max, word
 
 
     if (Number(number_Min.value) > Number(number_Max.value) &&
-        number_Min.value != "" && number_Max.value != "") {
+        number_Min.value != "" && number_Max.value != "" &&
+        number_Min.value >= 0 && number_Min.value <= 100 &&
+        number_Max.value >= 0 && number_Max.value <= 100) {
         number_Min.style.borderColor = "red";
         number_Max.style.borderColor = "red";
         input_Window[0].style.display = "flex";
@@ -112,6 +117,11 @@ function checkInputs(numbers, object, input_Window, number_Min, number_Max, word
         number_Max.style.borderColor = "black";
         input_Window[0].style.display = "none";
         input_Window[1].style.display = "none";
+    }
+
+    if (numbers[0].style.borderColor == "red" || numbers[1].style.borderColor == "red" ||
+        numbers[2].style.borderColor == "red") {
+        return false;
     }
 }
 
