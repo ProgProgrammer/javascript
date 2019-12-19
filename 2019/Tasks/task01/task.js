@@ -2,6 +2,12 @@ window.addEventListener('load', main);
 window.onresize = main;
 
 function main() {
+    const form_Data = document.querySelector(".form");
+    const data_Min = Number(form_Data.dataset.min);
+    const data_Max = Number(form_Data.dataset.max);
+    const string_Less_Minimum = "Число меньше минимального";
+    const string_More_Maximum = "Число больше максимального";
+    const allowed = "Допускаются числа от " + data_Min + " до " + data_Max;
     const numbers = document.getElementsByClassName("number");
     const input_Window = document.getElementsByClassName("label-span-window");
     const button_Enter = document.querySelector(".button");
@@ -15,14 +21,14 @@ function main() {
 
     for (let i = 0; i < numbers.length - 1; i++) {
         numbers[i].oninput = function () {
-            if (checkInputs(numbers, object, input_Window, number_Min, number_Max, "part", i) === false) {
+            if (checkInputs(numbers, object, input_Window, number_Min, number_Max, "part", data_Min, data_Max, string_Less_Minimum, string_More_Maximum, allowed, i) === false) {
                 return;
             }
         }
     }
 
     button_Enter.addEventListener('click', () => {
-        if (checkInputs(numbers, object, input_Window, number_Min, number_Max, "all") === false) {
+        if (checkInputs(numbers, object, input_Window, number_Min, number_Max, "all", data_Min, data_Max, string_Less_Minimum, string_More_Maximum, allowed) === false) {
             return;
         }
         if (object.number_Made === false) {
@@ -54,7 +60,7 @@ function main() {
     });
 }
 
-function checkInputs(numbers, object, input_Window, number_Min, number_Max, word, i) {
+function checkInputs(numbers, object, input_Window, number_Min, number_Max, word, data_Min, data_Max, string_Less_Minimum, string_More_Maximum, allowed, i) {
     for (let i = 0; i < numbers.length - 1; i++) {
         if (word == "all") {
             if (numbers[i].value == "") {
@@ -69,29 +75,29 @@ function checkInputs(numbers, object, input_Window, number_Min, number_Max, word
     }
 
     if (numbers[0].value == "" &&
-        input_Window[0].innerText == "Число больше максимального") {
+        input_Window[0].innerText == string_More_Maximum) {
         numbers[0].style.borderColor = "black";
         input_Window[0].style.display = "none";
     } else if (numbers[1].value == "" &&
-        input_Window[1].innerText == "Число меньше минимального") {
+        input_Window[1].innerText == string_Less_Minimum) {
         numbers[1].style.borderColor = "black";
         input_Window[1].style.display = "none";
     }
 
     if (i !== undefined) {
-        if (numbers[i].value < 0 || numbers[i].value > 100) {
+        if (numbers[i].value < data_Min || numbers[i].value > data_Max) {
             numbers[i].style.borderColor = "red";
-            input_Window[i].innerText = "Допускаются числа от 0 до 100";
+            input_Window[i].innerText = allowed;
             input_Window[i].style.display = "flex";
-            if (i == 0 && input_Window[1].innerText == "Число меньше минимального") {
+            if (i == 0 && input_Window[1].innerText == string_Less_Minimum) {
                 numbers[1].style.borderColor = "black";
                 input_Window[1].style.display = "none";
-            } else if (i == 1 && input_Window[0].innerText == "Число больше максимального") {
+            } else if (i == 1 && input_Window[0].innerText == string_More_Maximum) {
                 numbers[0].style.borderColor = "black";
                 input_Window[0].style.display = "none";
             }
             return false;
-        } else if (numbers[i].value >= 0 && numbers[i].value <= 100 &&
+        } else if (numbers[i].value >= data_Min && numbers[i].value <= data_Max &&
             numbers[i].style.borderColor == "red") {
             numbers[i].style.borderColor = "black";
             input_Window[i].style.display = "none";
@@ -101,18 +107,18 @@ function checkInputs(numbers, object, input_Window, number_Min, number_Max, word
 
     if (Number(number_Min.value) > Number(number_Max.value) &&
         number_Min.value != "" && number_Max.value != "" &&
-        number_Min.value >= 0 && number_Min.value <= 100 &&
-        number_Max.value >= 0 && number_Max.value <= 100) {
+        number_Min.value >= data_Min && number_Min.value <= data_Max &&
+        number_Max.value >= data_Min && number_Max.value <= data_Max) {
         number_Min.style.borderColor = "red";
         number_Max.style.borderColor = "red";
         input_Window[0].style.display = "flex";
         input_Window[1].style.display = "flex";
-        input_Window[0].innerText = "Число больше максимального";
-        input_Window[1].innerText = "Число меньше минимального";
+        input_Window[0].innerText = string_More_Maximum;
+        input_Window[1].innerText = string_Less_Minimum;
         return false;
     } else if (Number(number_Min.value) <= Number(number_Max.value) &&
-        input_Window[0].innerText != "Допускаются числа от 0 до 100" &&
-        input_Window[1].innerText != "Допускаются числа от 0 до 100") {
+        input_Window[0].innerText != allowed &&
+        input_Window[1].innerText != allowed) {
         number_Min.style.borderColor = "black";
         number_Max.style.borderColor = "black";
         input_Window[0].style.display = "none";
