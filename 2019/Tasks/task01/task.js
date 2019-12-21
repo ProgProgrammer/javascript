@@ -40,9 +40,9 @@ function main() {
         }
 
         if (Number(numbers[2].value) < number_Round) {
-            numbers[3].setAttribute("value", "Число меньше рандомного");
+            numbers[3].setAttribute("value", "Число меньше загаданного");
         } else if (Number(numbers[2].value) > number_Round) {
-            numbers[3].setAttribute("value", "Число больше рандомного");
+            numbers[3].setAttribute("value", "Число больше загаданного");
         } else {
             numbers[3].setAttribute("value", "Угадал");
             object.number_Made = false;
