@@ -11,24 +11,26 @@
 </head>
 
 <body>
-    <div data-min="0" data-max="100" class="form">
-        <div class="form-buttons group-buttons">
-            <button class="button">
-                Заменить с учетом тегов
-            </button>
-            <button class="button">
-                Заменить без учета тегов
-            </button>
+    <div class="form">
+        <div class="form-column group-buttons">
+            <div class="form-buttons">
+                <button class="button">
+                    Вставить с учетом тегов
+                </button>
+                <button class="button">
+                    Вставить без учета тегов
+                </button>
+            </div>
+            <div class="form-buttons">
+                <button class="button">
+                    Заменить содержимое с учетом тегов
+                </button>
+                <button class="button">
+                    Заменить содержимое без учета тегов
+                </button>
+            </div>
         </div>
-        <div class="form-buttons-input group-buttons">
-            <button class="button">
-                Заменить содержимое с учетом тегов
-            </button>
-            <button class="button">
-                Заменить содержимое без учета тегов
-            </button>
-        </div>
-        <div class="form-buttons-input botton group-buttons">
+        <div class="form-buttons-input bottom group-buttons">
             <button class="button before-begin">
                 Вставить текст перед тегом элемента
             </button>
@@ -41,11 +43,21 @@
             <button class="button after-end">
                 Вставить текст после элемента
             </button>
-            <button class="button style-toggle">
+            <button class="button-style style-toggle">
                 Поменять стили текста
             </button>
         </div>
-        <input class="input" placeholder="Ввести текст" type="text" />
+        <div class="form-column-input">
+            <input class="input" placeholder="Ввести текст" type="text" />
+            <div class="form-column-input-text">
+                <p class="form-column-input-text-p">
+                    Не выбран способ замены или вставки тегов.
+                </p>
+                <p class="form-column-input-text-p">
+                    Не выбран способ вставки текста.
+                </p>
+            </div>
+        </div>
         <div class="form-texts">
             <h1 class="form-texts-text-h1 form-texts-text">
                 Привет.

@@ -9,10 +9,6 @@ button:focus {
     outline: none !important;
 }
 
-.border-red .button {
-    border-color: red;
-}
-
 .form {
     padding: 15px;
     width: 100%;
@@ -100,6 +96,7 @@ button:focus {
 
 .form-texts .form-texts-text-p {
     font-size: 14px;
+    color: blue;
 }
 
 @media all and (max-width: 575px) {
