@@ -17,6 +17,8 @@ function main() {
             for (let a = 0; a < buttons.length; a++) {
                 if (buttons[a] == event.target) {
                     if (checkPartButtons(object_Buttons, groups_Buttons, i, buttons, a, window_Absolute_Text, input_Text) === false) {
+                        buttons[a].style.background = "red";
+                        groups_Buttons[i].classList.add("background-red");
                         return;
                     } else {
                         buttons[a].style.background = "red";
@@ -95,8 +97,12 @@ function checkAllButtons(object_Buttons, groups_Buttons, window_Absolute, window
 
 function checkPartButtons(object_Buttons, groups_Buttons, i, buttons, a, window_Absolute_Text, input_Text) {
     if (groups_Buttons[0].classList.contains("background-red") && i == 1) {
+        groups_Buttons[0].classList.remove("background-red");
+        changeBackground(0, groups_Buttons, a, object_Buttons, i);
         return false;
     } else if (groups_Buttons[1].classList.contains("background-red") && i == 0) {
+        groups_Buttons[1].classList.remove("background-red");
+        changeBackground(1, groups_Buttons, a, object_Buttons, i);
         return false;
     } else {
         for (let c = 0; c < groups_Buttons.length; c++) {
@@ -153,4 +159,47 @@ function borderNone() {
             console.log(i);
         }
     }
+}
+
+function changeBackground(b, groups_Buttons, a, object_Buttons, i) {
+    const buttons = groups_Buttons[b].querySelectorAll(".button");
+    for (let a = 0; a < buttons.length; a++) {
+        if (buttons[a].style.background = "red") {
+            buttons[a].style.background = "buttonface";
+        }
+    }
+    if (groups_Buttons[b].classList.contains("background-red") && b == 0) {
+        groups_Buttons[1].classList.remove("background-red");
+    } else if (groups_Buttons[b].classList.contains("background-red") && b == 1) {
+        groups_Buttons[0].classList.remove("background-red");
+    }
+
+    object_Buttons.buttons_Top = "";
+    object_Buttons.buttons_Bottom = "";
+
+    if (i == 0) {
+        if (a == 0) {
+            object_Buttons.buttons_Top = "insert-tags";
+        } else if (a == 1) {
+            object_Buttons.buttons_Top = "insert-no-tags";
+        } else if (a == 2) {
+            object_Buttons.buttons_Top = "replacement-tags";
+        } else if (a == 3) {
+            object_Buttons.buttons_Top = "replacement-no-tags";
+        }
+    } else if (i == 1) {
+        if (a == 0) {
+            object_Buttons.buttons_Bottom = "before-begin";
+        } else if (a == 1) {
+            object_Buttons.buttons_Bottom = "after-begin";
+        } else if (a == 2) {
+            object_Buttons.buttons_Bottom = "before-end";
+        } else if (a == 3) {
+            object_Buttons.buttons_Bottom = "after-end";
+        }
+    }
+
+    console.log(object_Buttons.buttons_Top);
+    console.log(object_Buttons.buttons_Bottom);
+    return;
 }
