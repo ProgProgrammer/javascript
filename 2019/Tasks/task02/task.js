@@ -12,7 +12,7 @@ function main() {
     object_Buttons.buttons_Bottom = "";
 
     for (let i = 0; i < groups_Buttons.length; i++) {
-        groups_Buttons[i].addEventListener('click', function () {
+        groups_Buttons[i].addEventListener('click', () => {
             const buttons = groups_Buttons[i].querySelectorAll(".button");
             for (let a = 0; a < buttons.length; a++) {
                 if (buttons[a] == event.target) {
@@ -22,8 +22,6 @@ function main() {
                         buttons[a].style.background = "red";
                         borderNone();
                         groups_Buttons[i].classList.add("background-red");
-                        console.log(object_Buttons.buttons_Top);
-                        console.log(object_Buttons.buttons_Bottom);
                     }
                 }
             }
@@ -43,6 +41,31 @@ function main() {
 
     input_Text.oninput = function () {
         checkAllButtons(object_Buttons, groups_Buttons, window_Absolute, window_Absolute_Text, input_Text);
+    }
+    for (let a = 0; a < texts.length; a++) {
+        texts[a].addEventListener('click', () => {
+            if (object_Buttons.buttons_Top == "insert-tags") {
+                texts[a].innerHTML += input_Text.value;
+            } else if (object_Buttons.buttons_Top == "insert-no-tags") {
+                texts[a].innerText += input_Text.value;
+            } else if (object_Buttons.buttons_Top == "replacement-tags") {
+                texts[a].outerHTML = input_Text.value;
+            } else if (object_Buttons.buttons_Top == "replacement-no-tags") {
+                texts[a].outerText = input_Text.value;
+            } else if (object_Buttons.buttons_Bottom == "before-begin") {
+                console.log(0);
+                texts[a].insertAdjacentHTML('beforebegin', input_Text.value);
+            } else if (object_Buttons.buttons_Bottom == "after-begin") {
+                console.log(0);
+                texts[a].insertAdjacentHTML('afterbegin', input_Text.value);
+            } else if (object_Buttons.buttons_Bottom == "before-end") {
+                console.log(0);
+                texts[a].insertAdjacentHTML('beforeend', input_Text.value);
+            } else if (object_Buttons.buttons_Bottom == "after-end") {
+                console.log(0);
+                texts[a].insertAdjacentHTML('afterend', input_Text.value);
+            }
+        });
     }
 }
 
@@ -72,10 +95,8 @@ function checkAllButtons(object_Buttons, groups_Buttons, window_Absolute, window
 
 function checkPartButtons(object_Buttons, groups_Buttons, i, buttons, a, window_Absolute_Text, input_Text) {
     if (groups_Buttons[0].classList.contains("background-red") && i == 1) {
-        console.log("hello");
         return false;
     } else if (groups_Buttons[1].classList.contains("background-red") && i == 0) {
-        console.log("good");
         return false;
     } else {
         for (let c = 0; c < groups_Buttons.length; c++) {
