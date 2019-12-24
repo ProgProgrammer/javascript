@@ -83,6 +83,7 @@ button:focus {
     margin-top: 60px;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 .form-texts .form-texts-text {

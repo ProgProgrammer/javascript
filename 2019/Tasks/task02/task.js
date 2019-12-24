@@ -10,6 +10,20 @@ function main() {
     const object_Buttons = {};
     object_Buttons.buttons_Top = "";
     object_Buttons.buttons_Bottom = "";
+    object_Buttons.StyleMain = "style.css";
+    object_Buttons.StyleChange = "style2.css";
+    object_Buttons.buttons_BackgroundClick = "red";
+    object_Buttons.buttons_Background = "buttonface";
+    object_Buttons.BorderBlack = "black";
+    object_Buttons.BorderRed = "red";
+    object_Buttons.InsertTags = "insert-tags";
+    object_Buttons.InserNoTags = "insert-no-tags";
+    object_Buttons.ReplaceTags = "replacement-tags";
+    object_Buttons.ReplaceNoTags = "replacement-no-tags";
+    object_Buttons.BeforeBegin = "before-begin";
+    object_Buttons.AfterBegin = "after-begin";
+    object_Buttons.BeforeEnd = "before-end";
+    object_Buttons.AfterEnd = "after-end";
 
     for (let i = 0; i < groups_Buttons.length; i++) {
         groups_Buttons[i].addEventListener('click', () => {
@@ -17,12 +31,12 @@ function main() {
             for (let a = 0; a < buttons.length; a++) {
                 if (buttons[a] == event.target) {
                     if (checkPartButtons(object_Buttons, groups_Buttons, i, buttons, a, window_Absolute_Text, input_Text) === false) {
-                        buttons[a].style.background = "red";
+                        buttons[a].style.background = object_Buttons.buttons_BackgroundClick;
                         groups_Buttons[i].classList.add("background-red");
                         return;
                     } else {
-                        buttons[a].style.background = "red";
-                        borderNone();
+                        buttons[a].style.background = object_Buttons.buttons_BackgroundClick;
+                        borderNone(object_Buttons);
                         groups_Buttons[i].classList.add("background-red");
                     }
                 }
@@ -32,12 +46,12 @@ function main() {
 
     button_Style.addEventListener('click', function () {
         const link_Href = document.querySelector("link");
-        if (link_Href.getAttribute('href') == "style.css") {
-            link_Href.setAttribute('href', 'style2.css');
-            button_Style.style.backgroundColor = 'red';
+        if (link_Href.getAttribute('href') == object_Buttons.StyleMain) {
+            link_Href.setAttribute('href', object_Buttons.StyleChange);
+            button_Style.style.backgroundColor = object_Buttons.buttons_BackgroundClick;
         } else {
-            link_Href.setAttribute('href', 'style.css');
-            button_Style.style.backgroundColor = 'buttonface';
+            link_Href.setAttribute('href', object_Buttons.StyleMain);
+            button_Style.style.backgroundColor = object_Buttons.buttons_Background;
         }
     });
 
@@ -46,25 +60,21 @@ function main() {
     }
     for (let a = 0; a < texts.length; a++) {
         texts[a].addEventListener('click', () => {
-            if (object_Buttons.buttons_Top == "insert-tags") {
+            if (object_Buttons.buttons_Top == object_Buttons.InsertTags) {
                 texts[a].innerHTML += input_Text.value;
-            } else if (object_Buttons.buttons_Top == "insert-no-tags") {
+            } else if (object_Buttons.buttons_Top == object_Buttons.InserNoTags) {
                 texts[a].innerText += input_Text.value;
-            } else if (object_Buttons.buttons_Top == "replacement-tags") {
+            } else if (object_Buttons.buttons_Top == object_Buttons.ReplaceTags) {
                 texts[a].outerHTML = input_Text.value;
-            } else if (object_Buttons.buttons_Top == "replacement-no-tags") {
+            } else if (object_Buttons.buttons_Top == object_Buttons.ReplaceNoTags) {
                 texts[a].outerText = input_Text.value;
-            } else if (object_Buttons.buttons_Bottom == "before-begin") {
-                console.log(0);
+            } else if (object_Buttons.buttons_Bottom == object_Buttons.BeforeBegin) {
                 texts[a].insertAdjacentHTML('beforebegin', input_Text.value);
-            } else if (object_Buttons.buttons_Bottom == "after-begin") {
-                console.log(0);
+            } else if (object_Buttons.buttons_Bottom == object_Buttons.AfterBegin) {
                 texts[a].insertAdjacentHTML('afterbegin', input_Text.value);
-            } else if (object_Buttons.buttons_Bottom == "before-end") {
-                console.log(0);
+            } else if (object_Buttons.buttons_Bottom == object_Buttons.BeforeEnd) {
                 texts[a].insertAdjacentHTML('beforeend', input_Text.value);
-            } else if (object_Buttons.buttons_Bottom == "after-end") {
-                console.log(0);
+            } else if (object_Buttons.buttons_Bottom == object_Buttons.AfterEnd) {
                 texts[a].insertAdjacentHTML('afterend', input_Text.value);
             }
         });
@@ -80,7 +90,7 @@ function checkAllButtons(object_Buttons, groups_Buttons, window_Absolute, window
             buttons_Group_Top.classList.add("border-red");
             window_Absolute.style.display = "flex";
             window_Absolute_Text.style.display = "flex";
-            input_Text.style.borderColor = "red";
+            input_Text.style.borderColor = object_Buttons.BorderRed;
         }
 
         if (object_Buttons.buttons_Bottom == "") {
@@ -88,10 +98,10 @@ function checkAllButtons(object_Buttons, groups_Buttons, window_Absolute, window
             buttons_Group_Bottom.classList.add("border-red");
             window_Absolute.style.display = "flex";
             window_Absolute_Text.style.display = "flex";
-            input_Text.style.borderColor = "red";
+            input_Text.style.borderColor = object_Buttons.BorderRed;
         }
     } else {
-        borderNone();
+        borderNone(object_Buttons);
     }
 }
 
@@ -111,52 +121,51 @@ function checkPartButtons(object_Buttons, groups_Buttons, i, buttons, a, window_
             }
         }
         for (let b = 0; b < buttons.length; b++) {
-            if (buttons[b].style.background == "red" && b !== a) {
-                buttons[b].style.background = "buttonface";
+            if (buttons[b].style.background == object_Buttons.buttons_BackgroundClick && b !== a) {
+                buttons[b].style.background = object_Buttons.buttons_Background;
             }
         }
         if (i == 0) {
             if (a == 0) {
-                object_Buttons.buttons_Top = "insert-tags";
+                object_Buttons.buttons_Top = object_Buttons.InsertTags;
             } else if (a == 1) {
-                object_Buttons.buttons_Top = "insert-no-tags";
+                object_Buttons.buttons_Top = object_Buttons.InserNoTags;
             } else if (a == 2) {
-                object_Buttons.buttons_Top = "replacement-tags";
+                object_Buttons.buttons_Top = object_Buttons.ReplaceTags;
             } else if (a == 3) {
-                object_Buttons.buttons_Top = "replacement-no-tags";
+                object_Buttons.buttons_Top = object_Buttons.ReplaceNoTags;
             }
 
-            checkWindowAbsolute(i, window_Absolute_Text, input_Text);
+            checkWindowAbsolute(i, window_Absolute_Text, input_Text, object_Buttons);
         } else if (i == 1) {
             if (a == 0) {
-                object_Buttons.buttons_Bottom = "before-begin";
+                object_Buttons.buttons_Bottom = object_Buttons.BeforeBegin;
             } else if (a == 1) {
-                object_Buttons.buttons_Bottom = "after-begin";
+                object_Buttons.buttons_Bottom = object_Buttons.AfterBegin;
             } else if (a == 2) {
-                object_Buttons.buttons_Bottom = "before-end";
+                object_Buttons.buttons_Bottom = object_Buttons.BeforeEnd;
             } else if (a == 3) {
-                object_Buttons.buttons_Bottom = "after-end";
+                object_Buttons.buttons_Bottom = object_Buttons.AfterEnd;
             }
 
-            checkWindowAbsolute(i, window_Absolute_Text, input_Text);
+            checkWindowAbsolute(i, window_Absolute_Text, input_Text, object_Buttons);
         }
     }
 }
 
-function checkWindowAbsolute(i, window_Absolute_Text, input_Text) {
+function checkWindowAbsolute(i, window_Absolute_Text, input_Text, object_Buttons) {
     if (window_Absolute_Text.style.display == "flex") {
         document.querySelector(".form-column-input-text").style.display = "none";
         window_Absolute_Text.style.display = "none";
-        input_Text.style.borderColor = "black";
+        input_Text.style.borderColor = object_Buttons.BorderBlack;
     }
 }
 
-function borderNone() {
+function borderNone(object_Buttons) {
     const buttons = document.querySelectorAll(".button");
     for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].style.borderColor == "red") {
-            buttons[i].style.borderColor == "black";
-            console.log(i);
+        if (buttons[i].style.borderColor == object_Buttons.BorderRed) {
+            buttons[i].style.borderColor == object_Buttons.BorderBlack;
         }
     }
 }
@@ -164,8 +173,8 @@ function borderNone() {
 function changeBackground(b, groups_Buttons, a, object_Buttons, i) {
     const buttons = groups_Buttons[b].querySelectorAll(".button");
     for (let a = 0; a < buttons.length; a++) {
-        if (buttons[a].style.background = "red") {
-            buttons[a].style.background = "buttonface";
+        if (buttons[a].style.background = object_Buttons.buttons_BackgroundClick) {
+            buttons[a].style.background = object_Buttons.buttons_Background;
         }
     }
     if (groups_Buttons[b].classList.contains("background-red") && b == 0) {
@@ -179,27 +188,25 @@ function changeBackground(b, groups_Buttons, a, object_Buttons, i) {
 
     if (i == 0) {
         if (a == 0) {
-            object_Buttons.buttons_Top = "insert-tags";
+            object_Buttons.buttons_Top = object_Buttons.InsertTags;
         } else if (a == 1) {
-            object_Buttons.buttons_Top = "insert-no-tags";
+            object_Buttons.buttons_Top = object_Buttons.InserNoTags;
         } else if (a == 2) {
-            object_Buttons.buttons_Top = "replacement-tags";
+            object_Buttons.buttons_Top = object_Buttons.ReplaceTags;
         } else if (a == 3) {
-            object_Buttons.buttons_Top = "replacement-no-tags";
+            object_Buttons.buttons_Top = object_Buttons.ReplaceNoTags;
         }
     } else if (i == 1) {
         if (a == 0) {
-            object_Buttons.buttons_Bottom = "before-begin";
+            object_Buttons.buttons_Bottom = object_Buttons.BeforeBegin;
         } else if (a == 1) {
-            object_Buttons.buttons_Bottom = "after-begin";
+            object_Buttons.buttons_Bottom = object_Buttons.AfterBegin;
         } else if (a == 2) {
-            object_Buttons.buttons_Bottom = "before-end";
+            object_Buttons.buttons_Bottom = object_Buttons.BeforeEnd;
         } else if (a == 3) {
-            object_Buttons.buttons_Bottom = "after-end";
+            object_Buttons.buttons_Bottom = object_Buttons.AfterEnd;
         }
     }
 
-    console.log(object_Buttons.buttons_Top);
-    console.log(object_Buttons.buttons_Bottom);
     return;
 }
