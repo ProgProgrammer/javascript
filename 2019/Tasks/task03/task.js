@@ -6,14 +6,14 @@ function main() {
     square_Window.onmousedown = (event) => {
         square_Window.style.position = 'absolute';
         mouseDragAndDrop(event.pageX, event.pageY);
-        square_Window.addEventListener('mousemove', mouseMoving);
+        document.addEventListener('mousemove', mouseMoving);
 
         function mouseMoving(event) {
             mouseDragAndDrop(event.pageX, event.pageY);
         }
 
         square_Window.onmouseup = () => {
-            square_Window.removeEventListener('mousemove', mouseMoving);
+            document.removeEventListener('mousemove', mouseMoving);
         }
     }
 
