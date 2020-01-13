@@ -2,6 +2,14 @@
     box-sizing: border-box;
 }
 
+li:focus {
+    outline: none;
+}
+
+li {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 .tabs {
     margin: 15px auto 15px;
     padding: 0 10px 10px 10px;
