@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+.tabs {
+    margin: 15px auto 15px;
+    padding: 0 10px 10px 10px;
+    max-width: 1170px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.active {
+    font-weight: bold;
+}
+
+ul {
+    margin: 10px 0 0;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tab {
+    margin-right: 15px;
+    padding: 5px 10px;
+    display: flex;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.tab-body {
+    margin-top: 15px;
+}
