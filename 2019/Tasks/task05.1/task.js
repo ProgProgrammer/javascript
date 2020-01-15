@@ -16,13 +16,13 @@ function main() {
     obj.bottomUppercase = 83;
     
     document.onkeypress = (e) => {
-        console.log("e");
         return movingObject(windowBlock, block, obj, marginBlock, e);
     }
 }
 
 function movingObject(windowBlock, block, obj, marginBlock, e) {
     const marginPx = windowLimits(windowBlock, block, obj, marginBlock, e);
+    console.log(marginPx);
     if (marginPx > 0 &&
         e.keyCode === obj.topLowercase || e.keyCode === obj.topUppercase) {
         block.style.marginTop = block.offsetTop - marginPx + "px";
@@ -42,11 +42,23 @@ function windowLimits(windowBlock, block, obj, marginBlock, e) {
     const windowHeight = windowBlock.clientHeight;
     const blockWidth = block.offsetWidth;
     const blockHeight = block.offsetHeight;
-    if (windowHeight - (blockHeight + block.offsetTop) !== 0 && block.offsetTop > 0 &&
-        e.keyCode === obj.topLowercase || e.keyCode === obj.topUppercase ||
-        e.keyCode === obj.bottomLowercase || e.keyCode === obj.bottomUppercase) 
+    if (block.offsetTop > 0 &&
+        e.keyCode === obj.topLowercase || e.keyCode === obj.topUppercase) 
     {
         console.log(block.offsetTop);
+        if (block.offsetTop >= marginBlock) {
+            console.log("10");
+            return marginBlock;
+        }
+        else if (block.offsetTop < marginBlock)
+        {
+            console.log("<10");
+            return block.offsetTop;
+        }
+    }
+    else if (windowHeight - (blockHeight + block.offsetTop) !== 0 &&
+             e.keyCode === obj.bottomLowercase || e.keyCode === obj.bottomUppercase)
+    {
         if (windowHeight - (blockHeight + block.offsetTop) >= marginBlock) {
             console.log("10");
             return marginBlock;
