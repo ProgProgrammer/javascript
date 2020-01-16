@@ -1,5 +1,4 @@
 window.onload = main;
-//window.addEventListener('resize', main);
 
 function main() {
     const windowBlock = document.querySelector(".window");
@@ -12,59 +11,74 @@ function main() {
     obj.bottom = 'KeyS';
     
     document.onkeypress = (e) => {
-        return movingObject(windowBlock, block, obj, marginBlock, e);
+        let blockOffset;
+        const windowWidth = windowBlock.clientWidth;
+        const windowHeight = windowBlock.clientHeight;
+        if (e.code === obj.top || e.code === obj.bottom) {
+            blockOffset = block.offsetTop;
+            return movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, windowHeight);
+        }
+        else if (e.code === obj.left || e.code === obj.right) {
+            blockOffset = block.offsetLeft;
+            return movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, windowWidth);
+        }
     }
 }
 
-function movingObject(windowBlock, block, obj, marginBlock, e) {
-    const marginPx = windowLimits(windowBlock, block, obj, marginBlock, e);
-    console.log(marginPx);
+function movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise) {
+    const marginPx = windowLimits(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise);
     if (marginPx > 0 &&
-        e.code === obj.top) {
-        block.style.marginTop = block.offsetTop - marginPx + "px";
+        e.code === obj.top || e.code === obj.left) {
+        switch(e.code) {
+            case obj.top:
+                block.style.marginTop = block.offsetTop - marginPx + "px";
+                return;
+            default:
+                block.style.marginLeft = block.offsetLeft - marginPx + "px";
+                return;
+        }
         return;
     }
     else if (marginPx > 0 &&
-             e.code === obj.bottom)
+             e.code === obj.bottom || e.code === obj.right)
     {
-        block.style.marginTop = block.offsetTop + marginPx + "px";
+        switch(e.code) {
+            case obj.bottom:
+                block.style.marginTop = block.offsetTop + marginPx + "px";
+                return;
+            default:
+                block.style.marginLeft = block.offsetLeft + marginPx + "px";
+                return;
+        }
         return;
     }
     return;
 }
 
-function windowLimits(windowBlock, block, obj, marginBlock, e) {
-    const windowWidth = windowBlock.clientWidth;
-    const windowHeight = windowBlock.clientHeight;
+function windowLimits(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise) {
     const blockWidth = block.offsetWidth;
     const blockHeight = block.offsetHeight;
-    console.log(e.code);
-    if (block.offsetTop > 0 &&
-        e.code === obj.top) 
+    if (blockOffset > 0 &&
+        e.code === obj.top || e.code === obj.left) 
     {
-        console.log(block.offsetTop);
-        if (block.offsetTop >= marginBlock) {
-            console.log("10");
+        if (blockOffset >= marginBlock) {
             return marginBlock;
         }
-        else if (block.offsetTop < marginBlock)
+        else if (blockOffset < marginBlock)
         {
-            console.log("<10");
-            return block.offsetTop;
+            return blockOffset;
         }
     }
-    else if (windowHeight - (blockHeight + block.offsetTop) !== 0 &&
-             e.code === obj.bottom)
+    else if (windowZise - (blockHeight + blockOffset) !== 0 &&
+             e.code === obj.bottom || e.code === obj.right)
     {
-        if (windowHeight - (blockHeight + block.offsetTop) >= marginBlock) {
-            console.log("10");
+        if (windowZise - (blockHeight + blockOffset) >= marginBlock) {
             return marginBlock;
         }
-        else if (windowHeight - (blockHeight + block.offsetTop) < marginBlock &&
-                 windowHeight - (blockHeight + block.offsetTop) >= 0)
+        else if (windowZise - (blockHeight + blockOffset) < marginBlock &&
+                 windowZise - (blockHeight + blockOffset) >= 0)
         {
-            console.log("<10");
-            return windowHeight - (blockHeight + block.offsetTop);
+            return windowZise - (blockHeight + blockOffset);
         }
     }
     else
