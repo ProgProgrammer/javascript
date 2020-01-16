@@ -6,14 +6,10 @@ function main() {
     const block = document.querySelector(".block");
     const marginBlock = 10;
     const obj = {};
-    obj.topLowercase = 119;
-    obj.leftLowercase = 97;
-    obj.rightLowercase = 100;
-    obj.bottomLowercase = 115;
-    obj.topUppercase = 87;
-    obj.leftUppercase = 65;
-    obj.rightUppercase = 68;
-    obj.bottomUppercase = 83;
+    obj.top = 'KeyW';
+    obj.left = 'KeyA';
+    obj.right = 'KeyD';
+    obj.bottom = 'KeyS';
     
     document.onkeypress = (e) => {
         return movingObject(windowBlock, block, obj, marginBlock, e);
@@ -24,12 +20,12 @@ function movingObject(windowBlock, block, obj, marginBlock, e) {
     const marginPx = windowLimits(windowBlock, block, obj, marginBlock, e);
     console.log(marginPx);
     if (marginPx > 0 &&
-        e.keyCode === obj.topLowercase || e.keyCode === obj.topUppercase) {
+        e.code === obj.top) {
         block.style.marginTop = block.offsetTop - marginPx + "px";
         return;
     }
     else if (marginPx > 0 &&
-             e.keyCode === obj.bottomLowercase || e.keyCode === obj.bottomUppercas)
+             e.code === obj.bottom)
     {
         block.style.marginTop = block.offsetTop + marginPx + "px";
         return;
@@ -42,8 +38,9 @@ function windowLimits(windowBlock, block, obj, marginBlock, e) {
     const windowHeight = windowBlock.clientHeight;
     const blockWidth = block.offsetWidth;
     const blockHeight = block.offsetHeight;
+    console.log(e.code);
     if (block.offsetTop > 0 &&
-        e.keyCode === obj.topLowercase || e.keyCode === obj.topUppercase) 
+        e.code === obj.top) 
     {
         console.log(block.offsetTop);
         if (block.offsetTop >= marginBlock) {
@@ -57,7 +54,7 @@ function windowLimits(windowBlock, block, obj, marginBlock, e) {
         }
     }
     else if (windowHeight - (blockHeight + block.offsetTop) !== 0 &&
-             e.keyCode === obj.bottomLowercase || e.keyCode === obj.bottomUppercase)
+             e.code === obj.bottom)
     {
         if (windowHeight - (blockHeight + block.offsetTop) >= marginBlock) {
             console.log("10");
