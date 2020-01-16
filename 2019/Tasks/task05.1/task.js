@@ -56,7 +56,6 @@ function movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, wind
 }
 
 function windowLimits(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise) {
-    const blockWidth = block.offsetWidth;
     const blockHeight = block.offsetHeight;
     if (blockOffset > 0 &&
         e.code === obj.top || e.code === obj.left) 
