@@ -25,8 +25,9 @@ function inputValue(inputText, e, obj) {
         e.keyCode >= obj.minLowerLettersRus && e.keyCode <= obj.maxLowerLettersRus ||
         e.keyCode >= obj.minUpperLettersRus && e.keyCode <= obj.maxUpperLettersRus ||
         e.keyCode === obj.space) {
-        obj.letters += e.key.toLowerCase();
-        inputText.value = obj.letters;
+        obj.letters = "";
+        obj.letters = e.key.toLowerCase();
+        inputText.value += obj.letters;
         return false;
     } else {
         return false;
