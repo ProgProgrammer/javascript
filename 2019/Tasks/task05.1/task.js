@@ -22,11 +22,11 @@ function movingObject(e, block, marginBlock, obj, windowBlock) {
     const windowHeight = windowBlock.clientHeight;
     if (e.code === obj.top || e.code === obj.bottom)
     {
-        const resultFunction = checkDistance();
         switch(e.code)
         {
             case obj.top:
-                switch(resultFunction())
+                const resultFunction = checkDistance();
+                switch(resultFunction)
                 {
                     case true:
                         block.style.top = block.offsetTop - marginBlock + "px";
@@ -37,7 +37,8 @@ function movingObject(e, block, marginBlock, obj, windowBlock) {
                 }  
             
             case obj.bottom:
-                switch(resultFunction())
+                const resultFunction = checkDistance();
+                switch(resultFunction)
                 {
                     case true:
                         block.style.top = block.offsetTop + marginBlock + "px";
@@ -54,7 +55,8 @@ function movingObject(e, block, marginBlock, obj, windowBlock) {
         switch(e.code)
         {
             case obj.left:
-                switch(resultFunction())
+                const resultFunction = checkDistance();
+                switch(resultFunction)
                 {
                     case true:
                         block.style.top = block.offsetTop - marginBlock + "px";
@@ -65,7 +67,8 @@ function movingObject(e, block, marginBlock, obj, windowBlock) {
                 }  
             
             case obj.right:
-                switch(resultFunction())
+                const resultFunction = checkDistance();
+                switch(resultFunction)
                 {
                     case true:
                         block.style.top = block.offsetTop + marginBlock + "px";
