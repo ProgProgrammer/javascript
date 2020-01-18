@@ -121,80 +121,14 @@ function checkDistance(marginBlock, block, blockOffset, windowSize, blockSize) {
 
 function checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize) {
     let result;
-    /*console.log(windowSize);
-    console.log(block.offsetTop);
-    console.log(blockSize);*/
     if (blockOffset === "bottom")
     {
         result = windowSize - (block.offsetTop + blockSize);
-        console.log(result);
         return result;
     }
     else if (blockOffset === "right")
     {
         result = windowSize - (block.offsetLeft + blockSize);
-        console.log(result);
         return result;
     }
 }
-
-/*function movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise) {
-    const marginPx = windowLimits(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise);
-    if (marginPx > 0 &&
-        e.code === obj.top || e.code === obj.left) {
-        switch(e.code) {
-            case obj.top:
-                block.style.marginTop = block.offsetTop - marginPx + "px";
-                return;
-            default:
-                block.style.marginLeft = block.offsetLeft - marginPx + "px";
-                return;
-        }
-        return;
-    }
-    else if (marginPx > 0 &&
-             e.code === obj.bottom || e.code === obj.right)
-    {
-        switch(e.code) {
-            case obj.bottom:
-                block.style.marginTop = block.offsetTop + marginPx + "px";
-                return;
-            default:
-                block.style.marginLeft = block.offsetLeft + marginPx + "px";
-                return;
-        }
-        return;
-    }
-    return;
-}
-
-function windowLimits(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise) {
-    const blockHeight = block.offsetHeight;
-    if (blockOffset > 0 &&
-        e.code === obj.top || e.code === obj.left) 
-    {
-        if (blockOffset >= marginBlock) {
-            return marginBlock;
-        }
-        else if (blockOffset < marginBlock)
-        {
-            return blockOffset;
-        }
-    }
-    else if (windowZise - (blockHeight + blockOffset) !== 0 &&
-             e.code === obj.bottom || e.code === obj.right)
-    {
-        if (windowZise - (blockHeight + blockOffset) >= marginBlock) {
-            return marginBlock;
-        }
-        else if (windowZise - (blockHeight + blockOffset) < marginBlock &&
-                 windowZise - (blockHeight + blockOffset) >= 0)
-        {
-            return windowZise - (blockHeight + blockOffset);
-        }
-    }
-    else
-    {
-        return;
-    }
-}*/
