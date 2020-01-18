@@ -13,7 +13,6 @@ function main() {
     obj.bottom = 'KeyS';
     
     document.onkeypress = (e) => {
-        obj.keypress = e.code;
         const windowWidth = windowBlock.clientWidth;
         const windowHeight = windowBlock.clientHeight;
         return movingObject(e, block, marginBlock, obj, windowWidth, windowHeight, blockWidth, blockHeight);
@@ -22,79 +21,67 @@ function main() {
 
 function movingObject(e, block, marginBlock, obj, windowWidth, windowHeight, blockWidth, blockHeight) {
     let resultFunction;
-    if (e.code === obj.top || e.code === obj.bottom)
+    switch(e.code)
     {
-        switch(e.code)
-        {
-            case obj.top:
-                resultFunction = checkDistance(marginBlock, block, block.offsetTop, windowHeight, blockHeight);
-                switch(resultFunction)
-                {
-                    case true:
-                        block.style.top = block.offsetTop - marginBlock + "px";
-                        block.style.position = "absolute";
-                        break;
+        case obj.top:
+            resultFunction = checkDistance(marginBlock, block, block.offsetTop, windowHeight, blockHeight);
+            switch(resultFunction)
+            {
+                case true:
+                    block.style.top = block.offsetTop - marginBlock + "px";
+                    break;
 
-                    default:
-                        block.style.top = block.offsetTop - resultFunction + "px";
-                        block.style.position = "absolute";
-                        break;
-                } 
-                break;
+                default:
+                    block.style.top = block.offsetTop - resultFunction + "px";
+                    break;
+            }
+            block.style.position = "absolute"; 
+            break;
             
-            case obj.bottom:
-                resultFunction = checkDistance(marginBlock, block, "bottom", windowHeight, blockHeight);
-                switch(resultFunction)
-                {
-                    case true:
-                        block.style.top = block.offsetTop + marginBlock + "px";
-                        block.style.position = "absolute";
-                        break;
+        case obj.bottom:
+            resultFunction = checkDistance(marginBlock, block, "bottom", windowHeight, blockHeight);
+            switch(resultFunction)
+            {
+                case true:
+                    block.style.top = block.offsetTop + marginBlock + "px";
+                    break;
 
-                    default:
-                        block.style.top = block.offsetTop + resultFunction + "px";
-                        block.style.position = "absolute";
-                        break;
-                }
-                break;
-        }
-    }
-    else if (e.code === obj.left || e.code === obj.right)
-    {
-        switch(e.code)
-        {
-            case obj.left:
-                resultFunction = checkDistance(marginBlock, block, block.offsetLeft, windowWidth, blockWidth);
-                switch(resultFunction)
-                {
-                    case true:
-                        block.style.left = block.offsetLeft - marginBlock + "px";
-                        block.style.position = "absolute";
-                        break;
+                default:
+                    block.style.top = block.offsetTop + resultFunction + "px";
+                    break;
+            }
+            block.style.position = "absolute"; 
+            break;
+        
+        case obj.left:
+            resultFunction = checkDistance(marginBlock, block, block.offsetLeft, windowWidth, blockWidth);
+            switch(resultFunction)
+            {
+                case true:
+                    block.style.left = block.offsetLeft - marginBlock + "px";
+                    break;
 
-                    default:
-                        block.style.left = block.offsetLeft - resultFunction + "px";
-                        block.style.position = "absolute";
-                        break;
-                } 
-                break;
+                default:
+                    block.style.left = block.offsetLeft - resultFunction + "px";
+                    break;
+            } 
+            block.style.position = "absolute"; 
+            break;
             
-            case obj.right:
-                resultFunction = checkDistance(marginBlock, block, "right", windowWidth, blockWidth);
-                switch(resultFunction)
-                {
-                    case true:
-                        block.style.left = block.offsetLeft + marginBlock + "px";
-                        block.style.position = "absolute";
-                        break;
+        case obj.right:
+            resultFunction = checkDistance(marginBlock, block, "right", windowWidth, blockWidth);
+            switch(resultFunction)
+            {
+                case true:
+                    block.style.left = block.offsetLeft + marginBlock + "px";
+                    break;
 
-                    default:
-                        block.style.left = block.offsetLeft + resultFunction + "px";
-                        block.style.position = "absolute";
-                        break;
-                }
-                break;
-        }
+                default:
+                    block.style.left = block.offsetLeft + resultFunction + "px";
+                    break;
+            }
+            block.style.position = "absolute"; 
+            break;
     }
 }
 
