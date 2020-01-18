@@ -11,21 +11,74 @@ function main() {
     obj.bottom = 'KeyS';
     
     document.onkeypress = (e) => {
-        let blockOffset;
-        const windowWidth = windowBlock.clientWidth;
-        const windowHeight = windowBlock.clientHeight;
-        if (e.code === obj.top || e.code === obj.bottom) {
-            blockOffset = block.offsetTop;
-            return movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, windowHeight);
+        //block.style.position = "absolute";
+        obj.keypress = e.code;
+        movingObject(e, block, marginBlock, obj, windowBlock);
+    }
+}
+
+function movingObject(e, block, marginBlock, obj, windowBlock) {
+    const windowWidth = windowBlock.clientWidth;
+    const windowHeight = windowBlock.clientHeight;
+    if (e.code === obj.top || e.code === obj.bottom)
+    {
+        const resultFunction = checkDistance();
+        switch(e.code)
+        {
+            case obj.top:
+                switch(resultFunction())
+                {
+                    case true:
+                        block.style.top = block.offsetTop - marginBlock + "px";
+                        break;
+
+                    default:
+                        block.style.top = block.offsetTop - resultFunction + "px";
+                }  
+            
+            case obj.bottom:
+                switch(resultFunction())
+                {
+                    case true:
+                        block.style.top = block.offsetTop + marginBlock + "px";
+                        break;
+
+                    default:
+                        block.style.top = block.offsetTop + resultFunction + "px";
+                }
         }
-        else if (e.code === obj.left || e.code === obj.right) {
-            blockOffset = block.offsetLeft;
-            return movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, windowWidth);
+    }
+    else if (e.code === obj.left || e.code === obj.right)
+    {
+        const resultFunction = checkDistance();
+        switch(e.code)
+        {
+            case obj.left:
+                switch(resultFunction())
+                {
+                    case true:
+                        block.style.top = block.offsetTop - marginBlock + "px";
+                        break;
+
+                    default:
+                        block.style.top = block.offsetTop - resultFunction + "px";
+                }  
+            
+            case obj.right:
+                switch(resultFunction())
+                {
+                    case true:
+                        block.style.top = block.offsetTop + marginBlock + "px";
+                        break;
+
+                    default:
+                        block.style.top = block.offsetTop + resultFunction + "px";
+                }
         }
     }
 }
 
-function movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise) {
+/*function movingObject(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise) {
     const marginPx = windowLimits(windowBlock, block, obj, marginBlock, e, blockOffset, windowZise);
     if (marginPx > 0 &&
         e.code === obj.top || e.code === obj.left) {
@@ -84,4 +137,4 @@ function windowLimits(windowBlock, block, obj, marginBlock, e, blockOffset, wind
     {
         return;
     }
-}
+}*/
