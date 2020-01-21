@@ -67,14 +67,16 @@
                 break;
 
             case obj.left:
-                resultFunction = checkDistance(marginBlock, block, block.offsetLeft, windowWidth, blockWidth, blockDown, blockWidth);
+                resultFunction = checkDistance(marginBlock, block, "left", windowWidth, blockWidth, blockDown, blockWidth);
                 switch(resultFunction)
                 {
                     case true:
+                        console.log(block.offsetLeft);
                         block.style.left = block.offsetLeft - marginBlock + "px";
                         break;
 
                     default:
+                        console.log("hello");
                         block.style.left = block.offsetLeft - resultFunction + "px";
                         break;
                 } 
@@ -101,9 +103,9 @@
     function checkDistance(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth) {
         if (blockOffset === "bottom" || blockOffset === "left" || blockOffset === "right")
         {
-            blockOffset = checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth);
+            blockOffset = checkDistanceBottomLeftRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth);
         }
-
+        console.log(blockOffset);
         if (blockOffset >= marginBlock)
         {
             return true;
@@ -115,11 +117,12 @@
         }
         else if (blockOffset < marginBlock)
         {
+            console.log(blockOffset);
             return blockOffset;
         }
     }
 
-    function checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth) {
+    function checkDistanceBottomLeftRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth) {
         let result;
         if (blockOffset === "bottom")
         {
@@ -131,7 +134,7 @@
         }
         else if (blockOffset === "left")
         {
-            result = intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth, blockOffset) - (block.offsetLeft + blockSize);
+            result = intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth, blockOffset);
         }
         return result;
     }
@@ -152,27 +155,34 @@
             return distance;
         }
         else if (button === "right" && distanceUpBlockTop > blockDown.offsetTop - blockDown.offsetHeight &&
-                 distanceDownBlockLeft - (distanceUpBlockLeft + blockWidth) <= marginBlock &&
-                 distanceDownBlockLeft - (distanceUpBlockLeft + blockWidth) >= 0)
+                 distanceDownBlockLeft - leftUpBlockWidth <= marginBlock &&
+                 distanceDownBlockLeft - leftUpBlockWidth >= 0)
         {
             return blockDown.offsetLeft;
         }
         else if (button === "right" && distanceUpBlockTop > blockDown.offsetTop - blockDown.offsetHeight &&
-                 distanceDownBlockLeft <= distanceUpBlockLeft + blockWidth &&
-                 distanceDownBlockLeft - (distanceUpBlockLeft + blockWidth) >= 0) 
+                 distanceDownBlockLeft <= leftUpBlockWidth &&
+                 distanceDownBlockLeft - leftUpBlockWidth >= 0) 
         {
             distance = block.offsetLeft + block.offsetWidth;
             return distance;  
         }
         else if (button === "left" && distanceUpBlockTop > blockDown.offsetTop - blockDown.offsetHeight &&
-                 (distanceDownBlockLeft + blockDown.offsetWidth) - (distanceUpBlockLeft + blockWidth) <= marginBlock)
+                 (leftUpBlockWidth - leftDownBlockWidth) - blockDown.offsetWidth <= marginBlock &&
+                 (leftUpBlockWidth - leftDownBlockWidth) - blockDown.offsetWidth >= 0)
         {
-            return blockDown.offsetLeft;
+            return distanceUpBlockLeft - leftDownBlockWidth;
         }
         else if (button === "left" && distanceUpBlockTop > blockDown.offsetTop - blockDown.offsetHeight &&
-                 distanceDownBlockLeft + blockDown.offsetWidth <= distanceUpBlockLeft + blockWidth) 
+                 leftDownBlockWidth >= distanceUpBlockLeft && distanceUpBlockLeft >= 0) 
         {
-            distance = block.offsetLeft + block.offsetWidth;
+            distance = block.offsetLeft;
+            return distance;  
+        }
+        else if (button === "left" && distanceUpBlockTop <= blockDown.offsetTop &&
+                 leftDownBlockWidth >= distanceUpBlockLeft && distanceUpBlockLeft >= 0) 
+        {
+            distance = block.offsetLeft;
             return distance;  
         }
         else
