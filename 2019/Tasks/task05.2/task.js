@@ -82,7 +82,7 @@
                 break;
 
             case obj.right:
-                resultFunction = checkDistance(marginBlock, block, "right", windowWidth, blockWidth);
+                resultFunction = checkDistance(marginBlock, block, "right", windowWidth, blockWidth, blockDown, blockWidth);
                 switch(resultFunction)
                 {
                     case true:
@@ -123,26 +123,40 @@
         let result;
         if (blockOffset === "bottom")
         {
-            result = intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth) - (block.offsetTop + blockSize);
+            result = intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth, blockOffset) - (block.offsetTop + blockSize);
         }
         else if (blockOffset === "right")
         {
-            result = windowSize - (block.offsetLeft + blockSize);
+            result = intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth, blockOffset) - (block.offsetLeft + blockSize);
         }
         return result;
     }
     
-    function intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth) {
+    function intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth, button) {
+        const distanceUpBlockTop = block.offsetTop;
         const distanceUpBlockLeft = block.offsetLeft;
         const leftUpBlockWidth = distanceUpBlockLeft + blockWidth;
         const distanceDownBlockLeft = blockDown.offsetLeft;
         const leftDownBlockWidth = distanceDownBlockLeft + blockDown.offsetWidth;
+        let distance;
         
-        if (distanceDownBlockLeft >= distanceUpBlockLeft && distanceDownBlockLeft <= leftUpBlockWidth ||
-            leftDownBlockWidth >= distanceUpBlockLeft && leftDownBlockWidth <= leftUpBlockWidth)
+        if (button === "bottom" &&
+            (distanceDownBlockLeft > distanceUpBlockLeft && distanceDownBlockLeft < leftUpBlockWidth ||
+            leftDownBlockWidth > distanceUpBlockLeft && leftDownBlockWidth < leftUpBlockWidth))
         {
-            const blockDownHeight = blockDown.offsetTop;
-            return blockDownHeight;
+            distance = blockDown.offsetTop;
+            return distance;
+        }
+        else if (button === "right" && distanceUpBlockTop > blockDown.offsetTop - blockDown.offsetHeight &&
+                 distanceDownBlockLeft - (distanceUpBlockLeft + blockWidth) <= marginBlock)
+        {
+            return blockDown.offsetLeft;
+        }
+        else if (button === "right" && distanceUpBlockTop > blockDown.offsetTop - blockDown.offsetHeight &&
+                 distanceDownBlockLeft <= distanceUpBlockLeft + blockWidth) 
+        {
+            distance = block.offsetLeft + block.offsetWidth;
+            return distance;  
         }
         else
         {

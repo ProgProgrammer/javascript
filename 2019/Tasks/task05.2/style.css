@@ -23,4 +23,5 @@ body {
     left: 305px;
     bottom: 0;
     position: absolute;
+    background: red;
 }
