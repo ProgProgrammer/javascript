@@ -71,12 +71,10 @@
                 switch(resultFunction)
                 {
                     case true:
-                        console.log(block.offsetLeft);
                         block.style.left = block.offsetLeft - marginBlock + "px";
                         break;
 
                     default:
-                        console.log("hello");
                         block.style.left = block.offsetLeft - resultFunction + "px";
                         break;
                 } 
@@ -105,7 +103,6 @@
         {
             blockOffset = checkDistanceBottomLeftRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth);
         }
-        console.log(blockOffset);
         if (blockOffset >= marginBlock)
         {
             return true;
@@ -117,7 +114,6 @@
         }
         else if (blockOffset < marginBlock)
         {
-            console.log(blockOffset);
             return blockOffset;
         }
     }
