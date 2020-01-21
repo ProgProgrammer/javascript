@@ -52,7 +52,7 @@
                 break;
 
             case obj.bottom:
-                resultFunction = checkDistance(marginBlock, block, "bottom", windowHeight, blockHeight, blockDown);
+                resultFunction = checkDistance(marginBlock, block, "bottom", windowHeight, blockHeight, blockDown, blockWidth);
                 switch(resultFunction)
                 {
                     case true:
@@ -98,10 +98,10 @@
         }
     }
 
-    function checkDistance(marginBlock, block, blockOffset, windowSize, blockSize, blockDown) {
+    function checkDistance(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth) {
         if (blockOffset === "bottom" || blockOffset === "right")
         {
-            blockOffset = checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown);
+            blockOffset = checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth);
         }
 
         if (blockOffset >= marginBlock)
@@ -119,17 +119,35 @@
         }
     }
 
-    function checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown) {
+    function checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize, blockDown, blockWidth) {
         let result;
         if (blockOffset === "bottom")
         {
-            result = windowSize - (block.offsetTop + blockSize);
+            result = intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth) - (block.offsetTop + blockSize);
         }
         else if (blockOffset === "right")
         {
             result = windowSize - (block.offsetLeft + blockSize);
         }
         return result;
+    }
+    
+    function intersectionWithObject(block, windowSize, blockSize, blockDown, blockWidth) {
+        const distanceUpBlockLeft = block.offsetLeft;
+        const leftUpBlockWidth = distanceUpBlockLeft + blockWidth;
+        const distanceDownBlockLeft = blockDown.offsetLeft;
+        const leftDownBlockWidth = distanceDownBlockLeft + blockDown.offsetWidth;
+        
+        if (distanceDownBlockLeft >= distanceUpBlockLeft && distanceDownBlockLeft <= leftUpBlockWidth ||
+            leftDownBlockWidth >= distanceUpBlockLeft && leftDownBlockWidth <= leftUpBlockWidth)
+        {
+            const blockDownHeight = blockDown.offsetTop;
+            return blockDownHeight;
+        }
+        else
+        {
+            return windowSize;
+        }
     }
 })
 
