@@ -1,10 +1,12 @@
 ﻿(function() {
     const obj = {};
     obj.number = 0;
+    let bodyScroll;
+    let instaWindow;
     
     window.addEventListener('load', ()=> {
-        const bodyScroll = document.querySelector("body");
-        let instaWindow = document.querySelector(".RnEpo");
+        bodyScroll = document.querySelector("body");
+        instaWindow = document.querySelector(".RnEpo");
         
         window.onpopstate = () => {
             setTimeout(deleteWindow, 1000, bodyScroll, instaWindow);
@@ -17,22 +19,30 @@
         window.addEventListener('scroll', ()=> {
             if (obj.number === 0)
             {
-                deleteWindow(bodyScroll, instaWindow);
+                setTimeout(deleteWindow, 100, bodyScroll, instaWindow);
             }
         });
-        
-        function deleteWindow(bodyScroll, instaWindow) {
-            instaWindow = document.querySelector(".RnEpo");
-            
-            if (instaWindow.classList.contains("Yx5HN") && bodyScroll.style.display !== "scroll")
-            {
-                instaWindow.style.display = "none";
-                bodyScroll.style.overflow = "scroll";
-                console.log("Good");
-                console.log(bodyScroll.style.overflow);
-            }
-        }
     });
+        
+    function deleteWindow(bodyScroll, instaWindow) {
+        instaWindow = document.querySelector(".RnEpo");
+        
+        console.log(bodyScroll.style.display !== "scroll");
+            
+        if (instaWindow.classList.contains("Yx5HN") && bodyScroll.style.display !== "scroll")
+        {
+            instaWindow.style.display = "none";
+            bodyScroll.style.overflow = "scroll";
+            console.log("Good");
+            console.log(bodyScroll.style.overflow);
+        }
+    }
+    
+    window.onload = ()=> {
+        bodyScroll = document.querySelector("body");
+        instaWindow = document.querySelector(".RnEpo");
+        setTimeout(deleteWindow, 1000, bodyScroll, instaWindow);
+    }
 })
     
 ()
