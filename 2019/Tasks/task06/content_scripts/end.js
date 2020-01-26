@@ -1,5 +1,14 @@
 ﻿(function() {
     window.addEventListener('scroll', ()=> {
+        let bodyScroll;
+        const insta = document.querySelector(".RnEpo");
+        if (insta.classList.contains("Yx5HN"))
+        {
+            bodyScroll = document.querySelector("body");
+            insta.style.display = "none";
+            bodyScroll.style.overflow = "scroll";
+        }
+    });
 })
     
 ()
