@@ -2,7 +2,7 @@
     "manifest_version": 2,
  
     "name": "InstagramBannerNone",
-    "version": "1.0.0.0",
+    "version": "1.0.0.1",
 	
 	"permissions": [      // разрешения
 		"tabs","https://www.instagram.com/*"
