@@ -1,47 +1,30 @@
 ﻿(function() {
     const obj = {};
     obj.number = 0;
-    let bodyScroll;
-    let instaWindow;
+    obj.bodyScroll;
+    obj.instaWindow;
     
     window.addEventListener('load', ()=> {
-        bodyScroll = document.querySelector("body");
-        instaWindow = document.querySelector(".RnEpo");
+        obj.bodyScroll = document.querySelector("body");
+        obj.instaWindow = document.querySelector(".RnEpo");
         
-        window.onpopstate = () => {
-            setTimeout(deleteWindow, 1000, bodyScroll, instaWindow);
-        }
-        
-        window.addEventListener('click', ()=> {
-            deleteWindow(bodyScroll, instaWindow);
-        });
-        
-        window.addEventListener('scroll', ()=> {
-            if (obj.number === 0)
-            {
-                setTimeout(deleteWindow, 100, bodyScroll, instaWindow);
-            }
-        });
+        setInterval(deleteWindow, 500, obj);
     });
         
-    function deleteWindow(bodyScroll, instaWindow) {
-        instaWindow = document.querySelector(".RnEpo");
+    function deleteWindow(obj) {
+        obj.instaWindow = document.querySelector(".RnEpo");
         
-        console.log(bodyScroll.style.display !== "scroll");
+        console.log(obj.bodyScroll.style.overflow !== "scroll");
+        console.log(obj.instaWindow);
             
-        if (instaWindow.classList.contains("Yx5HN") && bodyScroll.style.display !== "scroll")
+        if (obj.instaWindow.classList.contains("Yx5HN") && obj.bodyScroll.style.overflow !== "scroll")
         {
-            instaWindow.style.display = "none";
-            bodyScroll.style.overflow = "scroll";
+            obj.instaWindow.style.display = "none";
+            obj.bodyScroll.style.overflow = "scroll";
+            obj.number = 1;
             console.log("Good");
-            console.log(bodyScroll.style.overflow);
+            console.log(obj.bodyScroll.style.overflow);
         }
-    }
-    
-    window.onload = ()=> {
-        bodyScroll = document.querySelector("body");
-        instaWindow = document.querySelector(".RnEpo");
-        setTimeout(deleteWindow, 1000, bodyScroll, instaWindow);
     }
 })
     
