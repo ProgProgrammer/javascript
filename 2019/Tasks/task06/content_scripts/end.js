@@ -13,17 +13,12 @@
         
     function deleteWindow(obj) {
         obj.instaWindow = document.querySelector(".RnEpo");
-        
-        console.log(obj.bodyScroll.style.overflow !== "scroll");
-        console.log(obj.instaWindow);
             
         if (obj.instaWindow.classList.contains("Yx5HN") && obj.bodyScroll.style.overflow !== "scroll")
         {
             obj.instaWindow.style.display = "none";
             obj.bodyScroll.style.overflow = "scroll";
             obj.number = 1;
-            console.log("Good");
-            console.log(obj.bodyScroll.style.overflow);
         }
     }
 })
