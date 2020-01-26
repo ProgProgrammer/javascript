@@ -1,24 +1,19 @@
 ﻿(function() {
-    const obj = {};
-    obj.number = 0;
-    obj.bodyScroll;
-    obj.instaWindow;
+    let bodyScroll;
+    let instaWindow;
     
-    window.addEventListener('load', ()=> {
-        obj.bodyScroll = document.querySelector("body");
-        obj.instaWindow = document.querySelector(".RnEpo");
-        
-        setInterval(deleteWindow, 500, obj);
+    window.addEventListener('load', ()=> {        
+        setInterval(deleteWindow, 500);
     });
         
     function deleteWindow(obj) {
-        obj.instaWindow = document.querySelector(".RnEpo");
+        bodyScroll = document.querySelector("body");
+        instaWindow = document.querySelector(".RnEpo");
             
-        if (obj.instaWindow.classList.contains("Yx5HN") && obj.bodyScroll.style.overflow !== "scroll")
+        if (instaWindow.classList.contains("Yx5HN") && bodyScroll.style.overflow !== "scroll")
         {
-            obj.instaWindow.style.display = "none";
-            obj.bodyScroll.style.overflow = "scroll";
-            obj.number = 1;
+            instaWindow.style.display = "none";
+            bodyScroll.style.overflow = "scroll";
         }
     }
 })
