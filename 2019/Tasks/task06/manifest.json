@@ -1,0 +1,19 @@
+﻿{
+    "manifest_version": 2,
+ 
+    "name": "InstagramBannerNone",
+    "version": "1.0.0.0",
+	
+	"permissions": [      // разрешения
+		"tabs","https://www.instagram.com/*"
+	],
+ 
+    "content_scripts": [
+        {
+            "matches": [ "https://*.www.instagram.com/*" ],
+            "js": [ "content_scripts/end.js" ],
+            "run_at": "document_end",
+			"all_frames": true
+        }
+    ]
+}
