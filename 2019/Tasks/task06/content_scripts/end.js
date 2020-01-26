@@ -1,30 +1,38 @@
 ﻿(function() {
+    const obj = {};
+    obj.number = 0;
+    
     window.addEventListener('load', ()=> {
-        const obj = {};
-        obj.number = 0;
         const bodyScroll = document.querySelector("body");
-        let instaWindow;
+        let instaWindow = document.querySelector(".RnEpo");
+        
+        window.onpopstate = () => {
+            setTimeout(deleteWindow, 1000, bodyScroll, instaWindow);
+        }
+        
+        window.addEventListener('click', ()=> {
+            deleteWindow(bodyScroll, instaWindow);
+        });
         
         window.addEventListener('scroll', ()=> {
-            console.log(obj.number);
             if (obj.number === 0)
             {
-                instaWindow = document.querySelector(".RnEpo");
-
-                if (instaWindow.classList.contains("Yx5HN"))
-                {
-                    console.log(bodyScroll.style.overflow);
-                    instaWindow.style.display = "none";
-                    bodyScroll.style.overflow = "scroll";
-                    obj.number = 1;
-                    console.log(obj.number);
-                    console.log(bodyScroll.style.overflow);
-                }
+                deleteWindow(bodyScroll, instaWindow);
             }
         });
+        
+        function deleteWindow(bodyScroll, instaWindow) {
+            instaWindow = document.querySelector(".RnEpo");
+            
+            if (instaWindow.classList.contains("Yx5HN") && bodyScroll.style.display !== "scroll")
+            {
+                instaWindow.style.display = "none";
+                bodyScroll.style.overflow = "scroll";
+                console.log("Good");
+                console.log(bodyScroll.style.overflow);
+            }
+        }
     });
-    
-    
 })
     
 ()
