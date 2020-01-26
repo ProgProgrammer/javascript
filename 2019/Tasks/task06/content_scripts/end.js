@@ -6,7 +6,7 @@
         setInterval(deleteWindow, 500);
     });
         
-    function deleteWindow(obj) {
+    function deleteWindow() {
         bodyScroll = document.querySelector("body");
         instaWindow = document.querySelector(".RnEpo");
             
