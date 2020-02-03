@@ -15,6 +15,11 @@
     top: 0;
     bottom: 0;
     position: absolute;
+    transition-property: transform;
+    transition-timing-function: linear;
+    background-image: url(img/museum.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 .window-blocks-arrow-left,
