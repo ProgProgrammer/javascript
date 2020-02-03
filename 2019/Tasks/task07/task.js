@@ -51,7 +51,7 @@
             }
             const slides = document.querySelectorAll(".window-blocks");
             slides[0].style.transform = "translate3d(-" + windowWidth + "px, 0px, 0px)";
-            slides[2].style.transform = "translate3d(" + windowWidth + "px, 0px, 0px)";
+            slides[slides.length - 1].style.transform = "translate3d(" + windowWidth + "px, 0px, 0px)";
             
             setTimeout(timingSlides, timing, slides);
         }
