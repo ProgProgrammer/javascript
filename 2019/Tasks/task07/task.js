@@ -6,6 +6,8 @@
     obj.windowWidth;
     obj.windowHeight;
     obj.slides;
+    obj.idSlides = [];
+    obj.centerSlide;
     
     window.addEventListener('DOMContentLoaded', ()=> {
         windowSlider = document.querySelector(".window");
@@ -52,8 +54,44 @@
             const slides = document.querySelectorAll(".window-blocks");
             slides[0].style.transform = "translate3d(-" + windowWidth + "px, 0px, 0px)";
             slides[slides.length - 1].style.transform = "translate3d(" + windowWidth + "px, 0px, 0px)";
-            
-            setTimeout(timingSlides, timing, slides);
+            slideLayout(slides);
+            if (timing !== "")
+            {
+                setTimeout(timingSlides, timing, slides);
+            }
+            else
+            {
+                setTimeout(timingSlides, 500, slides);
+            }
+            console.log("Hello");
+        }
+        
+        function slideLayout(slides) {
+            for (let i = 0; i < slides.length; i++)
+            {
+                obj.idSlides[i] = i;
+            }
+            const a = searchFirstSlide(slides);
+            assignZIndex(a, slides);
+        }
+        
+        function searchFirstSlide(slides) {
+            let centerSlider = 0;
+            for (let i = 0; i < slides.length; i++) {
+                centerSlider += i;
+            }
+            centerSlider = centerSlider / slides.length;
+            return centerSlider;
+        }
+        
+        function assignZIndex(a, slides) {
+            for (let i = 0; i < obj.idSlides.length; i++)
+            {
+                if (obj.idSlides[i] !== a)
+                {
+                    slides[i].style.zIndex = -1;
+                }
+            }
         }
         
         function timingSlides(slides) {
