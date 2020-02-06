@@ -24,6 +24,14 @@
         window.addEventListener('resize', ()=> {
             createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows);
         });
+        
+        for (let i = 0; i < arrows.length; i++)
+        {
+            arrows[i].addEventListener('click', ()=> {
+                staticBlocks = document.querySelectorAll(".window-blocks");
+                mobileSlider(i, mobileBlock, staticBlocks);
+            });            
+        }
     });
     
     function createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows) {
@@ -42,11 +50,26 @@
             widthBlock = staticBlocks[a].offsetWidth;
         }
         
-        mobileBlock.style.width = widthBlock + "px";
+        mobileBlock.style.minWidth = widthBlock + "px";
         
         for (let b = 0; b < arrows.length; b++)
         {
             arrows[b].style.top = (heightMainblock / 2) - (arrows[b].offsetHeight / 2) + "px";
+        }
+    }
+    
+    function mobileSlider(i, mobileBlock, staticBlocks) {
+        let htmlTags;
+        if (i === 0)
+        {
+            htmlTags = staticBlocks[staticBlocks.length-1].outerHTML;
+            mobileBlock.insertAdjacentHTML("afterbegin", htmlTags);
+        }
+        else
+        {
+            htmlTags = staticBlocks[0].outerHTML;
+            console.log(htmlTags);
+            mobileBlock.insertAdjacentHTML("beforeend", htmlTags);
         }
     }
 })

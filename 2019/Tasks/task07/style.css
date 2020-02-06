@@ -13,7 +13,6 @@
 
 .window-block {
     top: 0;
-    left: 0;
     bottom: 0;
     position: absolute;
     transition-property: transform;
