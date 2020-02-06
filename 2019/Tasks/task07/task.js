@@ -28,6 +28,20 @@
             heightArrows(obj.windowHeight);
         });
         
+        for (let i = 0; i < arrows.length; i++)
+        {
+            arrows[i].addEventListener('click', ()=> {
+                if (i === 0)
+                {
+                    leftRightSlider(i);
+                }
+                else
+                {
+                    leftRightSlider(i);
+                }
+            });
+        }
+        
         function widthHeightWindow(windowWidth, windowHeight) {
             for (let i = 0; i < obj.slides.length; i++)
             {
@@ -63,7 +77,6 @@
             {
                 setTimeout(timingSlides, 500, slides);
             }
-            console.log("Hello");
         }
         
         function slideLayout(slides) {
@@ -109,6 +122,10 @@
                     slides[i].style.transitionDuration = 500 + "ms";
                 }
             }
+        }
+        
+        function leftRightSlider(i) {
+            
         }
     });
 })
