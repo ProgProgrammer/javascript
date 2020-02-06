@@ -21,7 +21,7 @@
         {
             mobileBlock.style.transitionDuration = 500 + "ms";
         }
-        createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows);
+        createSlider(mainBlock, timing, mobileBlock, arrows);
         
         window.addEventListener('resize', ()=> {
             createSlider(mainBlock, timing, mobileBlock, arrows);
@@ -65,28 +65,54 @@
         {
             htmlTags = staticBlocks[staticBlocks.length-1].outerHTML;
             mobileBlock.insertAdjacentHTML("afterbegin", htmlTags);
-            mobileBlock.style.left = "-" + staticBlocks[0].offsetWidth + "px";
-            
-            if (staticBlocks.length > 1)
-            {
-                staticBlocks[staticBlocks.length-1].remove();
-            }
-            
+            setTimeout(deleteTag, timing, staticBlocks, i);            
             obj.widthTransform += staticBlocks[0].offsetWidth;
-            mobileBlock.style.transform = "translate3d(" + staticBlocks[0].offsetWidth + "px, 0px, 0px)";
-            console.log(mobileBlock.style.left);
+            mobileBlock.style.left = "-" + obj.widthTransform + "px";
+            console.log(obj.widthTransform);
+            mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
         }
         else
         {
             htmlTags = staticBlocks[0].outerHTML;
             mobileBlock.insertAdjacentHTML("beforeend", htmlTags);
-            if (staticBlocks.length > 1)
-            {
-                staticBlocks[0].remove();
-            }
-            
+            setTimeout(deleteTag, timing, staticBlocks, i, mobileBlock);
+            console.log(obj.widthTransform);
             obj.widthTransform -= staticBlocks[0].offsetWidth;
-            mobileBlock.style.transform = "translate3d(" + staticBlocks[0].offsetWidth + "px, 0px, 0px)";
+            console.log(obj.widthTransform);
+            if (obj.widthTransform > 0)
+            {
+                mobileBlock.style.left =  obj.widthTransform + "px";
+            }
+            else
+            {
+                mobileBlock.style.left =  obj.widthTransform + "px";
+            }
+            console.log(obj.widthTransform);
+            console.log(obj.widthTransform < 0);
+            if (obj.widthTransform > 0)
+            {
+                mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
+            }
+            else
+            {
+                mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
+                console.log(mobileBlock.style.transform);
+            }
+        }
+    }
+    
+    function deleteTag(staticBlocks, i, mobileBlock) {
+        //console.log(staticBlocks.length);
+        staticBlocks = document.querySelectorAll(".window-blocks");
+        if (staticBlocks.length > 1 && i === 0)
+        {
+            staticBlocks[staticBlocks.length-1].remove();
+            console.log(staticBlocks);
+        }
+        else if (staticBlocks.length > 1 && i === 1)
+        {
+            staticBlocks[0].remove();
+            console.log(i);
         }
     }
 })
