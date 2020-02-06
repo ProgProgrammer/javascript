@@ -14,6 +14,7 @@
 .window-block {
     top: 0;
     bottom: 0;
+    display: flex;
     position: absolute;
     transition-property: transform;
     transition-timing-function: linear;

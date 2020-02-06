@@ -4,6 +4,8 @@
     let staticBlocks;
     let timing;
     let arrows;
+    let obj = {};
+    obj.widthTransform = 0;
     
     window.addEventListener('DOMContentLoaded', ()=>{
         mainBlock = document.querySelector(".window");
@@ -22,20 +24,21 @@
         createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows);
         
         window.addEventListener('resize', ()=> {
-            createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows);
+            createSlider(mainBlock, timing, mobileBlock, arrows);
         });
         
         for (let i = 0; i < arrows.length; i++)
         {
             arrows[i].addEventListener('click', ()=> {
                 staticBlocks = document.querySelectorAll(".window-blocks");
-                mobileSlider(i, mobileBlock, staticBlocks);
+                mobileSlider(i, mobileBlock, staticBlocks, timing);
             });            
         }
     });
     
-    function createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows) {
+    function createSlider(mainBlock, timing, mobileBlock, arrows) {
         let widthBlock;
+        staticBlocks = document.querySelectorAll(".window-blocks");
         const widthMainblock = mainBlock.offsetWidth;
         const heightMainblock = mainBlock.offsetHeight;
         
@@ -50,26 +53,40 @@
             widthBlock = staticBlocks[a].offsetWidth;
         }
         
-        mobileBlock.style.minWidth = widthBlock + "px";
-        
         for (let b = 0; b < arrows.length; b++)
         {
             arrows[b].style.top = (heightMainblock / 2) - (arrows[b].offsetHeight / 2) + "px";
         }
     }
     
-    function mobileSlider(i, mobileBlock, staticBlocks) {
+    function mobileSlider(i, mobileBlock, staticBlocks, timing) {
         let htmlTags;
         if (i === 0)
         {
             htmlTags = staticBlocks[staticBlocks.length-1].outerHTML;
             mobileBlock.insertAdjacentHTML("afterbegin", htmlTags);
+            mobileBlock.style.left = "-" + staticBlocks[0].offsetWidth + "px";
+            
+            if (staticBlocks.length > 1)
+            {
+                staticBlocks[staticBlocks.length-1].remove();
+            }
+            
+            obj.widthTransform += staticBlocks[0].offsetWidth;
+            mobileBlock.style.transform = "translate3d(" + staticBlocks[0].offsetWidth + "px, 0px, 0px)";
+            console.log(mobileBlock.style.left);
         }
         else
         {
             htmlTags = staticBlocks[0].outerHTML;
-            console.log(htmlTags);
             mobileBlock.insertAdjacentHTML("beforeend", htmlTags);
+            if (staticBlocks.length > 1)
+            {
+                staticBlocks[0].remove();
+            }
+            
+            obj.widthTransform -= staticBlocks[0].offsetWidth;
+            mobileBlock.style.transform = "translate3d(" + staticBlocks[0].offsetWidth + "px, 0px, 0px)";
         }
     }
 })
