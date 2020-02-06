@@ -11,12 +11,16 @@
     overflow: hidden;
 }
 
-.window-blocks {
+.window-block {
     top: 0;
+    left: 0;
     bottom: 0;
     position: absolute;
     transition-property: transform;
     transition-timing-function: linear;
+}
+
+.window-blocks {
     background-image: url(img/museum.jpg);
     background-size: cover;
     background-position: center;

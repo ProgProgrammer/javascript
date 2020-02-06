@@ -1,133 +1,54 @@
 (function () {
-    let windowSlider;
+    let mainBlock;
+    let mobileBlock;
+    let staticBlocks;
     let timing;
     let arrows;
-    let obj = {};
-    obj.windowWidth;
-    obj.windowHeight;
-    obj.slides;
-    obj.idSlides = [];
-    obj.centerSlide;
     
-    window.addEventListener('DOMContentLoaded', ()=> {
-        windowSlider = document.querySelector(".window");
-        obj.slides = document.querySelectorAll(".window-blocks");
-        timing = windowSlider.dataset.timing;
+    window.addEventListener('DOMContentLoaded', ()=>{
+        mainBlock = document.querySelector(".window");
+        timing = mainBlock.dataset.timing;
+        mobileBlock = document.querySelector(".window-block");
+        staticBlocks = document.querySelectorAll(".window-blocks");
         arrows = document.querySelectorAll(".arrow");
-        obj.windowWidth = windowSlider.offsetWidth;
-        obj.windowHeight = windowSlider.offsetHeight;
-        widthHeightWindow(obj.windowWidth, obj.windowHeight);
-        heightArrows(obj.windowHeight);
-        createSliders(obj.windowWidth);
+        if (timing !== "")
+        {
+            mobileBlock.style.transitionDuration = timing + "ms";
+        }
+        else
+        {
+            mobileBlock.style.transitionDuration = 500 + "ms";
+        }
+        createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows);
         
         window.addEventListener('resize', ()=> {
-            obj.windowWidth = windowSlider.offsetWidth;
-            obj.windowHeight = windowSlider.offsetHeight;
-            obj.slides = document.querySelectorAll(".window-blocks");
-            widthHeightWindow(obj.windowWidth, obj.windowHeight);
-            heightArrows(obj.windowHeight);
+            createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows);
         });
-        
-        for (let i = 0; i < arrows.length; i++)
-        {
-            arrows[i].addEventListener('click', ()=> {
-                if (i === 0)
-                {
-                    leftRightSlider(i);
-                }
-                else
-                {
-                    leftRightSlider(i);
-                }
-            });
-        }
-        
-        function widthHeightWindow(windowWidth, windowHeight) {
-            for (let i = 0; i < obj.slides.length; i++)
-            {
-                obj.slides[i].style.width = windowWidth + "px";
-                obj.slides[i].style.height = windowHeight + "px";
-            }            
-        }
-        
-        function heightArrows(windowHeight) {
-            let partHeight;
-            
-            for(let i = 0; i < arrows.length; i++)
-            {
-                partHeight = arrows[i].offsetHeight;
-                arrows[i].style.top = (windowHeight/2 - partHeight/2) + "px";
-            }
-        }
-        
-        function createSliders(windowWidth) {  
-            for (let a = 0; a < 2; a++)
-            {
-                windowSlider.insertAdjacentHTML("afterbegin", obj.slides[0].outerHTML);
-            }
-            const slides = document.querySelectorAll(".window-blocks");
-            slides[0].style.transform = "translate3d(-" + windowWidth + "px, 0px, 0px)";
-            slides[slides.length - 1].style.transform = "translate3d(" + windowWidth + "px, 0px, 0px)";
-            slideLayout(slides);
-            if (timing !== "")
-            {
-                setTimeout(timingSlides, timing, slides);
-            }
-            else
-            {
-                setTimeout(timingSlides, 500, slides);
-            }
-        }
-        
-        function slideLayout(slides) {
-            for (let i = 0; i < slides.length; i++)
-            {
-                obj.idSlides[i] = i;
-            }
-            const a = searchFirstSlide(slides);
-            assignZIndex(a, slides);
-        }
-        
-        function searchFirstSlide(slides) {
-            let centerSlider = 0;
-            for (let i = 0; i < slides.length; i++) {
-                centerSlider += i;
-            }
-            centerSlider = centerSlider / slides.length;
-            return centerSlider;
-        }
-        
-        function assignZIndex(a, slides) {
-            for (let i = 0; i < obj.idSlides.length; i++)
-            {
-                if (obj.idSlides[i] !== a)
-                {
-                    slides[i].style.zIndex = -1;
-                }
-            }
-        }
-        
-        function timingSlides(slides) {
-            if (timing !== "")
-            {
-                for (let i = 0; i < slides.length; i++)
-                {
-                    slides[i].style.transitionDuration = timing + "ms";
-                }
-            }   
-            else
-            {
-                for (let i = 0; i < slides.length; i++)
-                {
-                    slides[i].style.transitionDuration = 500 + "ms";
-                }
-            }
-        }
-        
-        function leftRightSlider(i) {
-            
-        }
     });
+    
+    function createSlider(mainBlock, timing, mobileBlock, staticBlocks, arrows) {
+        let widthBlock;
+        const widthMainblock = mainBlock.offsetWidth;
+        const heightMainblock = mainBlock.offsetHeight;
+        
+        for (let i = 0; i < staticBlocks.length; i++)
+        {
+            staticBlocks[i].style.width = widthMainblock + "px";
+            staticBlocks[i].style.height = heightMainblock + "px";
+        }
+        
+        for (let a = 0; a < staticBlocks.length; a++)
+        {
+            widthBlock = staticBlocks[a].offsetWidth;
+        }
+        
+        mobileBlock.style.width = widthBlock + "px";
+        
+        for (let b = 0; b < arrows.length; b++)
+        {
+            arrows[b].style.top = (heightMainblock / 2) - (arrows[b].offsetHeight / 2) + "px";
+        }
+    }
 })
 
 ()
