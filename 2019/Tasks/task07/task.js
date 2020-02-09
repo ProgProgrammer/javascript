@@ -114,7 +114,6 @@
     
     function deleteTag(staticBlocks, i, mobileBlock) 
     {
-        //console.log(staticBlocks.length);
         staticBlocks = document.querySelectorAll(".window-blocks");
         if (staticBlocks.length > 1 && i === 0)
         {
