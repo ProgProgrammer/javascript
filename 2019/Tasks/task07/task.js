@@ -97,7 +97,7 @@
                 console.log(obj.widthTransform);
                 obj.widthTransform -= staticBlocks[0].offsetWidth;
                 console.log(obj.widthTransform);
-                mobileBlock.style.left = "-" + obj.widthTransform + "px";
+                mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
                 mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
             }
             else
@@ -106,7 +106,7 @@
                 console.log(obj.widthTransform);
                 obj.widthTransform += staticBlocks[0].offsetWidth;
                 console.log(obj.widthTransform);
-                mobileBlock.style.left = obj.widthTransform + "px";
+                mobileBlock.style.left = (obj.widthTransform - staticBlocks[0].offsetWidth) + "px";
                 mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
             }
         }
@@ -122,7 +122,7 @@
         }
         else if (staticBlocks.length > 1 && i === 1)
         {
-            staticBlocks[0].remove();
+            staticBlocks[2].remove();
             //console.log(i);
         }
     }
