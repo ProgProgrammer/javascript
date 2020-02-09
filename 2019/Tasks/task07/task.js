@@ -120,7 +120,7 @@
             staticBlocks[staticBlocks.length-1].remove();
             //console.log(staticBlocks);
         }
-        else if (staticBlocks.length > 1 && i === 1)
+        else if (staticBlocks.length > 1 && i === 1 && staticBlocks[2] !== undefined && staticBlocks[2] !== null)
         {
             staticBlocks[2].remove();
             //console.log(i);
