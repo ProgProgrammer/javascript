@@ -1,4 +1,5 @@
-(function () {
+(function () 
+{
     let mainBlock;
     let mobileBlock;
     let staticBlocks;
@@ -7,7 +8,8 @@
     let obj = {};
     obj.widthTransform = 0;
     
-    window.addEventListener('DOMContentLoaded', ()=>{
+    window.addEventListener('DOMContentLoaded', ()=>
+    {
         mainBlock = document.querySelector(".window");
         timing = mainBlock.dataset.timing;
         mobileBlock = document.querySelector(".window-block");
@@ -23,7 +25,8 @@
         }
         createSlider(mainBlock, timing, mobileBlock, arrows);
         
-        window.addEventListener('resize', ()=> {
+        window.addEventListener('resize', ()=> 
+        {
             createSlider(mainBlock, timing, mobileBlock, arrows);
         });
         
@@ -36,7 +39,8 @@
         }
     });
     
-    function createSlider(mainBlock, timing, mobileBlock, arrows) {
+    function createSlider(mainBlock, timing, mobileBlock, arrows) 
+    {
         let widthBlock;
         staticBlocks = document.querySelectorAll(".window-blocks");
         const widthMainblock = mainBlock.offsetWidth;
@@ -59,60 +63,68 @@
         }
     }
     
-    function mobileSlider(i, mobileBlock, staticBlocks, timing) {
+    function mobileSlider(i, mobileBlock, staticBlocks, timing) 
+    {
         let htmlTags;
         if (i === 0)
         {
             htmlTags = staticBlocks[staticBlocks.length-1].outerHTML;
-            mobileBlock.insertAdjacentHTML("afterbegin", htmlTags);
-            setTimeout(deleteTag, timing, staticBlocks, i);            
-            obj.widthTransform += staticBlocks[0].offsetWidth;
-            mobileBlock.style.left = "-" + obj.widthTransform + "px";
-            console.log(obj.widthTransform);
-            mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
+            mobileBlock.insertAdjacentHTML("afterbegin", htmlTags);    
+            setTimeout(deleteTag, timing, staticBlocks, i);
+            
+            if (/-/.test(mobileBlock.style.transform) === true)
+            {
+                obj.widthTransform -= staticBlocks[0].offsetWidth;
+                mobileBlock.style.left = obj.widthTransform + "px";
+                mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
+            }
+            else
+            {
+                obj.widthTransform += staticBlocks[0].offsetWidth;
+                mobileBlock.style.left = "-" + obj.widthTransform + "px";
+                //console.log(obj.widthTransform);
+                mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
+            }
+            
         }
         else
         {
             htmlTags = staticBlocks[0].outerHTML;
             mobileBlock.insertAdjacentHTML("beforeend", htmlTags);
             setTimeout(deleteTag, timing, staticBlocks, i, mobileBlock);
-            console.log(obj.widthTransform);
-            obj.widthTransform -= staticBlocks[0].offsetWidth;
-            console.log(obj.widthTransform);
-            if (obj.widthTransform > 0)
+            if (obj.widthTransform > 0 && (/-/.test(mobileBlock.style.transform) === false))
             {
-                mobileBlock.style.left =  obj.widthTransform + "px";
-            }
-            else
-            {
-                mobileBlock.style.left =  obj.widthTransform + "px";
-            }
-            console.log(obj.widthTransform);
-            console.log(obj.widthTransform < 0);
-            if (obj.widthTransform > 0)
-            {
+                console.log(obj.widthTransform);
+                obj.widthTransform -= staticBlocks[0].offsetWidth;
+                console.log(obj.widthTransform);
+                mobileBlock.style.left = "-" + obj.widthTransform + "px";
                 mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
             }
             else
             {
-                mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
                 console.log(mobileBlock.style.transform);
+                console.log(obj.widthTransform);
+                obj.widthTransform += staticBlocks[0].offsetWidth;
+                console.log(obj.widthTransform);
+                mobileBlock.style.left = obj.widthTransform + "px";
+                mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
             }
         }
     }
     
-    function deleteTag(staticBlocks, i, mobileBlock) {
+    function deleteTag(staticBlocks, i, mobileBlock) 
+    {
         //console.log(staticBlocks.length);
         staticBlocks = document.querySelectorAll(".window-blocks");
         if (staticBlocks.length > 1 && i === 0)
         {
             staticBlocks[staticBlocks.length-1].remove();
-            console.log(staticBlocks);
+            //console.log(staticBlocks);
         }
         else if (staticBlocks.length > 1 && i === 1)
         {
             staticBlocks[0].remove();
-            console.log(i);
+            //console.log(i);
         }
     }
 })
