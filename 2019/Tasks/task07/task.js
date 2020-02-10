@@ -5,6 +5,7 @@
     let staticBlocks;
     let timing;
     let arrows;
+    let trafficSlider;
     let obj = {};
     obj.widthTransform = 0;
     
@@ -15,6 +16,7 @@
         mobileBlock = document.querySelector(".window-block");
         staticBlocks = document.querySelectorAll(".window-blocks");
         arrows = document.querySelectorAll(".arrow");
+        
         if (timing !== "")
         {
             mobileBlock.style.transitionDuration = timing + "ms";
@@ -34,7 +36,7 @@
         {
             arrows[i].addEventListener('click', ()=> {
                 staticBlocks = document.querySelectorAll(".window-blocks");
-                mobileSlider(i, mobileBlock, staticBlocks, timing);
+                mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock);
             });            
         }
     });
@@ -63,14 +65,25 @@
         }
     }
     
-    function mobileSlider(i, mobileBlock, staticBlocks, timing) 
+    function mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock) 
     {
         let htmlTags;
+        trafficSlider = mainBlock.dataset.trafficSlider;
+        
+        if (trafficSlider === "true")
+        {
+            mainBlock.dataset.trafficSlider = false;
+        }
+        else
+        {
+            return;
+        }
+        
         if (i === 0)
         {
             htmlTags = staticBlocks[staticBlocks.length-1].outerHTML;
             mobileBlock.insertAdjacentHTML("afterbegin", htmlTags);    
-            setTimeout(deleteTag, timing, staticBlocks, i);
+            setTimeout(deleteTag, timing, staticBlocks, i, mobileBlock, mainBlock);
             
             if (/-/.test(mobileBlock.style.transform) === true)
             {
@@ -91,7 +104,7 @@
         {
             htmlTags = staticBlocks[0].outerHTML;
             mobileBlock.insertAdjacentHTML("beforeend", htmlTags);
-            setTimeout(deleteTag, timing, staticBlocks, i, mobileBlock);
+            setTimeout(deleteTag, timing, staticBlocks, i, mobileBlock, mainBlock);
             if (obj.widthTransform > 0 && (/-/.test(mobileBlock.style.transform) === false))
             {
                 console.log(obj.widthTransform);
@@ -112,9 +125,10 @@
         }
     }
     
-    function deleteTag(staticBlocks, i, mobileBlock) 
+    function deleteTag(staticBlocks, i, mobileBlock, mainBlock) 
     {
         staticBlocks = document.querySelectorAll(".window-blocks");
+            mainBlock.dataset.trafficSlider = true;
         if (staticBlocks.length > 1 && i === 0)
         {
             staticBlocks[staticBlocks.length-1].remove();
