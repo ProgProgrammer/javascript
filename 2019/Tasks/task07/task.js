@@ -15,6 +15,7 @@
         timing = mainBlock.dataset.timing;
         mobileBlock = document.querySelector(".window-block");
         staticBlocks = document.querySelectorAll(".window-blocks");
+        obj.staticBlocksLength = staticBlocks.length;
         arrows = document.querySelectorAll(".arrow");
         
         if (timing !== "")
@@ -128,16 +129,38 @@
     function deleteTag(staticBlocks, i, mobileBlock, mainBlock) 
     {
         staticBlocks = document.querySelectorAll(".window-blocks");
-            mainBlock.dataset.trafficSlider = true;
+        mainBlock.dataset.trafficSlider = true;
         if (staticBlocks.length > 1 && i === 0)
         {
             staticBlocks[staticBlocks.length-1].remove();
             //console.log(staticBlocks);
         }
-        else if (staticBlocks.length > 1 && i === 1 && staticBlocks[2] !== undefined && staticBlocks[2] !== null)
+        else if (obj.staticBlocksLength === 1 && i === 1 && staticBlocks[2] !== undefined && staticBlocks[2] !== null)
         {
             staticBlocks[2].remove();
-            //console.log(i);
+            console.log(i);
+        }
+        else if (obj.staticBlocksLength > 1)
+        {
+            staticBlocks[0].remove();
+            console.log(i);
+            console.log(mobileBlock.style.left);
+            console.log(/-/.test(mobileBlock.style.left));
+            
+            if (/-/.test(mobileBlock.style.left) === true)
+            {
+                mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
+                console.log(mobileBlock.style.left);
+            }
+            else
+            {
+                mobileBlock.style.left = (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
+                console.log(mobileBlock.style.left);
+            }
+        }
+        else
+        {
+            return;
         }
     }
 })
