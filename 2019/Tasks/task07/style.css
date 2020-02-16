@@ -27,6 +27,14 @@
     background-repeat: no-repeat;
 }
 
+.window-blocks.smoke {
+    background-image: url(img/smoke.jpg);
+}
+
+.window-blocks.pred {
+    background-image: url(img/pred.jpg);
+}
+
 .window-blocks-arrow-left,
 .window-blocks-arrow-right {
     top: 50%;
