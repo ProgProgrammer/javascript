@@ -35,6 +35,28 @@
     background-image: url(img/pred.jpg);
 }
 
+.window-block-pagination {
+    left: 0;
+    right: 0;
+    bottom: 40px;
+    display: none;
+    position: absolute;
+}
+
+.window-block-pagination-block {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.window-block-pagination-block-bullet {
+    margin: 0 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: grey;
+}
+
 .window-blocks-arrow-left,
 .window-blocks-arrow-right {
     top: 50%;
@@ -70,7 +92,7 @@
 .window-blocks-arrow-left:hover .window-blocks-arrow-left-bottom,
 .window-blocks-arrow-right:hover .window-blocks-arrow-right-top,
 .window-blocks-arrow-right:hover .window-blocks-arrow-right-bottom {
-    background-color: black;
+    background-color: white;
 }
 
 .window-blocks-arrow-right-top {
