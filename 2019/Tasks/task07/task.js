@@ -48,12 +48,12 @@
         {
             if (autoTiming === "")
             {
-                const a = 1;
+                const direction = 1;
                 setInterval(autoSlider, 5000, a, mobileBlock, timing, mainBlock);
             }
             else
             {
-                const a = 1;
+                const direction = 1;
                 setInterval(autoSlider, autoTiming, a, mobileBlock, timing, mainBlock);
             }
         }
@@ -61,12 +61,12 @@
         {
             if (autoTiming === "")
             {
-                const a = 0;
+                const direction = 0;
                 setInterval(autoSlider, 5000, a, mobileBlock, timing, mainBlock);
             }
             else
             {
-                const a = 0;
+                const direction = 0;
                 setInterval(autoSlider, autoTiming, a, mobileBlock, timing, mainBlock);
             }
         }
