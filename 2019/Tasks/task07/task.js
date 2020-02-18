@@ -7,6 +7,8 @@
     let arrows;
     let trafficSlider;
     let autoDirection;
+    let dataPagination;
+    let bullet;
     let obj = {};
     obj.widthTransform = 0;
     
@@ -16,8 +18,11 @@
         timing = mainBlock.dataset.timing;
         autoTiming = mainBlock.dataset.autoTiming;
         autoDirection = mainBlock.dataset.autoDirection;
+        dataPagination = mainBlock.dataset.pagination;
         mobileBlock = document.querySelector(".window-block");
         staticBlocks = document.querySelectorAll(".window-blocks");
+        pagination = document.querySelector(".window-block-pagination");
+        bullet = pagination.querySelector(".window-block-pagination-block-bullet");
         obj.staticBlocksLength = staticBlocks.length;
         arrows = document.querySelectorAll(".arrow");
         
@@ -27,9 +32,19 @@
         }
         else
         {
-            mobileBlock.style.transitionDuration = 500 + "ms";
+            timing = 500;
+            mobileBlock.style.transitionDuration = timing + "ms";
         }
+        
         createSlider(mainBlock, timing, mobileBlock, arrows);
+        
+        if (dataPagination === "yes")
+        {
+            if (staticBlocks.length !== 1)
+            {
+                createPagination(staticBlocks, pagination, bullet);
+            }
+        }
         
         window.addEventListener('resize', ()=> 
         {
@@ -44,30 +59,32 @@
             });            
         }
         
-        if (autoDirection === "right")
+        if (autoDirection === "right" || autoDirection === "yes")
         {
-            if (autoTiming === "")
+            if (autoTiming === "yes")
             {
                 const direction = 1;
-                setInterval(autoSlider, 5000, a, mobileBlock, timing, mainBlock);
+                autoTiming = 5000;
+                setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
             }
-            else
+            else if (autoTiming !== "")
             {
                 const direction = 1;
-                setInterval(autoSlider, autoTiming, a, mobileBlock, timing, mainBlock);
+                setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
             }
         }
         else if (autoDirection === "left")
         {
-            if (autoTiming === "")
+            if (autoTiming === "yes")
             {
                 const direction = 0;
-                setInterval(autoSlider, 5000, a, mobileBlock, timing, mainBlock);
+                autoTiming = 5000;
+                setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
             }
-            else
+            else if (autoTiming !== "")
             {
                 const direction = 0;
-                setInterval(autoSlider, autoTiming, a, mobileBlock, timing, mainBlock);
+                setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
             }
         }
     });
@@ -100,6 +117,24 @@
         {
             arrows[b].style.top = (heightMainblock / 2) - (arrows[b].offsetHeight / 2) + "px";
         }
+    }
+    
+    function createPagination(staticBlocks, pagination, bullet)
+    {
+        let htmlBullet;
+        const paginationBlock = pagination.querySelector(".window-block-pagination-block");
+        pagination.style.display = "flex";
+        
+        htmlBullet = bullet.outerHTML;
+        
+        for (let i = 0; i < staticBlocks.length-1; i++)
+        {
+            paginationBlock.insertAdjacentHTML("afterbegin", htmlBullet);             
+        }
+        
+        const blockBullet = pagination.querySelectorAll(".window-block-pagination-block-bullet");
+        blockBullet[0].style.backgroundColor = "white";
+        obj.bullets = blockBullet;
     }
     
     function mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock) 
