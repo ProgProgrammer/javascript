@@ -6,6 +6,7 @@
     let timing;
     let arrows;
     let trafficSlider;
+    let autoDirection;
     let obj = {};
     obj.widthTransform = 0;
     
@@ -13,6 +14,8 @@
     {
         mainBlock = document.querySelector(".window");
         timing = mainBlock.dataset.timing;
+        autoTiming = mainBlock.dataset.autoTiming;
+        autoDirection = mainBlock.dataset.autoDirection;
         mobileBlock = document.querySelector(".window-block");
         staticBlocks = document.querySelectorAll(".window-blocks");
         obj.staticBlocksLength = staticBlocks.length;
@@ -40,7 +43,40 @@
                 mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock);
             });            
         }
+        
+        if (autoDirection === "right")
+        {
+            if (autoTiming === "")
+            {
+                const a = 1;
+                setInterval(autoSlider, 5000, a, mobileBlock, timing, mainBlock);
+            }
+            else
+            {
+                const a = 1;
+                setInterval(autoSlider, autoTiming, a, mobileBlock, timing, mainBlock);
+            }
+        }
+        else if (autoDirection === "left")
+        {
+            if (autoTiming === "")
+            {
+                const a = 0;
+                setInterval(autoSlider, 5000, a, mobileBlock, timing, mainBlock);
+            }
+            else
+            {
+                const a = 0;
+                setInterval(autoSlider, autoTiming, a, mobileBlock, timing, mainBlock);
+            }
+        }
     });
+    
+    function autoSlider(i, mobileBlock, timing, mainBlock)
+    {
+        staticBlocks = document.querySelectorAll(".window-blocks");
+        mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock);
+    }
     
     function createSlider(mainBlock, timing, mobileBlock, arrows) 
     {
