@@ -10,6 +10,7 @@
     let dataPagination;
     let bullet;
     let obj = {};
+    obj.sliderInterval;
     obj.widthTransform = 0;
     
     window.addEventListener('DOMContentLoaded', ()=>
@@ -55,45 +56,16 @@
         {
             arrows[i].addEventListener('click', ()=> {
                 staticBlocks = document.querySelectorAll(".window-blocks");
+                clearInterval(obj.sliderInterval);
+                clearInterval(obj.sliderInterval);
                 mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock);
+                sliderInterval(autoDirection, autoTiming, mobileBlock, timing, mainBlock);
             });            
         }
         
-        if (autoDirection === "right" || autoDirection === "yes")
-        {
-            if (autoTiming === "yes")
-            {
-                const direction = 1;
-                autoTiming = 5000;
-                setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
-            }
-            else if (autoTiming !== "")
-            {
-                const direction = 1;
-                setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
-            }
-        }
-        else if (autoDirection === "left")
-        {
-            if (autoTiming === "yes")
-            {
-                const direction = 0;
-                autoTiming = 5000;
-                setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
-            }
-            else if (autoTiming !== "")
-            {
-                const direction = 0;
-                setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
-            }
-        }
+        sliderInterval(autoDirection, autoTiming, mobileBlock, timing, mainBlock);
+        
     });
-    
-    function autoSlider(i, mobileBlock, timing, mainBlock)
-    {
-        staticBlocks = document.querySelectorAll(".window-blocks");
-        mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock);
-    }
     
     function createSlider(mainBlock, timing, mobileBlock, arrows) 
     {
@@ -135,6 +107,43 @@
         const blockBullet = pagination.querySelectorAll(".window-block-pagination-block-bullet");
         blockBullet[0].style.backgroundColor = "white";
         obj.bullets = blockBullet;
+    }
+    
+    function sliderInterval(autoDirection, autoTiming, mobileBlock, timing, mainBlock)
+    {
+        let direction;
+        if (autoDirection === "right" || autoDirection === "yes")
+        {
+            if (autoTiming === "yes")
+            {
+                direction = 1;
+                autoTiming = 5000;
+            }
+            else if (autoTiming !== "")
+            {
+                direction = 1;
+            }
+        }
+        else if (autoDirection === "left")
+        {
+            if (autoTiming === "yes")
+            {
+                direction = 0;
+                autoTiming = 5000;
+            }
+            else if (autoTiming !== "")
+            {
+                direction = 0;
+            }
+        }
+        
+        obj.sliderInterval = setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
+    }
+    
+    function autoSlider(i, mobileBlock, timing, mainBlock)
+    {
+        staticBlocks = document.querySelectorAll(".window-blocks");
+        mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock);
     }
     
     function mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock) 
