@@ -139,8 +139,10 @@ mobileSliderObject.mobileSlider = function (i, mobileBlock, staticBlocks, timing
   if (trafficSlider === "true") {
     mainBlock.dataset.trafficSlider = false;
 
-    if (mainBlock.dataset.pagination === "yes") {
+    if (mainBlock.dataset.pagination === "yes" && mainBlock.dataset.paginationTimeout !== "yes") {
       mobileSliderObject.paginationMoving(i, obj);
+    } else if (mainBlock.dataset.pagination === "yes" && mainBlock.dataset.paginationTimeout === "yes") {
+      setTimeout(mobileSliderObject.paginationMoving, timing, i, obj);
     }
   } else {
     return;

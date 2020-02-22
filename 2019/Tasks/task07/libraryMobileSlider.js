@@ -14,9 +14,13 @@ mobileSliderObject.mobileSlider = (i, mobileBlock, staticBlocks, timing, mainBlo
     if (trafficSlider === "true")
     {
         mainBlock.dataset.trafficSlider = false;
-        if (mainBlock.dataset.pagination === "yes")
+        if (mainBlock.dataset.pagination === "yes" && mainBlock.dataset.paginationTimeout !== "yes")
         {
             mobileSliderObject.paginationMoving(i, obj);
+        }
+        else if (mainBlock.dataset.pagination === "yes" && mainBlock.dataset.paginationTimeout === "yes")
+        {
+            setTimeout(mobileSliderObject.paginationMoving, timing, i, obj);
         }
     }
     else
