@@ -1,11 +1,14 @@
-(function () 
+import { mobileSliderObject } from "./libraryMobileSlider.js";
+
+(function ()
 {
     let mainBlock;
     let mobileBlock;
     let staticBlocks;
     let timing;
     let arrows;
-    let trafficSlider;
+    let autoTiming;
+    let pagination;
     let autoDirection;
     let dataPagination;
     let bullet;
@@ -41,7 +44,7 @@
         
         if (dataPagination === "yes")
         {
-            if (staticBlocks.length !== 1)
+            if (staticBlocks.length > 1)
             {
                 createPagination(staticBlocks, pagination, bullet);
             }
@@ -58,7 +61,7 @@
                 staticBlocks = document.querySelectorAll(".window-blocks");
                 clearInterval(obj.sliderInterval);
                 clearInterval(obj.sliderInterval);
-                mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock);
+                mobileSliderObject.mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock, obj);
                 sliderInterval(autoDirection, autoTiming, mobileBlock, timing, mainBlock);
             });            
         }
@@ -67,7 +70,7 @@
         
     });
     
-    function createSlider(mainBlock, timing, mobileBlock, arrows) 
+    const createSlider = (mainBlock, timing, mobileBlock, arrows) =>
     {
         let widthBlock;
         staticBlocks = document.querySelectorAll(".window-blocks");
@@ -90,8 +93,8 @@
             arrows[b].style.top = (heightMainblock / 2) - (arrows[b].offsetHeight / 2) + "px";
         }
     }
-    
-    function createPagination(staticBlocks, pagination, bullet)
+
+    const createPagination = (staticBlocks, pagination, bullet) =>
     {
         let htmlBullet;
         const paginationBlock = pagination.querySelector(".window-block-pagination-block");
@@ -108,8 +111,8 @@
         blockBullet[0].style.backgroundColor = "white";
         obj.bullets = blockBullet;
     }
-    
-    function sliderInterval(autoDirection, autoTiming, mobileBlock, timing, mainBlock)
+
+    const sliderInterval = (autoDirection, autoTiming, mobileBlock, timing, mainBlock) =>
     {
         let direction;
         if (autoDirection === "right" || autoDirection === "yes")
@@ -139,109 +142,11 @@
         
         obj.sliderInterval = setInterval(autoSlider, autoTiming, direction, mobileBlock, timing, mainBlock);
     }
-    
-    function autoSlider(i, mobileBlock, timing, mainBlock)
+
+    const autoSlider = (i, mobileBlock, timing, mainBlock) =>
     {
         staticBlocks = document.querySelectorAll(".window-blocks");
-        mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock);
-    }
-    
-    function mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock) 
-    {
-        let htmlTags;
-        trafficSlider = mainBlock.dataset.trafficSlider;
-        
-        if (trafficSlider === "true")
-        {
-            mainBlock.dataset.trafficSlider = false;
-        }
-        else
-        {
-            return;
-        }
-        
-        if (i === 0)
-        {
-            htmlTags = staticBlocks[staticBlocks.length-1].outerHTML;
-            mobileBlock.insertAdjacentHTML("afterbegin", htmlTags);    
-            setTimeout(deleteTag, timing, staticBlocks, i, mobileBlock, mainBlock);
-            
-            if (/-/.test(mobileBlock.style.transform) === true)
-            {
-                obj.widthTransform -= staticBlocks[0].offsetWidth;
-                mobileBlock.style.left = obj.widthTransform + "px";
-                mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
-            }
-            else
-            {
-                obj.widthTransform += staticBlocks[0].offsetWidth;
-                mobileBlock.style.left = "-" + obj.widthTransform + "px";
-                //console.log(obj.widthTransform);
-                mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
-            }
-            
-        }
-        else
-        {
-            htmlTags = staticBlocks[0].outerHTML;
-            mobileBlock.insertAdjacentHTML("beforeend", htmlTags);
-            setTimeout(deleteTag, timing, staticBlocks, i, mobileBlock, mainBlock);
-            if (obj.widthTransform > 0 && (/-/.test(mobileBlock.style.transform) === false))
-            {
-                console.log(obj.widthTransform);
-                obj.widthTransform -= staticBlocks[0].offsetWidth;
-                console.log(obj.widthTransform);
-                mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
-                mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
-            }
-            else
-            {
-                console.log(mobileBlock.style.transform);
-                console.log(obj.widthTransform);
-                obj.widthTransform += staticBlocks[0].offsetWidth;
-                console.log(obj.widthTransform);
-                mobileBlock.style.left = (obj.widthTransform - staticBlocks[0].offsetWidth) + "px";
-                mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
-            }
-        }
-    }
-    
-    function deleteTag(staticBlocks, i, mobileBlock, mainBlock) 
-    {
-        staticBlocks = document.querySelectorAll(".window-blocks");
-        mainBlock.dataset.trafficSlider = true;
-        if (staticBlocks.length > 1 && i === 0)
-        {
-            staticBlocks[staticBlocks.length-1].remove();
-            //console.log(staticBlocks);
-        }
-        else if (obj.staticBlocksLength === 1 && i === 1 && staticBlocks[2] !== undefined && staticBlocks[2] !== null)
-        {
-            staticBlocks[2].remove();
-            console.log(i);
-        }
-        else if (obj.staticBlocksLength > 1)
-        {
-            staticBlocks[0].remove();
-            console.log(i);
-            console.log(mobileBlock.style.left);
-            console.log(/-/.test(mobileBlock.style.left));
-            
-            if (/-/.test(mobileBlock.style.left) === true)
-            {
-                mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
-                console.log(mobileBlock.style.left);
-            }
-            else
-            {
-                mobileBlock.style.left = (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
-                console.log(mobileBlock.style.left);
-            }
-        }
-        else
-        {
-            return;
-        }
+        mobileSliderObject.mobileSlider(i, mobileBlock, staticBlocks, timing, mainBlock, obj);
     }
 })
 
