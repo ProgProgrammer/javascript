@@ -129,10 +129,19 @@ exports.mobileSliderObject = mobileSliderObject;
 
 mobileSliderObject.mobileSlider = function (i, mobileBlock, staticBlocks, timing, mainBlock, obj) {
   var htmlTags;
+  var blockBullets;
   var trafficSlider = mainBlock.dataset.trafficSlider;
+
+  if (mainBlock.dataset === "yes") {
+    blockBullets = document.querySelectorAll(".window-block-pagination-block-bullet");
+  }
 
   if (trafficSlider === "true") {
     mainBlock.dataset.trafficSlider = false;
+
+    if (mainBlock.dataset.pagination === "yes") {
+      mobileSliderObject.paginationMoving(i, obj);
+    }
   } else {
     return;
   }
@@ -158,18 +167,43 @@ mobileSliderObject.mobileSlider = function (i, mobileBlock, staticBlocks, timing
     setTimeout(mobileSliderObject.deleteTag, timing, staticBlocks, i, mobileBlock, mainBlock, obj);
 
     if (obj.widthTransform > 0 && /-/.test(mobileBlock.style.transform) === false) {
-      console.log(obj.widthTransform);
-      obj.widthTransform -= staticBlocks[0].offsetWidth;
-      console.log(obj.widthTransform);
+      //console.log(obj.widthTransform);
+      obj.widthTransform -= staticBlocks[0].offsetWidth; //console.log(obj.widthTransform);
+
       mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
       mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
     } else {
-      console.log(mobileBlock.style.transform);
-      console.log(obj.widthTransform);
-      obj.widthTransform += staticBlocks[0].offsetWidth;
-      console.log(obj.widthTransform);
+      //console.log(mobileBlock.style.transform);
+      //console.log(obj.widthTransform);
+      obj.widthTransform += staticBlocks[0].offsetWidth; //console.log(obj.widthTransform);
+
       mobileBlock.style.left = obj.widthTransform - staticBlocks[0].offsetWidth + "px";
       mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
+    }
+  }
+};
+
+mobileSliderObject.paginationMoving = function (i, obj) {
+  var bullets = document.querySelectorAll(".window-block-pagination-block-bullet");
+  var bulletId = obj.paginationBullet;
+  bullets[bulletId].style.backgroundColor = "grey";
+  console.log(i);
+
+  if (i === 0) {
+    if (bulletId > 0) {
+      bullets[bulletId - 1].style.backgroundColor = "white";
+      obj.paginationBullet = bulletId - 1;
+    } else {
+      bullets[bullets.length - 1].style.backgroundColor = "white";
+      obj.paginationBullet = bullets.length - 1;
+    }
+  } else if (i === 1) {
+    if (bulletId < bullets.length - 1) {
+      bullets[bulletId + 1].style.backgroundColor = "white";
+      obj.paginationBullet = bulletId + 1;
+    } else {
+      bullets[0].style.backgroundColor = "white";
+      obj.paginationBullet = 0;
     }
   }
 };
@@ -181,20 +215,16 @@ mobileSliderObject.deleteTag = function (staticBlocks, i, mobileBlock, mainBlock
   if (staticBlocks.length > 1 && i === 0) {
     staticBlocks[staticBlocks.length - 1].remove(); //console.log(staticBlocks);
   } else if (obj.staticBlocksLength === 1 && i === 1 && staticBlocks[2] !== undefined && staticBlocks !== null) {
-    staticBlocks[2].remove();
-    console.log(i);
+    staticBlocks[2].remove(); //console.log(i);
   } else if (obj.staticBlocksLength > 1) {
-    staticBlocks[0].remove();
-    console.log(i);
-    console.log(mobileBlock.style.left);
-    console.log(/-/.test(mobileBlock.style.left));
+    staticBlocks[0].remove(); //console.log(i);
+    //console.log(mobileBlock.style.left);
+    //console.log(/-/.test(mobileBlock.style.left));
 
     if (/-/.test(mobileBlock.style.left) === true) {
-      mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
-      console.log(mobileBlock.style.left);
+      mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px"; //console.log(mobileBlock.style.left);
     } else {
-      mobileBlock.style.left = obj.widthTransform + staticBlocks[0].offsetWidth + "px";
-      console.log(mobileBlock.style.left);
+      mobileBlock.style.left = obj.widthTransform + staticBlocks[0].offsetWidth + "px"; //console.log(mobileBlock.style.left);
     }
   } else {
     return;
@@ -219,6 +249,7 @@ var _libraryMobileSlider = require("./libraryMobileSlider.js");
   var obj = {};
   obj.sliderInterval;
   obj.widthTransform = 0;
+  obj.paginationBullet = 0;
   window.addEventListener('DOMContentLoaded', function () {
     mainBlock = document.querySelector(".window");
     timing = mainBlock.dataset.timing;
@@ -302,7 +333,6 @@ var _libraryMobileSlider = require("./libraryMobileSlider.js");
 
     var blockBullet = pagination.querySelectorAll(".window-block-pagination-block-bullet");
     blockBullet[0].style.backgroundColor = "white";
-    obj.bullets = blockBullet;
   };
 
   var sliderInterval = function sliderInterval(autoDirection, autoTiming, mobileBlock, timing, mainBlock) {
@@ -361,7 +391,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60693" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62457" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

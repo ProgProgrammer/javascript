@@ -15,6 +15,7 @@ import { mobileSliderObject } from "./libraryMobileSlider.js";
     let obj = {};
     obj.sliderInterval;
     obj.widthTransform = 0;
+    obj.paginationBullet = 0;
     
     window.addEventListener('DOMContentLoaded', ()=>
     {
@@ -109,7 +110,6 @@ import { mobileSliderObject } from "./libraryMobileSlider.js";
         
         const blockBullet = pagination.querySelectorAll(".window-block-pagination-block-bullet");
         blockBullet[0].style.backgroundColor = "white";
-        obj.bullets = blockBullet;
     }
 
     const sliderInterval = (autoDirection, autoTiming, mobileBlock, timing, mainBlock) =>
