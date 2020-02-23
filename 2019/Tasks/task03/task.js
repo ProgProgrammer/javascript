@@ -1,24 +1,34 @@
-window.onload = main();
+(function ()
+{
 
-function main() {
-    const square_Window = document.querySelector(".square");
+    window.addEventListener('load', main());
 
-    square_Window.onmousedown = (event) => {
-        square_Window.style.position = 'absolute';
-        mouseDragAndDrop(event.pageX, event.pageY);
-        document.addEventListener('mousemove', mouseMoving);
+    function main()
+    {
+        const square_Window = document.querySelector(".square");
+
+        square_Window.addEventListener('mousedown', (event) =>
+        {
+            square_Window.style.position = 'absolute';
+            mouseDragAndDrop(event.pageX, event.pageY);
+            document.addEventListener('mousemove', mouseMoving);
+        });
+
+        square_Window.addEventListener('mouseup', () =>
+        {
+            document.removeEventListener('mousemove', mouseMoving);
+        });
 
         function mouseMoving(event) {
             mouseDragAndDrop(event.pageX, event.pageY);
         }
 
-        square_Window.onmouseup = () => {
-            document.removeEventListener('mousemove', mouseMoving);
+        function mouseDragAndDrop(pageX, pageY) {
+            square_Window.style.top = pageY - square_Window.offsetHeight + 'px';
+            square_Window.style.left = pageX - square_Window.offsetWidth + 'px';
         }
     }
 
-    function mouseDragAndDrop(pageX, pageY) {
-        square_Window.style.top = pageY - square_Window.offsetHeight + 'px';
-        square_Window.style.left = pageX - square_Window.offsetWidth + 'px';
-    }
-}
+})
+
+()
