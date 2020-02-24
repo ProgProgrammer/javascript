@@ -1,0 +1,19 @@
+﻿{
+    "manifest_version": 2,
+ 
+    "name": "Adding images",
+    "version": "1.0.0.1",
+	
+	"permissions": [      // разрешения
+		"tabs","https://yandex.ru/*"
+	],
+ 
+    "content_scripts": [
+        {
+            "matches": [ "https://*.yandex.ru/*" ],
+            "js": [ "content_scripts/end.js" ],
+            "run_at": "document_end",
+			"all_frames": true
+        }
+    ]
+}
