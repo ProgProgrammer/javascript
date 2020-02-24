@@ -44,7 +44,6 @@ mobileSliderObject.mobileSlider = (i, mobileBlock, staticBlocks, timing, mainBlo
         {
             obj.widthTransform += staticBlocks[0].offsetWidth;
             mobileBlock.style.left = "-" + obj.widthTransform + "px";
-            //console.log(obj.widthTransform);
             mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
         }
 
@@ -56,18 +55,13 @@ mobileSliderObject.mobileSlider = (i, mobileBlock, staticBlocks, timing, mainBlo
         setTimeout(mobileSliderObject.deleteTag, timing, staticBlocks, i, mobileBlock, mainBlock, obj);
         if (obj.widthTransform > 0 && (/-/.test(mobileBlock.style.transform) === false))
         {
-            //console.log(obj.widthTransform);
             obj.widthTransform -= staticBlocks[0].offsetWidth;
-            //console.log(obj.widthTransform);
             mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
             mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
         }
         else
         {
-            //console.log(mobileBlock.style.transform);
-            //console.log(obj.widthTransform);
             obj.widthTransform += staticBlocks[0].offsetWidth;
-            //console.log(obj.widthTransform);
             mobileBlock.style.left = (obj.widthTransform - staticBlocks[0].offsetWidth) + "px";
             mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
         }
@@ -79,7 +73,6 @@ mobileSliderObject.paginationMoving = (i, obj) =>
     const bullets = document.querySelectorAll(".window-block-pagination-block-bullet");
     let bulletId = obj.paginationBullet;
     bullets[bulletId].style.backgroundColor = "grey";
-    console.log(i);
 
     if (i === 0)
     {
@@ -116,7 +109,6 @@ mobileSliderObject.deleteTag = (staticBlocks, i, mobileBlock, mainBlock, obj) =>
     if (staticBlocks.length > 1 && i === 0)
     {
         staticBlocks[staticBlocks.length-1].remove();
-        //console.log(staticBlocks);
     }
     else if (obj.staticBlocksLength === 1 && i === 1 && staticBlocks[2] !== undefined && staticBlocks!== null)
     {
@@ -126,19 +118,14 @@ mobileSliderObject.deleteTag = (staticBlocks, i, mobileBlock, mainBlock, obj) =>
     else if (obj.staticBlocksLength > 1)
     {
         staticBlocks[0].remove();
-        //console.log(i);
-        //console.log(mobileBlock.style.left);
-        //console.log(/-/.test(mobileBlock.style.left));
 
         if (/-/.test(mobileBlock.style.left) === true)
         {
             mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
-            //console.log(mobileBlock.style.left);
         }
         else
         {
             mobileBlock.style.left = (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
-            //console.log(mobileBlock.style.left);
         }
     }
     else

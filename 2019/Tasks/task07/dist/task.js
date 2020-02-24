@@ -159,8 +159,7 @@ mobileSliderObject.mobileSlider = function (i, mobileBlock, staticBlocks, timing
       mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
     } else {
       obj.widthTransform += staticBlocks[0].offsetWidth;
-      mobileBlock.style.left = "-" + obj.widthTransform + "px"; //console.log(obj.widthTransform);
-
+      mobileBlock.style.left = "-" + obj.widthTransform + "px";
       mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
     }
   } else {
@@ -169,16 +168,11 @@ mobileSliderObject.mobileSlider = function (i, mobileBlock, staticBlocks, timing
     setTimeout(mobileSliderObject.deleteTag, timing, staticBlocks, i, mobileBlock, mainBlock, obj);
 
     if (obj.widthTransform > 0 && /-/.test(mobileBlock.style.transform) === false) {
-      //console.log(obj.widthTransform);
-      obj.widthTransform -= staticBlocks[0].offsetWidth; //console.log(obj.widthTransform);
-
+      obj.widthTransform -= staticBlocks[0].offsetWidth;
       mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
       mobileBlock.style.transform = "translate3d(" + obj.widthTransform + "px, 0px, 0px)";
     } else {
-      //console.log(mobileBlock.style.transform);
-      //console.log(obj.widthTransform);
-      obj.widthTransform += staticBlocks[0].offsetWidth; //console.log(obj.widthTransform);
-
+      obj.widthTransform += staticBlocks[0].offsetWidth;
       mobileBlock.style.left = obj.widthTransform - staticBlocks[0].offsetWidth + "px";
       mobileBlock.style.transform = "translate3d(-" + obj.widthTransform + "px, 0px, 0px)";
     }
@@ -189,7 +183,6 @@ mobileSliderObject.paginationMoving = function (i, obj) {
   var bullets = document.querySelectorAll(".window-block-pagination-block-bullet");
   var bulletId = obj.paginationBullet;
   bullets[bulletId].style.backgroundColor = "grey";
-  console.log(i);
 
   if (i === 0) {
     if (bulletId > 0) {
@@ -215,18 +208,16 @@ mobileSliderObject.deleteTag = function (staticBlocks, i, mobileBlock, mainBlock
   mainBlock.dataset.trafficSlider = true;
 
   if (staticBlocks.length > 1 && i === 0) {
-    staticBlocks[staticBlocks.length - 1].remove(); //console.log(staticBlocks);
+    staticBlocks[staticBlocks.length - 1].remove();
   } else if (obj.staticBlocksLength === 1 && i === 1 && staticBlocks[2] !== undefined && staticBlocks !== null) {
     staticBlocks[2].remove(); //console.log(i);
   } else if (obj.staticBlocksLength > 1) {
-    staticBlocks[0].remove(); //console.log(i);
-    //console.log(mobileBlock.style.left);
-    //console.log(/-/.test(mobileBlock.style.left));
+    staticBlocks[0].remove();
 
     if (/-/.test(mobileBlock.style.left) === true) {
-      mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px"; //console.log(mobileBlock.style.left);
+      mobileBlock.style.left = "-" + (obj.widthTransform + staticBlocks[0].offsetWidth) + "px";
     } else {
-      mobileBlock.style.left = obj.widthTransform + staticBlocks[0].offsetWidth + "px"; //console.log(mobileBlock.style.left);
+      mobileBlock.style.left = obj.widthTransform + staticBlocks[0].offsetWidth + "px";
     }
   } else {
     return;
@@ -393,7 +384,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62457" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54151" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
