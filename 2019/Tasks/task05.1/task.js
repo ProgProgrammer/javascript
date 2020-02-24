@@ -25,12 +25,14 @@
         });
         
 
-        document.addEventListener('keypress', (e) => {
+        document.addEventListener('keypress', (e) =>
+        {
             return movingObject(e, block, marginBlock, obj, windowWidth, windowHeight, blockWidth, blockHeight);
         });
     });
 
-    function movingObject(e, block, marginBlock, obj, windowWidth, windowHeight, blockWidth, blockHeight) {
+    function movingObject(e, block, marginBlock, obj, windowWidth, windowHeight, blockWidth, blockHeight)
+    {
         let resultFunction;
         switch(e.code)
         {
@@ -96,7 +98,8 @@
         }
     }
 
-    function checkDistance(marginBlock, block, blockOffset, windowSize, blockSize) {
+    function checkDistance(marginBlock, block, blockOffset, windowSize, blockSize)
+    {
         if (blockOffset === "bottom" || blockOffset === "right")
         {
             blockOffset = checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize);
@@ -117,7 +120,8 @@
         }
     }
 
-    function checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize) {
+    function checkDistanceBottomRight(marginBlock, block, blockOffset, windowSize, blockSize)
+    {
         let result;
         if (blockOffset === "bottom")
         {
