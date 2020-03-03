@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button:focus {
+    outline: none;
+}
+
+.container {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    min-width: 180px;
+    line-height: 35px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: linear-gradient(90deg, #86e1fc 0%, #bf90fc 100%);
+}
+
+.button:hover {
+    background: linear-gradient(90deg, #bf90fc 0%, #86e1fc 100%);
+}
+
+.button:active {
+    background: #bf90fc;
+}
+
+@media all and (max-width: 767px) {
+    .button {
+        font-size: 14px;
+    }
+}
