@@ -4,12 +4,20 @@
     "name": "Transfer of coordinates from map to map",
     "version": "1.0.0.0",
 
+    "background": {
+      "scripts": [
+        "content_scripts/background.js"
+      ],
+      "persistent": true
+    },
+
     "browser_action": {
       "default_icon": "img/icon.png",
+      "default_title": "Перенос координат в Графогер",
       "default_popup": "html/popup.html"
     },
-	
-	"permissions": [      // разрешения
-		"activeTab"
-	]
+
+    "permissions": [
+      "activeTab"
+    ]
 }
