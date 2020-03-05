@@ -1,12 +1,22 @@
 ﻿(function () 
 {
-    window.addEventListener('DOMContentLoaded', ()=>
+    let button;
+    let pageUrl;
+    let arrayCoordinates;
+
+    const transferCoordinate = () =>
     {
-        const button = document.querySelector(".button");
-        button.addEventListener('click', ()=>
-        {
-            console.log("HELLO!");
-        });
+        pageUrl = window.location.href;
+        arrayCoordinates = pageUrl.split('/');
+        console.log(pageUrl);
+        console.log(arrayCoordinates);
+    }
+
+    chrome.runtime.onMessage.addListener((message) => {
+        if (message.command === "start") {
+            console.log("YES");
+            transferCoordinate();
+        }
     });
 })
 
