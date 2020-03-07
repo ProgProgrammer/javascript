@@ -1,8 +1,11 @@
 ﻿(function () 
 {
-    let button;
     let pageUrl;
     let arrayCoordinates;
+    let checkCoordinates = [];
+    let idArrayCheck = 0;
+    let firstSymbol;
+    let stringHref = "";
 
     const transferCoordinate = () =>
     {
@@ -10,6 +13,33 @@
         arrayCoordinates = pageUrl.split('/');
         console.log(pageUrl);
         console.log(arrayCoordinates);
+
+        for (let i = 0; i <  arrayCoordinates.length; i++)
+        {
+            firstSymbol = arrayCoordinates[i][0];
+            firstSymbol = Number(firstSymbol );
+
+            if (Number.isNaN(firstSymbol) === false)
+            {
+                checkCoordinates[idArrayCheck] = arrayCoordinates[i];
+                idArrayCheck++;
+            }
+        }
+        console.log(checkCoordinates);
+
+        for (let a = 0; a < checkCoordinates.length; a++)
+        {
+            if (a === 0)
+            {
+                stringHref += "point=" + checkCoordinates[a];
+            }
+            else
+            {
+                stringHref += "&point=" + checkCoordinates[a];
+            }
+        }
+
+        document.location.href = 'https://graphhopper.com/maps/?' + stringHref + '&locale=en-us&vehicle=bike&weighting=fastest&elevation=true&turn_costs=false&use_miles=false&layer=OpenStreetMap';
     }
 
     chrome.runtime.onMessage.addListener((message) => {
