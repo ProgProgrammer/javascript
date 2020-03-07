@@ -11,8 +11,6 @@
     {
         pageUrl = window.location.href;
         arrayCoordinates = pageUrl.split('/');
-        console.log(pageUrl);
-        console.log(arrayCoordinates);
 
         for (let i = 0; i <  arrayCoordinates.length; i++)
         {
@@ -25,7 +23,6 @@
                 idArrayCheck++;
             }
         }
-        console.log(checkCoordinates);
 
         for (let a = 0; a < checkCoordinates.length; a++)
         {
@@ -44,7 +41,6 @@
 
     chrome.runtime.onMessage.addListener((message) => {
         if (message.command === "start") {
-            console.log("YES");
             transferCoordinate();
         }
     });
