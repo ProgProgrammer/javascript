@@ -18,6 +18,6 @@
     },
 
     "permissions": [
-      "activeTab"
+      "tabs","https://www.google.com/*"
     ]
 }
