@@ -7,22 +7,9 @@
     let firstSymbol;
     let stringHref = "";
 
-    const transferCoordinate = () =>
+    const transferCoordinateGrafoger = () =>
     {
-        pageUrl = window.location.href;
-        arrayCoordinates = pageUrl.split('/');
-
-        for (let i = 0; i <  arrayCoordinates.length; i++)
-        {
-            firstSymbol = arrayCoordinates[i][0];
-            firstSymbol = Number(firstSymbol );
-
-            if (Number.isNaN(firstSymbol) === false)
-            {
-                checkCoordinates[idArrayCheck] = arrayCoordinates[i];
-                idArrayCheck++;
-            }
-        }
+        checkCoordinates = returnCoordinates();
 
         for (let a = 0; a < checkCoordinates.length; a++)
         {
@@ -39,9 +26,52 @@
         document.location.href = 'https://graphhopper.com/maps/?' + stringHref + '&locale=en-us&vehicle=bike&weighting=fastest&elevation=true&turn_costs=false&use_miles=false&layer=OpenStreetMap';
     }
 
+    const transferCoordinateYandex = () =>
+    {
+        checkCoordinates = returnCoordinates();
+
+        for (let a = 0; a < checkCoordinates.length; a++)
+        {
+            if (a === 0)
+            {
+                stringHref += checkCoordinates[a];
+            }
+            else
+            {
+                stringHref += "~" + checkCoordinates[a];
+            }
+        }
+
+        document.location.href = 'https://yandex.ru/maps/213/moscow/?ll=37.710913%2C55.861620&mode=routes&rtext=' + stringHref + '&rtt=bc&ruri=~~~&z=14.85';
+    }
+
+    const returnCoordinates = () =>
+    {
+        pageUrl = window.location.href;
+        arrayCoordinates = pageUrl.split('/');
+
+        for (let i = 0; i <  arrayCoordinates.length; i++)
+        {
+            firstSymbol = arrayCoordinates[i][0];
+            firstSymbol = Number(firstSymbol );
+
+            if (Number.isNaN(firstSymbol) === false)
+            {
+                checkCoordinates[idArrayCheck] = arrayCoordinates[i];
+                idArrayCheck++;
+            }
+        }
+
+        return checkCoordinates;
+    }
+
     chrome.runtime.onMessage.addListener((message) => {
-        if (message.command === "start") {
-            transferCoordinate();
+        if (message.command === "start-google") {
+            transferCoordinateGrafoger();
+        }
+        else
+        {
+            transferCoordinateYandex();
         }
     });
 })
