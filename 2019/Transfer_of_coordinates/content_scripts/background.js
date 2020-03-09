@@ -2,8 +2,6 @@
 {
     let buttons;
     let inputs;
-    const objInputs = {};
-    const vkladka = "vkladka";
 
     window.addEventListener('DOMContentLoaded', () => {
 
