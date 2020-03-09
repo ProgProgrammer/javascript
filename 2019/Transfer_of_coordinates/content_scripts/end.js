@@ -1,48 +1,68 @@
-﻿(function () 
+﻿(function ()
 {
     let pageUrl;
     let arrayCoordinates;
+    let coordinateWindowMap;
     let checkCoordinates = [];
     let idArrayCheck = 0;
     let firstSymbol;
-    let stringHref = "";
+    const stringUrl = {};
+    stringUrl.stringHref = "";
+    let vkladka;
 
-    const transferCoordinateGrafoger = () =>
+    const transferCoordinateGrafoger = (vkladka) =>
     {
         checkCoordinates = returnCoordinates();
+        stringUrl.stringHref = "";
 
         for (let a = 0; a < checkCoordinates.length; a++)
         {
             if (a === 0)
             {
-                stringHref += "point=" + checkCoordinates[a];
+                stringUrl.stringHref += "point=" + checkCoordinates[a];
             }
             else
             {
-                stringHref += "&point=" + checkCoordinates[a];
+                stringUrl.stringHref += "&point=" + checkCoordinates[a];
             }
         }
 
-        document.location.href = 'https://graphhopper.com/maps/?' + stringHref + '&locale=en-us&vehicle=bike&weighting=fastest&elevation=true&turn_costs=false&use_miles=false&layer=OpenStreetMap';
+        if (vkladka === "new-vkladka")
+        {
+           window.open('https://graphhopper.com/maps/?' + stringUrl.stringHref + '&locale=en-us&vehicle=bike&weighting=fastest&elevation=true&turn_costs=false&use_miles=false&layer=OpenStreetMap');
+        }
+        else
+        {
+            document.location.href = 'https://graphhopper.com/maps/?' + stringUrl.stringHref + '&locale=en-us&vehicle=bike&weighting=fastest&elevation=true&turn_costs=false&use_miles=false&layer=OpenStreetMap';
+        }
     }
 
-    const transferCoordinateYandex = () =>
+    const transferCoordinateYandex = (vkladka) =>
     {
         checkCoordinates = returnCoordinates();
+        console.log(stringUrl.stringHref);
+        stringUrl.stringHref = "";
 
         for (let a = 0; a < checkCoordinates.length; a++)
         {
             if (a === 0)
             {
-                stringHref += checkCoordinates[a];
+                stringUrl.stringHref += checkCoordinates[a];
             }
             else
             {
-                stringHref += "~" + checkCoordinates[a];
+                stringUrl.stringHref += "~" + checkCoordinates[a];
             }
         }
 
-        document.location.href = 'https://yandex.ru/maps/213/moscow/?ll=37.710913%2C55.861620&mode=routes&rtext=' + stringHref + '&rtt=bc&ruri=~~~&z=14.85';
+        if (vkladka === "new-vkladka")
+        {
+            window.open('https://yandex.ru/maps/?ll=37.710913%2C55.861620&mode=routes&rtext=' + stringUrl.stringHref + '&rtt=bc&ruri=~~~&z=14.85');
+        }
+        else
+        {
+            document.location.href = 'https://yandex.ru/maps/?ll=37.710913%2C55.861620&mode=routes&rtext=' + stringUrl.stringHref + '&rtt=bc&ruri=~~~&z=14.85';
+        }
     }
 
     const returnCoordinates = () =>
@@ -53,7 +73,7 @@
         for (let i = 0; i <  arrayCoordinates.length; i++)
         {
             firstSymbol = arrayCoordinates[i][0];
-            firstSymbol = Number(firstSymbol );
+            firstSymbol = Number(firstSymbol);
 
             if (Number.isNaN(firstSymbol) === false)
             {
@@ -65,15 +85,41 @@
         return checkCoordinates;
     }
 
-    chrome.runtime.onMessage.addListener((message) => {
-        if (message.command === "start-google") {
-            transferCoordinateGrafoger();
+    const getMessage = (message) =>
+    {
+        transferCoordinate(message);
+    }
+
+    chrome.runtime.onMessage.addListener(getMessage);
+
+    const transferCoordinate = (message) =>
+    {
+        chrome.runtime.onMessage.removeListener(getMessage);
+
+        if (message.command === "start-graphhopper") {
+            vkladka = "";
+            console.log("Hello");
+            transferCoordinateGrafoger(vkladka);
+        }
+        else if (message.command === "start-graphhopper-vkladka")
+        {
+            console.log("Hello2");
+            vkladka = "new-vkladka";
+            transferCoordinateGrafoger(vkladka);
+        }
+        else if (message.command === "start-yandex")
+        {
+            console.log("Hello3");
+            vkladka = "";
+            transferCoordinateYandex(vkladka);
         }
         else
         {
-            transferCoordinateYandex();
+            console.log("Hello4");
+            vkladka = "new-vkladka";
+            transferCoordinateYandex(vkladka);
         }
-    });
+    }
 })
 
 ()

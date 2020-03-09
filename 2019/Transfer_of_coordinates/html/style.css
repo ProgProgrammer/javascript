@@ -37,6 +37,52 @@ button:focus {
     background: #bf90fc;
 }
 
+.label {
+    margin-top: 15px;
+    display: flex;
+    cursor: pointer;
+}
+
+.label-input {
+    display: none;
+}
+
+.label-input-span {
+    margin-top: 4px;
+    margin-right: 10px;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    position: relative;
+    border: 1px solid black;
+}
+
+.label-input:checked ~ .label-input-span:before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    left: 7px;
+    bottom: 2px;
+    width: 2px;
+    height: 6px;
+    transform: rotate(40deg);
+    background: black;
+}
+
+.label-input:checked ~ .label-input-span:after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    right: 2px;
+    left: 2px;
+    bottom: 2px;
+    width: 2px;
+    height: 6px;
+    transform: rotate(-55deg);
+    background: black;
+}
+
 @media all and (max-width: 767px) {
     .button {
         font-size: 14px;
