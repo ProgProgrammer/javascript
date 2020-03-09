@@ -42,7 +42,6 @@
     const transferCoordinateYandex = (vkladka) =>
     {
         checkCoordinates = returnCoordinates();
-        console.log(stringUrl.stringHref);
         stringUrl.stringHref = "";
 
         for (let a = 0; a < checkCoordinates.length; a++)
@@ -60,7 +59,6 @@
                 leftCoordinate = checkCoordinates[a][1];
                 rightCoordinate = checkCoordinates[a][0].replace("@", "");
                 zoom = checkCoordinates[a][2].replace("z", "");
-                console.log(leftCoordinate, rightCoordinate, zoom);
             }
         }
 
@@ -92,7 +90,6 @@
             else if (arrayCoordinates[i][0] === "@")
             {
                 checkCoordinates[idArrayCheck] = arrayCoordinates[i].split(',');
-                console.log(checkCoordinates);
             }
         }
 
@@ -112,24 +109,20 @@
 
         if (message.command === "start-graphhopper") {
             vkladka = "";
-            console.log("Hello");
             transferCoordinateGrafoger(vkladka);
         }
         else if (message.command === "start-graphhopper-vkladka")
         {
-            console.log("Hello2");
             vkladka = "new-vkladka";
             transferCoordinateGrafoger(vkladka);
         }
         else if (message.command === "start-yandex")
         {
-            console.log("Hello3");
             vkladka = "";
             transferCoordinateYandex(vkladka);
         }
         else
         {
-            console.log("Hello4");
             vkladka = "new-vkladka";
             transferCoordinateYandex(vkladka);
         }
