@@ -18,7 +18,6 @@
                 {
                     if (inputs[0].checked)
                     {
-                        console.log("Hello2");
                         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
                             chrome.tabs.sendMessage(tabs[0].id, {
                                 command: "start-graphhopper-vkladka"
@@ -26,7 +25,6 @@
                         });
                     }
                     else {
-                        console.log("Hello2");
                         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
                             chrome.tabs.sendMessage(tabs[0].id, {
                                 command: "start-graphhopper"
@@ -38,7 +36,6 @@
                 {
                     if (inputs[0].checked)
                     {
-                        console.log("Hello2");
                         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
                             chrome.tabs.sendMessage(tabs[0].id, {
                                 command: "start-yandex-vkladka"
@@ -46,7 +43,6 @@
                         });
                     }
                     else {
-                        console.log("Hello2");
                         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
                             chrome.tabs.sendMessage(tabs[0].id, {
                                 command: "start-yandex"
