@@ -2,8 +2,10 @@
 {
     let pageUrl;
     let arrayCoordinates;
-    let coordinateWindowMap;
     let checkCoordinates = [];
+    let leftCoordinate;
+    let rightCoordinate;
+    let zoom;
     let idArrayCheck = 0;
     let firstSymbol;
     const stringUrl = {};
@@ -21,7 +23,7 @@
             {
                 stringUrl.stringHref += "point=" + checkCoordinates[a];
             }
-            else
+            else if (a !== checkCoordinates.length - 1)
             {
                 stringUrl.stringHref += "&point=" + checkCoordinates[a];
             }
@@ -49,19 +51,26 @@
             {
                 stringUrl.stringHref += checkCoordinates[a];
             }
-            else
+            else if (a !== checkCoordinates.length - 1)
             {
                 stringUrl.stringHref += "~" + checkCoordinates[a];
+            }
+            else if (a === checkCoordinates.length - 1)
+            {
+                leftCoordinate = checkCoordinates[a][1];
+                rightCoordinate = checkCoordinates[a][0].replace("@", "");
+                zoom = checkCoordinates[a][2].replace("z", "");
+                console.log(leftCoordinate, rightCoordinate, zoom);
             }
         }
 
         if (vkladka === "new-vkladka")
         {
-            window.open('https://yandex.ru/maps/?ll=37.710913%2C55.861620&mode=routes&rtext=' + stringUrl.stringHref + '&rtt=bc&ruri=~~~&z=14.85');
+            window.open('https://yandex.ru/maps/?ll=' + leftCoordinate +'%2C' + rightCoordinate + '&mode=routes&rtext=' + stringUrl.stringHref + '&rtt=bc&ruri=~~~&z=' + zoom);
         }
         else
         {
-            document.location.href = 'https://yandex.ru/maps/?ll=37.710913%2C55.861620&mode=routes&rtext=' + stringUrl.stringHref + '&rtt=bc&ruri=~~~&z=14.85';
+            document.location.href = 'https://yandex.ru/maps/?ll=' + leftCoordinate +'%2C' + rightCoordinate + '&mode=routes&rtext=' + stringUrl.stringHref + '&rtt=bc&ruri=~~~&z=' + zoom;
         }
     }
 
@@ -79,6 +88,11 @@
             {
                 checkCoordinates[idArrayCheck] = arrayCoordinates[i];
                 idArrayCheck++;
+            }
+            else if (arrayCoordinates[i][0] === "@")
+            {
+                checkCoordinates[idArrayCheck] = arrayCoordinates[i].split(',');
+                console.log(checkCoordinates);
             }
         }
 
