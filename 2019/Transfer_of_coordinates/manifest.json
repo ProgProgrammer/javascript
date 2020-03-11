@@ -2,7 +2,7 @@
     "manifest_version": 2,
  
     "name": "Transfer of coordinates from map to map",
-    "version": "1.0.0.3",
+    "version": "1.0.0.4",
 
     "background": {
       "scripts": [
@@ -18,6 +18,6 @@
     },
 
     "permissions": [
-      "tabs","https://www.google.com/*"
+      "tabs","https://www.google.com/*","https://www.google.ru/*"
     ]
 }
