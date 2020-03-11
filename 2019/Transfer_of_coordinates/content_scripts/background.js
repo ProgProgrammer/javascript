@@ -14,7 +14,7 @@
         {
             buttons[i].addEventListener('click', () =>
             {
-                if (buttons[i].innerHTML === "Трансфер в Графогер")
+                if (i === 0)
                 {
                     if (inputs[0].checked)
                     {
