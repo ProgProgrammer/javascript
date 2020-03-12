@@ -1,7 +1,7 @@
 ﻿{
     "manifest_version": 2,
  
-    "name": "Transfer of coordinates from map to map",
+    "name": "Google Maps to Yandex/Graphhopper Path Converter",
     "version": "1.0.0.4",
 
     "background": {
@@ -13,7 +13,7 @@
 
     "browser_action": {
       "default_icon": "img/icon.png",
-      "default_title": "Перенос координат",
+      "default_title": "Google Maps to Yandex/Graphhopper Path Converter",
       "default_popup": "html/popup.html"
     },
 
