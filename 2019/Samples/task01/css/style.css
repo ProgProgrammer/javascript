@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button:focus, input:focus {
+    outline: none;
+}
+
+.main {
+    padding: 15px;
+    width: 100%;
+    display: flex;
+}
+
+.main-block {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-block-input {
+    padding: 5px;
+    max-width: 400px;
+    width: 100%;
+    min-height: 25px;
+    font-size: 14px;
+}
+
+.main-block-button {
+    margin-top: 30px;
+    width: 200px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #bfbfbf;
+    cursor: pointer;
+}
+
+.main-block-button:hover {
+    background: #808080;
+}
+
+.main-block-button:active {
+    background: #666666;
+}
