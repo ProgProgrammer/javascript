@@ -126,6 +126,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   function Calculator() {
     this.numbersExpression = 0;
     this.arraySymbols = [];
+    this.resultOfExpression = [];
     this.input = document.querySelector(".main-blocks-input");
 
     this.inputValue = function (symbol) {
@@ -162,6 +163,12 @@ parcelRequire = (function (modules, cache, entry, globalName) {
           } else if (this.arraySymbols[a] === "-") {
             this.numbersExpression = this.numbersExpression - Number(this.arraySymbols[a + 1]);
             console.log(this.numbersExpression);
+          } else if (this.arraySymbols[a] === "*") {
+            this.numbersExpression = this.numbersExpression * Number(this.arraySymbols[a + 1]);
+            console.log(this.numbersExpression);
+          } else if (this.arraySymbols[a] === "/") {
+            this.numbersExpression = this.numbersExpression / Number(this.arraySymbols[a + 1]);
+            console.log(this.numbersExpression);
           }
         } else if (/\d/gi.test(this.arraySymbols[a]) === true) {
           if (this.numbersExpression === 0) {
@@ -173,6 +180,9 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
       console.log(this.numbersExpression);
       this.input.value += this.numbersExpression;
+      this.resultOfExpression[0] = this.numbersExpression;
+      this.arraySymbols = [];
+      this.arraySymbols[0] = this.resultOfExpression[0];
     };
   }
 
