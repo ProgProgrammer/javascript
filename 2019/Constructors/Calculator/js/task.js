@@ -8,6 +8,7 @@
   {
     this.numbersExpression = 0;
     this.arraySymbols = [];
+    this.arrayAllSymbols = [];
     this.resultOfExpression = [];
     this.input = document.querySelector(".main-blocks-input");
 
@@ -15,20 +16,33 @@
      {
           this.symbol = symbol;
           this.input.value = this.input.value.replace(/ /gi, "");
-          if (this.symbol !== "=")
+          if (this.symbol === "delete" || this.symbol === "clear" ||
+              this.symbol === "clear-all")
+          {
+                if (this.symbol === "clear-all")
+                {
+                    this.input.value = "";
+                    this.arraySymbols = [];
+                    this.resultOfExpression = [];
+                    this.numbersExpression = 0;
+                }
+          }
+          else if (this.symbol !== "=")
           {
               console.log(/\d/gi.test(this.symbol));
               if (this.arraySymbols.length === 0 ||
-                  /\d/gi.test(this.symbol) === false ||
+                  /\d/gi.test(this.symbol) === false && this.symbol !== "." ||
                   /\d/gi.test(this.arraySymbols[this.arraySymbols.length-1]) === false)
               {
                   this.arraySymbols.push(this.symbol);
+                  this.arrayAllSymbols.push(this.symbol);
                   this.input.value += this.symbol;
                   console.log(this.arraySymbols);
               }
               else
               {
                   this.arraySymbols[this.arraySymbols.length - 1] += this.symbol;
+                  this.arrayAllSymbols[this.arrayAllSymbols.length - 1] += this.symbol;
                   this.input.value += this.symbol;
                   console.log(this.arraySymbols);
               }
@@ -38,6 +52,7 @@
               this.input.value += this.symbol;
               console.log(this.symbol);
           }
+          console.log(this.arraySymbols);
      }
 
       this.calculateValue = function()
@@ -71,14 +86,19 @@
               }
               else if (/\d/gi.test(this.arraySymbols[a]) === true)
               {
-                  if (this.numbersExpression === 0)
+                  if (this.numbersExpression === 0 && this.arraySymbols.length - 1 !== a)
                   {
+                      console.log(a + " - this.numbersExpression");
                       this.numbersExpression = Number(this.arraySymbols[a]);
                       console.log(this.numbersExpression);
                   }
               }
           }
-          console.log(this.numbersExpression);
+          if (this.numbersExpression === "Infinity")
+          {
+              this.numbersExpression = 0;
+          }
+          console.log(this.numbersExpression + " - number");
           this.input.value += this.numbersExpression;
           this.resultOfExpression[0] = this.numbersExpression;
           this.arraySymbols = [];
