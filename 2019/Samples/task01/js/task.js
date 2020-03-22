@@ -1,11 +1,11 @@
 (function()
 {
+    let buttons;
     let button;
     let name;
     let input;
     let checkName;
     let inputText;
-    let value;
     
     function User(name)
     {
@@ -15,6 +15,8 @@
         
         this.checkName = function()
         {
+            this.input.value = "";
+
             if (this.name === this.check)
             {
                 return "Добро пожаловать";
@@ -34,24 +36,35 @@
     window.addEventListener('DOMContentLoaded', () =>
     {
         input = document.querySelector(".main-block-input");
-        button = document.querySelector(".main-block-button");
-        
-        button.addEventListener('click', () =>
+        buttons = document.querySelectorAll(".main-block-button");
+
+        for (let i = 0; i < buttons.length; i++)
         {
-            name = input.value;
-            checkName = new User(name);
-            inputText = checkName.checkName();
-            checkName.putText(inputText);
-            
-            checkName.nameCity = "Volgograd";
-            checkName.checkCity = function ()
+            buttons[i].addEventListener('click', () =>
             {
-                checkName.input.value += " - ";
-                checkName.input.value += checkName.nameCity;
-            }
-            
-            checkName.checkCity();
-        });
+                button = buttons[i].dataset.name;
+                name = input.value;
+                checkName = new User(name);
+                if (button === "check-Volgograd")
+                {
+                    checkName.nameCity = "Volgograd";
+                }
+                else
+                {
+                    checkName.check = "Roma";
+                    checkName.nameCity = "Moskow";
+                }
+                inputText = checkName.checkName();
+                checkName.putText(inputText);
+                checkName.checkCity = function ()
+                {
+                    checkName.input.value += " - ";
+                    checkName.input.value += checkName.nameCity;
+                }
+
+                checkName.checkCity();
+            });
+        }
     });
 })
 
