@@ -49,10 +49,15 @@
                 {
                     checkName.nameCity = "Volgograd";
                 }
-                else
+                else if (button === "check-Moskow")
                 {
                     checkName.check = "Roma";
                     checkName.nameCity = "Moskow";
+                }
+                else
+                {
+                    input.value = "";
+                    return;
                 }
                 inputText = checkName.checkName();
                 checkName.putText(inputText);
