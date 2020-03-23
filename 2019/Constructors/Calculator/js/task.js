@@ -1,6 +1,6 @@
 (function()
 {
-  let calculate;
+  let calculator;
   let buttons;
   let buttonValue;
 
@@ -110,7 +110,7 @@
   {
       console.log("Hello");
       buttons = document.querySelectorAll(".main-blocks-buttons-button");
-      calculate = new Calculator();
+      calculator = new Calculator();
 
       for (let i = 0; i < buttons.length; i++)
       {
@@ -118,10 +118,10 @@
           {
               buttonValue = buttons[i].dataset.name;
               console.log(buttonValue);
-              calculate.inputValue(buttonValue);
+              calculator.inputValue(buttonValue);
               if (buttonValue === "=")
               {
-                  calculate.calculateValue();
+                  calculator.calculateValue();
               }
           });
       }
