@@ -27,7 +27,7 @@
             }            
         }
         
-        this.putText = function(value)
+        this.setText = function(value)
         {
             this.input.value = value;
         }
@@ -61,7 +61,7 @@
                     return;
                 }
                 inputText = user.checkName();
-                user.putText(inputText);
+                user.setText(inputText);
                 user.checkCity = function ()
                 {
                     user.input.value += " - ";
