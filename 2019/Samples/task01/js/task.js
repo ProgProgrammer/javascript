@@ -4,12 +4,12 @@
     let button;
     let name;
     let input;
-    let checkName;
+    let user;
     let inputText;
     
     function User(name)
     {
-        this.check = "Vova";
+        this.password = "Vova";
         this.name = name;
         this.input = document.querySelector(".main-block-input");
         
@@ -17,7 +17,7 @@
         {
             this.input.value = "";
 
-            if (this.name === this.check)
+            if (this.name === this.password)
             {
                 return "Добро пожаловать";
             }
@@ -44,30 +44,31 @@
             {
                 button = buttons[i].dataset.name;
                 name = input.value;
-                checkName = new User(name);
+                user = new User(name);
+
                 if (button === "check-Volgograd")
                 {
-                    checkName.nameCity = "Volgograd";
+                    user.nameCity = "Volgograd";
                 }
                 else if (button === "check-Moskow")
                 {
-                    checkName.check = "Roma";
-                    checkName.nameCity = "Moskow";
+                    user.password = "Roma";
+                    user.nameCity = "Moskow";
                 }
                 else
                 {
                     input.value = "";
                     return;
                 }
-                inputText = checkName.checkName();
-                checkName.putText(inputText);
-                checkName.checkCity = function ()
+                inputText = user.checkName();
+                user.putText(inputText);
+                user.checkCity = function ()
                 {
-                    checkName.input.value += " - ";
-                    checkName.input.value += checkName.nameCity;
+                    user.input.value += " - ";
+                    user.input.value += user.nameCity;
                 }
 
-                checkName.checkCity();
+                user.checkCity();
             });
         }
     });
