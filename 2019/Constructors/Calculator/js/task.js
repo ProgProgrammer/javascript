@@ -6,28 +6,58 @@
 
   function Calculator()
   {
-    this.numbersExpression = 0;
-    this.arraySymbols = [];
-    this.arrayAllSymbols = [];
-    this.resultOfExpression = [];
-    this.input = document.querySelector(".main-blocks-input");
+     this.numbersExpression = 0;
+     this.arraySymbols = [];
+     this.arrayAllSymbols = [];
+     this.resultOfExpression = [];
+     this.input = document.querySelector(".main-blocks-input");
+     this.input.value = "";
+     this.stringInput = "";
+
+     this.additionalButtons = function(symbol)
+     {
+         this.symbol = symbol;
+         this.input.value = this.input.value.replace(/ /gi, "");
+
+         if (this.symbol === "clear-all")
+         {
+             this.input.value = "";
+             this.arraySymbols = [];
+             this.resultOfExpression = [];
+             this.numbersExpression = 0;
+         }
+         else if (this.symbol === "clear")
+         {
+             this.stringInput = this.input.value;
+             for(this.i = 0; this.i < this.stringInput.length; this.i++)
+             {
+                 if (this.stringInput[this.i] === "=")
+                 {
+                     this.input.value = "";
+                     this.arraySymbols = [];
+                     this.resultOfExpression = [];
+                     this.numbersExpression = 0;
+                 }
+                 else
+                 {
+                     this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+                     this.input.value = "";
+                     for(this.a = 0; this.a < this.arraySymbols.length; this.a++)
+                     {
+                         this.input.value += this.arraySymbols[this.a];
+                     }
+                     return;
+                 }
+             }
+         }
+     }
 
      this.inputValue = function(symbol)
      {
           this.symbol = symbol;
           this.input.value = this.input.value.replace(/ /gi, "");
-          if (this.symbol === "delete" || this.symbol === "clear" ||
-              this.symbol === "clear-all")
-          {
-                if (this.symbol === "clear-all")
-                {
-                    this.input.value = "";
-                    this.arraySymbols = [];
-                    this.resultOfExpression = [];
-                    this.numbersExpression = 0;
-                }
-          }
-          else if (this.symbol !== "=")
+
+          if (this.symbol !== "=")
           {
               console.log(/\d/gi.test(this.symbol));
               if (this.arraySymbols.length === 0 ||
@@ -118,7 +148,15 @@
           {
               buttonValue = buttons[i].dataset.name;
               console.log(buttonValue);
-              calculator.inputValue(buttonValue);
+              if (buttonValue === "delete" || buttonValue === "clear" ||
+                  buttonValue === "clear-all")
+              {
+                  calculator.additionalButtons(buttonValue);
+              }
+              else
+              {
+                  calculator.inputValue(buttonValue);
+              }
               if (buttonValue === "=")
               {
                   calculator.calculateValue();

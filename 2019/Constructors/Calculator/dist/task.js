@@ -119,7 +119,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"task.js":[function(require,module,exports) {
 (function () {
-  var calculate;
+  var calculator;
   var buttons;
   var buttonValue;
 
@@ -129,19 +129,46 @@ parcelRequire = (function (modules, cache, entry, globalName) {
     this.arrayAllSymbols = [];
     this.resultOfExpression = [];
     this.input = document.querySelector(".main-blocks-input");
+    this.input.value = "";
+    this.stringInput = "";
+
+    this.additionalButtons = function (symbol) {
+      this.symbol = symbol;
+      this.input.value = this.input.value.replace(/ /gi, "");
+
+      if (this.symbol === "clear-all") {
+        this.input.value = "";
+        this.arraySymbols = [];
+        this.resultOfExpression = [];
+        this.numbersExpression = 0;
+      } else if (this.symbol === "clear") {
+        this.stringInput = this.input.value;
+
+        for (this.i = 0; this.i < this.stringInput.length; this.i++) {
+          if (this.stringInput[this.i] === "=") {
+            this.input.value = "";
+            this.arraySymbols = [];
+            this.resultOfExpression = [];
+            this.numbersExpression = 0;
+          } else {
+            this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+            this.input.value = "";
+
+            for (this.a = 0; this.a < this.arraySymbols.length; this.a++) {
+              this.input.value += this.arraySymbols[this.a];
+            }
+
+            return;
+          }
+        }
+      }
+    };
 
     this.inputValue = function (symbol) {
       this.symbol = symbol;
       this.input.value = this.input.value.replace(/ /gi, "");
 
-      if (this.symbol === "delete" || this.symbol === "clear" || this.symbol === "clear-all") {
-        if (this.symbol === "clear-all") {
-          this.input.value = "";
-          this.arraySymbols = [];
-          this.resultOfExpression = [];
-          this.numbersExpression = 0;
-        }
-      } else if (this.symbol !== "=") {
+      if (this.symbol !== "=") {
         console.log(/\d/gi.test(this.symbol));
 
         if (this.arraySymbols.length === 0 || /\d/gi.test(this.symbol) === false && this.symbol !== "." || /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === false) {
@@ -206,16 +233,21 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   window.addEventListener('DOMContentLoaded', function () {
     console.log("Hello");
     buttons = document.querySelectorAll(".main-blocks-buttons-button");
-    calculate = new Calculator();
+    calculator = new Calculator();
 
     var _loop = function _loop(i) {
       buttons[i].addEventListener('click', function () {
         buttonValue = buttons[i].dataset.name;
         console.log(buttonValue);
-        calculate.inputValue(buttonValue);
+
+        if (buttonValue === "delete" || buttonValue === "clear" || buttonValue === "clear-all") {
+          calculator.additionalButtons(buttonValue);
+        } else {
+          calculator.inputValue(buttonValue);
+        }
 
         if (buttonValue === "=") {
-          calculate.calculateValue();
+          calculator.calculateValue();
         }
       });
     };
@@ -253,7 +285,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57161" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55972" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
