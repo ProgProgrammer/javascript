@@ -18,6 +18,7 @@
      {
          this.symbol = symbol;
          this.input.value = this.input.value.replace(/ /gi, "");
+         this.lastSymbol = "";
 
          if (this.symbol === "clear-all")
          {
@@ -37,18 +38,51 @@
                      this.arraySymbols = [];
                      this.resultOfExpression = [];
                      this.numbersExpression = 0;
-                 }
-                 else
-                 {
-                     this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
-                     this.input.value = "";
-                     for(this.a = 0; this.a < this.arraySymbols.length; this.a++)
-                     {
-                         this.input.value += this.arraySymbols[this.a];
-                     }
                      return;
                  }
              }
+             this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+             this.input.value = "";
+             for(this.a = 0; this.a < this.arraySymbols.length; this.a++)
+             {
+                 this.input.value += this.arraySymbols[this.a];
+             }
+             return;
+         }
+         else if (this.symbol === "delete")
+         {
+             this.stringInput = this.input.value;
+             for(this.i = 0; this.i < this.stringInput.length; this.i++)
+             {
+                 if (this.stringInput[this.i] === "=")
+                 {
+                     this.arraySymbols.splice(0, this.arraySymbols.length - 2);
+                     this.input.value = this.arraySymbols[0];
+                     this.numbersExpression = this.arraySymbols[0];
+                     return;
+                 }
+             }
+             console.log(this.arraySymbols);
+             console.log(this.arraySymbols[0] + " - this.arraySymbols1");
+             this.lastSymbol = this.arraySymbols[this.arraySymbols.length - 1];
+             this.lastSymbol = String(this.lastSymbol);
+             console.log(this.arraySymbols);
+             console.log(typeof(this.lastSymbol) + " - lastSymbol1");
+             this.lastSymbol = this.lastSymbol.substring(0, this.lastSymbol.length - 1);
+             console.log(this.lastSymbol + " - lastSymbol2");
+             this.arraySymbols[this.arraySymbols.length - 1] = this.lastSymbol;
+             console.log(this.arraySymbols + " - this.arraySymbols2");
+             this.input.value = "";
+             if (this.arraySymbols[this.arraySymbols.length - 1] === "")
+             {
+                 this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+             }
+             for(this.b = 0; this.b < this.arraySymbols.length; this.b++)
+             {
+                 this.input.value += this.arraySymbols[this.b];
+             }
+             this.numbersExpression = this.arraySymbols[0];
+             return;
          }
      }
 
@@ -95,22 +129,23 @@
               {
                   if (this.arraySymbols[a] === "+")
                   {
-                      this.numbersExpression = this.numbersExpression + Number(this.arraySymbols[a + 1]);
+                      console.log(this.numbersExpression + " - this.numbersExpression");
+                      this.numbersExpression = Number(this.numbersExpression) + Number(this.arraySymbols[a + 1]);
                       console.log(this.numbersExpression);
                   }
                   else if (this.arraySymbols[a] === "-")
                   {
-                      this.numbersExpression = this.numbersExpression - Number(this.arraySymbols[a + 1]);
+                      this.numbersExpression = Number(this.numbersExpression) - Number(this.arraySymbols[a + 1]);
                       console.log(this.numbersExpression);
                   }
                   else if (this.arraySymbols[a] === "*")
                   {
-                      this.numbersExpression = this.numbersExpression * Number(this.arraySymbols[a + 1]);
+                      this.numbersExpression = Number(this.numbersExpression) * Number(this.arraySymbols[a + 1]);
                       console.log(this.numbersExpression);
                   }
                   else if (this.arraySymbols[a] === "/")
                   {
-                      this.numbersExpression = this.numbersExpression / Number(this.arraySymbols[a + 1]);
+                      this.numbersExpression = Number(this.numbersExpression) / Number(this.arraySymbols[a + 1]);
                       console.log(this.numbersExpression);
                   }
               }
@@ -124,7 +159,7 @@
                   }
               }
           }
-          if (this.numbersExpression === "Infinity")
+          if (this.numbersExpression === Infinity)
           {
               this.numbersExpression = 0;
           }

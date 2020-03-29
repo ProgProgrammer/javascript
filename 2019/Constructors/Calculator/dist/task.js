@@ -118,6 +118,8 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"task.js":[function(require,module,exports) {
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 (function () {
   var calculator;
   var buttons;
@@ -135,6 +137,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
     this.additionalButtons = function (symbol) {
       this.symbol = symbol;
       this.input.value = this.input.value.replace(/ /gi, "");
+      this.lastSymbol = "";
 
       if (this.symbol === "clear-all") {
         this.input.value = "";
@@ -150,17 +153,52 @@ parcelRequire = (function (modules, cache, entry, globalName) {
             this.arraySymbols = [];
             this.resultOfExpression = [];
             this.numbersExpression = 0;
-          } else {
-            this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
-            this.input.value = "";
-
-            for (this.a = 0; this.a < this.arraySymbols.length; this.a++) {
-              this.input.value += this.arraySymbols[this.a];
-            }
-
             return;
           }
         }
+
+        this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+        this.input.value = "";
+
+        for (this.a = 0; this.a < this.arraySymbols.length; this.a++) {
+          this.input.value += this.arraySymbols[this.a];
+        }
+
+        return;
+      } else if (this.symbol === "delete") {
+        this.stringInput = this.input.value;
+
+        for (this.i = 0; this.i < this.stringInput.length; this.i++) {
+          if (this.stringInput[this.i] === "=") {
+            this.arraySymbols.splice(0, this.arraySymbols.length - 2);
+            this.input.value = this.arraySymbols[0];
+            this.numbersExpression = this.arraySymbols[0];
+            return;
+          }
+        }
+
+        console.log(this.arraySymbols);
+        console.log(this.arraySymbols[0] + " - this.arraySymbols1");
+        this.lastSymbol = this.arraySymbols[this.arraySymbols.length - 1];
+        this.lastSymbol = String(this.lastSymbol);
+        console.log(this.arraySymbols);
+        console.log(_typeof(this.lastSymbol) + " - lastSymbol1");
+        this.lastSymbol = this.lastSymbol.substring(0, this.lastSymbol.length - 1);
+        console.log(this.lastSymbol + " - lastSymbol2");
+        this.arraySymbols[this.arraySymbols.length - 1] = this.lastSymbol;
+        console.log(this.arraySymbols + " - this.arraySymbols2");
+        this.input.value = "";
+
+        if (this.arraySymbols[this.arraySymbols.length - 1] === "") {
+          this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+        }
+
+        for (this.b = 0; this.b < this.arraySymbols.length; this.b++) {
+          this.input.value += this.arraySymbols[this.b];
+        }
+
+        this.numbersExpression = this.arraySymbols[0];
+        return;
       }
     };
 
@@ -197,16 +235,17 @@ parcelRequire = (function (modules, cache, entry, globalName) {
         //console.log(Number(this.arraySymbols[a]));
         if (/\d/gi.test(this.arraySymbols[a]) === false && /\d/gi.test(this.arraySymbols[a + 1]) === true) {
           if (this.arraySymbols[a] === "+") {
-            this.numbersExpression = this.numbersExpression + Number(this.arraySymbols[a + 1]);
+            console.log(this.numbersExpression + " - this.numbersExpression");
+            this.numbersExpression = Number(this.numbersExpression) + Number(this.arraySymbols[a + 1]);
             console.log(this.numbersExpression);
           } else if (this.arraySymbols[a] === "-") {
-            this.numbersExpression = this.numbersExpression - Number(this.arraySymbols[a + 1]);
+            this.numbersExpression = Number(this.numbersExpression) - Number(this.arraySymbols[a + 1]);
             console.log(this.numbersExpression);
           } else if (this.arraySymbols[a] === "*") {
-            this.numbersExpression = this.numbersExpression * Number(this.arraySymbols[a + 1]);
+            this.numbersExpression = Number(this.numbersExpression) * Number(this.arraySymbols[a + 1]);
             console.log(this.numbersExpression);
           } else if (this.arraySymbols[a] === "/") {
-            this.numbersExpression = this.numbersExpression / Number(this.arraySymbols[a + 1]);
+            this.numbersExpression = Number(this.numbersExpression) / Number(this.arraySymbols[a + 1]);
             console.log(this.numbersExpression);
           }
         } else if (/\d/gi.test(this.arraySymbols[a]) === true) {
@@ -218,7 +257,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
         }
       }
 
-      if (this.numbersExpression === "Infinity") {
+      if (this.numbersExpression === Infinity) {
         this.numbersExpression = 0;
       }
 
@@ -285,7 +324,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55972" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50953" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
