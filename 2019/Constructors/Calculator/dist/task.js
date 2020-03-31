@@ -133,6 +133,22 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     this.input = document.querySelector(".main-blocks-input");
     this.input.value = "";
     this.stringInput = "";
+    this.checkSymbol = "";
+    this.variable = "";
+
+    this.checkSymbols = function (arraySymbols) {
+      this.checkSymbol = arraySymbols;
+      this.checkSymbol = String(this.checkSymbol);
+      console.log(this.checkSymbol + " - this.checkSymbol");
+
+      for (this.a = 0; this.a < this.checkSymbol.length; this.a++) {
+        if (arraySymbols[this.a] === "-") {
+          return true;
+        }
+      }
+
+      return false;
+    };
 
     this.additionalButtons = function (symbol) {
       this.symbol = symbol;
@@ -158,6 +174,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+        this.resultOfExpression = [];
+        this.numbersExpression = 0;
         this.input.value = "";
 
         for (this.a = 0; this.a < this.arraySymbols.length; this.a++) {
@@ -197,7 +215,42 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           this.input.value += this.arraySymbols[this.b];
         }
 
-        this.numbersExpression = this.arraySymbols[0];
+        if (this.arraySymbols[0] === undefined) {
+          this.numbersExpression = 0;
+        } else {
+          this.numbersExpression = this.arraySymbols[0];
+        }
+
+        console.log(this.numbersExpression + " - this.numbersExpression return");
+        return;
+      } else if (this.symbol === "+/-") {
+        // здесь проблема в условии (* / + -)
+        console.log(this.checkSymbols(this.arraySymbols) + " - this.checkSymbols(this.arraySymbols)");
+
+        if (this.arraySymbols[this.arraySymbols.length - 1] !== "*" || this.arraySymbols[this.arraySymbols.length - 1] !== "/" || this.arraySymbols[this.arraySymbols.length - 1] !== "+" || this.arraySymbols[this.arraySymbols.length - 1] !== "-") {
+          if (this.checkSymbols(this.arraySymbols[this.arraySymbols.length - 1]) === true) {
+            this.arraySymbols[this.arraySymbols.length - 1] = this.arraySymbols[this.arraySymbols.length - 1].replace(/-/i, "");
+            console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.arraySymbols[this.arraySymbols.length - 1]");
+            this.input.value = "";
+
+            for (this.b = 0; this.b < this.arraySymbols.length; this.b++) {
+              this.input.value += this.arraySymbols[this.b];
+            }
+
+            console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.arraySymbols[this.arraySymbols.length - 1]1");
+            console.log(this.numbersExpression + " - this.numbersExpression1");
+          } else {
+            this.variable = this.arraySymbols[this.arraySymbols.length - 1];
+            this.arraySymbols[this.arraySymbols.length - 1] = "-";
+            this.arraySymbols[this.arraySymbols.length - 1] += this.variable;
+            this.input.value = "";
+
+            for (this.b = 0; this.b < this.arraySymbols.length; this.b++) {
+              this.input.value += this.arraySymbols[this.b];
+            }
+          }
+        }
+
         return;
       }
     };
@@ -236,6 +289,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         if (/\d/gi.test(this.arraySymbols[a]) === false && /\d/gi.test(this.arraySymbols[a + 1]) === true) {
           if (this.arraySymbols[a] === "+") {
             console.log(this.numbersExpression + " - this.numbersExpression");
+            console.log(Number(this.arraySymbols[a + 1]) + " - Number(this.arraySymbols[a + 1]");
             this.numbersExpression = Number(this.numbersExpression) + Number(this.arraySymbols[a + 1]);
             console.log(this.numbersExpression);
           } else if (this.arraySymbols[a] === "-") {
@@ -279,7 +333,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         buttonValue = buttons[i].dataset.name;
         console.log(buttonValue);
 
-        if (buttonValue === "delete" || buttonValue === "clear" || buttonValue === "clear-all") {
+        if (buttonValue === "delete" || buttonValue === "clear" || buttonValue === "clear-all" || buttonValue === "+/-") {
           calculator.additionalButtons(buttonValue);
         } else {
           calculator.inputValue(buttonValue);
@@ -324,7 +378,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50953" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55480" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
