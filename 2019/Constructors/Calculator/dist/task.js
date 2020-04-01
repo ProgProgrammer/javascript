@@ -225,9 +225,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return;
       } else if (this.symbol === "+/-") {
         // здесь проблема в условии (* / + -)
-        console.log(this.checkSymbols(this.arraySymbols) + " - this.checkSymbols(this.arraySymbols)");
+        console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.checkSymbols(this.arraySymbols)");
 
-        if (this.arraySymbols[this.arraySymbols.length - 1] !== "*" || this.arraySymbols[this.arraySymbols.length - 1] !== "/" || this.arraySymbols[this.arraySymbols.length - 1] !== "+" || this.arraySymbols[this.arraySymbols.length - 1] !== "-") {
+        if (this.arraySymbols[this.arraySymbols.length - 1] !== "*" && this.arraySymbols[this.arraySymbols.length - 1] !== "/" && this.arraySymbols[this.arraySymbols.length - 1] !== "+" && this.arraySymbols[this.arraySymbols.length - 1] !== "-") {
           if (this.checkSymbols(this.arraySymbols[this.arraySymbols.length - 1]) === true) {
             this.arraySymbols[this.arraySymbols.length - 1] = this.arraySymbols[this.arraySymbols.length - 1].replace(/-/i, "");
             console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.arraySymbols[this.arraySymbols.length - 1]");
@@ -378,7 +378,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55480" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57350" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

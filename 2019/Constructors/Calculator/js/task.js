@@ -114,10 +114,10 @@
          else if (this.symbol === "+/-")
          {
              // здесь проблема в условии (* / + -)
-             console.log(this.checkSymbols(this.arraySymbols) + " - this.checkSymbols(this.arraySymbols)");
-             if (this.arraySymbols[this.arraySymbols.length - 1] !== "*" ||
-                 this.arraySymbols[this.arraySymbols.length - 1] !== "/" ||
-                 this.arraySymbols[this.arraySymbols.length - 1] !== "+" ||
+             console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.checkSymbols(this.arraySymbols)");
+             if (this.arraySymbols[this.arraySymbols.length - 1] !== "*" &&
+                 this.arraySymbols[this.arraySymbols.length - 1] !== "/" &&
+                 this.arraySymbols[this.arraySymbols.length - 1] !== "+" &&
                  this.arraySymbols[this.arraySymbols.length - 1] !== "-")
              {
                  if (this.checkSymbols(this.arraySymbols[this.arraySymbols.length - 1]) === true)
