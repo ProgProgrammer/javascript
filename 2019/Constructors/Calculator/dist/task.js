@@ -359,6 +359,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     for (var i = 0; i < buttons.length; i++) {
       _loop(i);
     }
+
+    window.addEventListener('keydown', function (event) {
+      if (event.key === "delete" || event.key === "Backspace") {
+        calculator.deleteButton(event.key);
+      } else if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" || event.key === "8" || event.key === "9" || event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/" || event.key === "." || event.key === "=" || event.key === "Enter") {
+        if (event.key === "=" || event.key === "Enter") {
+          buttonValue = "=";
+          calculator.inputValue(buttonValue);
+        } else {
+          calculator.inputValue(event.key);
+        }
+      }
+
+      if (event.key === "=" || event.key === "Enter") {
+        calculator.calculateValue();
+      }
+    });
   });
 })();
 },{}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -389,7 +406,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57350" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63893" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
