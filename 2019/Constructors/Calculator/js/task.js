@@ -52,6 +52,11 @@ import { Calculator } from './libraryCalculator.js';
         window.addEventListener('keydown', (event) =>
         {
             calculator.focusDelete(elementFocus, mainFocus);
+            console.log(event.key);
+            if (event.key === "Enter")
+            {
+                return;
+            }
 
             if (event.key === "delete" || event.key === "Backspace")
             {

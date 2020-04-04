@@ -438,6 +438,11 @@ var _libraryCalculator = require("./libraryCalculator.js");
 
     window.addEventListener('keydown', function (event) {
       calculator.focusDelete(elementFocus, mainFocus);
+      console.log(event.key);
+
+      if (event.key === "Enter") {
+        return;
+      }
 
       if (event.key === "delete" || event.key === "Backspace") {
         calculator.clickEffect("delete", buttons);
@@ -488,7 +493,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50687" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50094" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
