@@ -28,10 +28,11 @@ button:focus, input:focus {
       height: 50px;
       font-size: 14px;
       text-align: right;
+      resize: none;
     }
 
     &-buttons {
-      margin-top: 5px;
+      margin-top: 2px;
       display: flex;
       flex-wrap: wrap;
 
@@ -49,6 +50,10 @@ button:focus, input:focus {
 
         &active {
           background-color: #808080;
+        }
+
+        &-span {
+          font-weight: 900;
         }
       }
     }

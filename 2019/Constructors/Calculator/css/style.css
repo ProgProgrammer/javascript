@@ -27,9 +27,10 @@ input:focus {
   height: 50px;
   font-size: 14px;
   text-align: right;
+  resize: none;
 }
 .main-blocks-buttons {
-  margin-top: 5px;
+  margin-top: 2px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -46,5 +47,8 @@ input:focus {
 }
 .main-blocks-buttons-buttonactive {
   background-color: #808080;
+}
+.main-blocks-buttons-button-span {
+  font-weight: 900;
 }
 /*# sourceMappingURL=style.css.map */

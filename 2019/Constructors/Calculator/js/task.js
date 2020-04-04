@@ -15,6 +15,30 @@
         this.stringInput = "";
         this.checkSymbol = "";
         this.variable = "";
+        this.button;
+        this.buttons;
+        this.buttonValue;
+
+        this.clickEffect = function(button, buttons)
+        {
+            this.button = button;
+            this.buttons = buttons;
+            for (this.i = 0; this.i < this.buttons.length; this.i++)
+            {
+                this.buttonValue = this.buttons[this.i].dataset.name;
+                if (this.buttonValue == this.button)
+                {
+                    this.buttons[this.i].style.backgroundColor = "#bfbfbf";
+                    setTimeout(this.buttonBackground, 60, this.buttons[this.i]);
+                }
+            }
+        }
+
+        this.buttonBackground = function(button)
+        {
+            this.button = button;
+            this.button.style.backgroundColor = "";
+        }
 
         this.checkSymbols = function(arraySymbols)
         {
@@ -157,14 +181,42 @@
             if (this.symbol !== "=")
             {
                 console.log(/\d/gi.test(this.symbol));
+                console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.number");
                 if (this.arraySymbols.length === 0 ||
                     /\d/gi.test(this.symbol) === false && this.symbol !== "." ||
                     /\d/gi.test(this.arraySymbols[this.arraySymbols.length-1]) === false)
                 {
-                    this.arraySymbols.push(this.symbol);
-                    this.arrayAllSymbols.push(this.symbol);
-                    this.input.value += this.symbol;
-                    console.log(this.arraySymbols);
+                    if (this.symbol === "." && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === false)
+                    {
+                        this.arraySymbols.push("0");
+                        this.arrayAllSymbols.push("0");
+                        this.input.value += "0";
+                        this.arraySymbols[this.arFraySymbols.length - 1] += this.symbol;
+                        this.arrayAllSymbols[this.arraySymbols.length - 1] += this.symbol;
+                        this.input.value += this.symbol;
+                    }
+                    else if (this.symbol === "+" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true ||
+                             this.symbol === "-" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true ||
+                             this.symbol === "*" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true ||
+                             this.symbol === "/" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true)
+                    {
+                        console.log(this.arraySymbols[0] + " - this.arraySymbols2");
+                        this.arraySymbols.push(this.symbol);
+                        this.arrayAllSymbols.push(this.symbol);
+                        this.input.value += this.symbol;
+                        console.log(this.arraySymbols);
+                    }
+                    else if (this.symbol !== "+" &&
+                             this.symbol !== "-" &&
+                             this.symbol !== "*" &&
+                             this.symbol !== "/")
+                    {
+                        console.log(this.arraySymbols[0] + " - this.arraySymbols2");
+                        this.arraySymbols.push(this.symbol);
+                        this.arrayAllSymbols.push(this.symbol);
+                        this.input.value += this.symbol;
+                        console.log(this.arraySymbols);
+                    }
                 }
                 else
                 {
@@ -204,6 +256,8 @@
                     }
                     else if (this.arraySymbols[a] === "*")
                     {
+                        console.log(Number(this.numbersExpression) + " - Number(this.numbersExpression)");
+                        console.log(Number(this.arraySymbols[a + 1]) + " - Number(this.arraySymbols[a + 1])");
                         this.numbersExpression = Number(this.numbersExpression) * Number(this.arraySymbols[a + 1]);
                         console.log(this.numbersExpression);
                     }
@@ -278,6 +332,7 @@
         {
             if (event.key === "delete" || event.key === "Backspace")
             {
+                calculator.clickEffect("delete", buttons);
                 calculator.deleteButton(event.key);
             }
             else if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" ||
@@ -286,18 +341,21 @@
                 event.key === "+" || event.key === "-" || event.key === "*" ||
                 event.key === "/" || event.key === "." || event.key === "=" || event.key === "Enter")
             {
-                if (event.key === "=" || event.key === "Enter")
+                if (event.key === "=")
                 {
+                    calculator.clickEffect(event.key, buttons);
                     buttonValue = "=";
                     calculator.inputValue(buttonValue);
                 }
                 else
                 {
+                    calculator.clickEffect(event.key, buttons);
                     calculator.inputValue(event.key);
                 }
             }
-            if (event.key === "=" || event.key === "Enter")
+            if (event.key === "=")
             {
+                calculator.clickEffect(event.key, buttons);
                 calculator.calculateValue();
             }
         });
