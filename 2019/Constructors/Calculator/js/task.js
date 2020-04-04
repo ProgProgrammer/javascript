@@ -3,6 +3,8 @@
     let calculator;
     let buttons;
     let buttonValue;
+    let elementFocus;
+    let mainFocus;
 
     function Calculator()
     {
@@ -18,6 +20,21 @@
         this.button;
         this.buttons;
         this.buttonValue;
+        this.elementFocus;
+        this.mainFocus;
+
+        this.focusDelete = function(elementFocus, mainFocus)
+        {
+            this.elementFocus = elementFocus;
+            this.mainFocus = mainFocus;
+
+            if (document.activeElement === this.elementFocus)
+            {
+                this.mainFocus.focus();
+                console.log(document.activeElement);
+                console.log(" - document.activeElement");
+            }
+        }
 
         this.clickEffect = function(button, buttons)
         {
@@ -135,6 +152,7 @@
                 this.numbersExpression = this.arraySymbols[0];
             }
             console.log(this.numbersExpression + " - this.numbersExpression return");
+            console.log(this.arraySymbols + " - this.arraySymbols3");
             return;
         }
 
@@ -191,7 +209,7 @@
                         this.arraySymbols.push("0");
                         this.arrayAllSymbols.push("0");
                         this.input.value += "0";
-                        this.arraySymbols[this.arFraySymbols.length - 1] += this.symbol;
+                        this.arraySymbols[this.arraySymbols.length - 1] += this.symbol;
                         this.arrayAllSymbols[this.arraySymbols.length - 1] += this.symbol;
                         this.input.value += this.symbol;
                     }
@@ -236,12 +254,20 @@
 
         this.calculateValue = function()
         {
+            this.counterFor = 0;
             console.log(this.arraySymbols);
             for (let a = 0; a < this.arraySymbols.length; a++)
             {
                 //console.log(Number(this.arraySymbols[a]));
                 if (/\d/gi.test(this.arraySymbols[a]) === false && /\d/gi.test(this.arraySymbols[a + 1]) === true)
                 {
+                    this.counterFor++;
+
+                    if (this.counterFor <= 1 && /\d/.test(this.arraySymbols[a - 1]) === true)
+                    {
+                        this.numbersExpression = Number(this.arraySymbols[a - 1]);
+                    }
+
                     if (this.arraySymbols[a] === "+")
                     {
                         console.log(this.numbersExpression + " - this.numbersExpression");
@@ -293,6 +319,8 @@
     {
         console.log("Hello");
         buttons = document.querySelectorAll(".main-blocks-buttons-button");
+        mainFocus = document.querySelector(".input-hidden");
+        elementFocus = document.querySelector(".main-blocks-input");
         calculator = new Calculator();
 
         for (let i = 0; i < buttons.length; i++)
@@ -330,6 +358,8 @@
 
         window.addEventListener('keydown', (event) =>
         {
+            calculator.focusDelete(elementFocus, mainFocus);
+
             if (event.key === "delete" || event.key === "Backspace")
             {
                 calculator.clickEffect("delete", buttons);

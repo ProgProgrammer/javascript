@@ -124,6 +124,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   var calculator;
   var buttons;
   var buttonValue;
+  var elementFocus;
+  var mainFocus;
 
   function Calculator() {
     this.numbersExpression = 0;
@@ -138,6 +140,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     this.button;
     this.buttons;
     this.buttonValue;
+    this.elementFocus;
+    this.mainFocus;
+
+    this.focusDelete = function (elementFocus, mainFocus) {
+      this.elementFocus = elementFocus;
+      this.mainFocus = mainFocus;
+
+      if (document.activeElement === this.elementFocus) {
+        this.mainFocus.focus();
+        console.log(document.activeElement);
+        console.log(" - document.activeElement");
+      }
+    };
 
     this.clickEffect = function (button, buttons) {
       this.button = button;
@@ -249,6 +264,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
 
       console.log(this.numbersExpression + " - this.numbersExpression return");
+      console.log(this.arraySymbols + " - this.arraySymbols3");
       return;
     };
 
@@ -295,7 +311,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             this.arraySymbols.push("0");
             this.arrayAllSymbols.push("0");
             this.input.value += "0";
-            this.arraySymbols[this.arFraySymbols.length - 1] += this.symbol;
+            this.arraySymbols[this.arraySymbols.length - 1] += this.symbol;
             this.arrayAllSymbols[this.arraySymbols.length - 1] += this.symbol;
             this.input.value += this.symbol;
           } else if (this.symbol === "+" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true || this.symbol === "-" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true || this.symbol === "*" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true || this.symbol === "/" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true) {
@@ -326,11 +342,18 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
 
     this.calculateValue = function () {
+      this.counterFor = 0;
       console.log(this.arraySymbols);
 
       for (var a = 0; a < this.arraySymbols.length; a++) {
         //console.log(Number(this.arraySymbols[a]));
         if (/\d/gi.test(this.arraySymbols[a]) === false && /\d/gi.test(this.arraySymbols[a + 1]) === true) {
+          this.counterFor++;
+
+          if (this.counterFor <= 1 && /\d/.test(this.arraySymbols[a - 1]) === true) {
+            this.numbersExpression = Number(this.arraySymbols[a - 1]);
+          }
+
           if (this.arraySymbols[a] === "+") {
             console.log(this.numbersExpression + " - this.numbersExpression");
             console.log(Number(this.arraySymbols[a + 1]) + " - Number(this.arraySymbols[a + 1]");
@@ -372,6 +395,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   window.addEventListener('DOMContentLoaded', function () {
     console.log("Hello");
     buttons = document.querySelectorAll(".main-blocks-buttons-button");
+    mainFocus = document.querySelector(".input-hidden");
+    elementFocus = document.querySelector(".main-blocks-input");
     calculator = new Calculator();
 
     var _loop = function _loop(i) {
@@ -402,6 +427,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     }
 
     window.addEventListener('keydown', function (event) {
+      calculator.focusDelete(elementFocus, mainFocus);
+
       if (event.key === "delete" || event.key === "Backspace") {
         calculator.clickEffect("delete", buttons);
         calculator.deleteButton(event.key);
