@@ -66,6 +66,13 @@ import { Calculator } from './libraryCalculator.js';
             }
         }
 
+        elementFocus.addEventListener('keydown', (event) =>
+        {
+            elementFocus = document.querySelector(".main-blocks-input");
+            calculator.focusDelete(elementFocus, mainFocus);
+            return;
+        });
+
         window.addEventListener('keydown', (event) =>
         {
             calculator.focusDelete(elementFocus, mainFocus);

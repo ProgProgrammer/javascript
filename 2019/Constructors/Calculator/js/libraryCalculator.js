@@ -106,10 +106,20 @@ function Calculator()
             }
         }
 
+        this.stringInput = this.arraySymbols[this.arraySymbols.length - 1];
+        this.stringInput += this.arraySymbols[this.arraySymbols.length - 2];
+
         if (typeof(Number(this.stringInput[this.stringInput.length - 1])) === "number" &&
-            String(this.stringInput[this.stringInput.length - 2]) === "-")
+            String(this.stringInput[this.stringInput.length - 2]) === "-" &&
+            this.stringInput[this.stringInput.length - 3] !== undefined)
         {
             this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+            this.input.value = "";
+            for (this.a = 0; this.a < this.arraySymbols.length; this.a++)
+            {
+                this.input.value += this.arraySymbols[this.a];
+            }
+            return;
         }
 
         this.lastSymbol = this.arraySymbols[this.arraySymbols.length - 1];
@@ -158,6 +168,7 @@ function Calculator()
             }
             else
             {
+                this.arraySymbols[this.arraySymbols.length - 1] = String(this.arraySymbols[this.arraySymbols.length - 1]).replace(/-/i, "");
                 this.variable = this.arraySymbols[this.arraySymbols.length - 1];
                 this.arraySymbols[this.arraySymbols.length - 1] = "-";
                 this.arraySymbols[this.arraySymbols.length - 1] += this.variable;
