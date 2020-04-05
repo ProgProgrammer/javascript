@@ -401,7 +401,6 @@ var _libraryCalculator = require("./libraryCalculator.js");
 
     window.addEventListener('keydown', function (event) {
       calculator.focusDelete(elementFocus, mainFocus);
-      console.log(event.key);
 
       if (event.key === "Enter") {
         elementFocus = document.querySelectorAll(".main-blocks-buttons-button");
