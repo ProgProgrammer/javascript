@@ -125,8 +125,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Calculator = Calculator;
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function Calculator() {
   this.numbersExpression = 0;
   this.arraySymbols = [];
@@ -137,9 +135,6 @@ function Calculator() {
   this.stringInput = "";
   this.checkSymbol = "";
   this.variable = "";
-  this.button;
-  this.buttons;
-  this.buttonValue;
   this.elementFocus;
   this.mainFocus;
 
@@ -147,36 +142,20 @@ function Calculator() {
     this.elementFocus = elementFocus;
     this.mainFocus = mainFocus;
 
-    if (document.activeElement === this.elementFocus) {
+    if (this.elementFocus.length === undefined && document.activeElement === this.elementFocus) {
       this.mainFocus.focus();
-      console.log(document.activeElement);
-      console.log(" - document.activeElement");
-    }
-  };
-
-  this.clickEffect = function (button, buttons) {
-    this.button = button;
-    this.buttons = buttons;
-
-    for (this.i = 0; this.i < this.buttons.length; this.i++) {
-      this.buttonValue = this.buttons[this.i].dataset.name;
-
-      if (this.buttonValue == this.button) {
-        this.buttons[this.i].style.backgroundColor = "#bfbfbf";
-        setTimeout(this.buttonBackground, 60, this.buttons[this.i]);
+    } else {
+      for (this.i = 0; this.i < this.elementFocus.length; this.i++) {
+        if (document.activeElement === this.elementFocus[this.i]) {
+          this.mainFocus.focus();
+        }
       }
     }
-  };
-
-  this.buttonBackground = function (button) {
-    this.button = button;
-    this.button.style.backgroundColor = "";
   };
 
   this.checkSymbols = function (arraySymbols) {
     this.checkSymbol = arraySymbols;
     this.checkSymbol = String(this.checkSymbol);
-    console.log(this.checkSymbol + " - this.checkSymbol");
 
     for (this.a = 0; this.a < this.checkSymbol.length; this.a++) {
       if (arraySymbols[this.a] === "-") {
@@ -187,8 +166,7 @@ function Calculator() {
     return false;
   };
 
-  this.clearAllButton = function (symbol) {
-    this.symbol = symbol;
+  this.clearAllButton = function () {
     this.input.value = this.input.value.replace(/ /gi, "");
     this.input.value = "";
     this.arraySymbols = [];
@@ -196,13 +174,12 @@ function Calculator() {
     this.numbersExpression = 0;
   };
 
-  this.clearButton = function (symbol) {
-    this.symbol = symbol;
+  this.clearButton = function () {
     this.input.value = this.input.value.replace(/ /gi, "");
     this.stringInput = this.input.value;
 
     for (this.i = 0; this.i < this.stringInput.length; this.i++) {
-      if (this.stringInput[this.i] === "=") {
+      if (this.stringInput[this.i] === "=" && typeof this.stringInput[this.i + 1] === "number") {
         this.input.value = "";
         this.arraySymbols = [];
         this.resultOfExpression = [];
@@ -223,13 +200,12 @@ function Calculator() {
     return;
   };
 
-  this.deleteButton = function (symbol) {
-    this.symbol = symbol;
+  this.deleteButton = function () {
     this.input.value = this.input.value.replace(/ /gi, "");
     this.stringInput = this.input.value;
 
     for (this.i = 0; this.i < this.stringInput.length; this.i++) {
-      if (this.stringInput[this.i] === "=") {
+      if (this.stringInput[this.i] === "=" && typeof this.stringInput[this.i + 1] === "number") {
         this.arraySymbols.splice(0, this.arraySymbols.length - 2);
         this.input.value = this.arraySymbols[0];
         this.numbersExpression = this.arraySymbols[0];
@@ -237,16 +213,14 @@ function Calculator() {
       }
     }
 
-    console.log(this.arraySymbols);
-    console.log(this.arraySymbols[0] + " - this.arraySymbols1");
+    if (typeof Number(this.stringInput[this.stringInput.length - 1]) === "number" && String(this.stringInput[this.stringInput.length - 2]) === "-") {
+      this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+    }
+
     this.lastSymbol = this.arraySymbols[this.arraySymbols.length - 1];
     this.lastSymbol = String(this.lastSymbol);
-    console.log(this.arraySymbols);
-    console.log(_typeof(this.lastSymbol) + " - lastSymbol1");
     this.lastSymbol = this.lastSymbol.substring(0, this.lastSymbol.length - 1);
-    console.log(this.lastSymbol + " - lastSymbol2");
     this.arraySymbols[this.arraySymbols.length - 1] = this.lastSymbol;
-    console.log(this.arraySymbols + " - this.arraySymbols2");
     this.input.value = "";
 
     if (this.arraySymbols[this.arraySymbols.length - 1] === "") {
@@ -263,26 +237,18 @@ function Calculator() {
       this.numbersExpression = this.arraySymbols[0];
     }
 
-    console.log(this.numbersExpression + " - this.numbersExpression return");
-    console.log(this.arraySymbols + " - this.arraySymbols3");
     return;
   };
 
-  this.signChangeButton = function (symbol) {
-    console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.checkSymbols(this.arraySymbols)");
-
+  this.signChangeButton = function () {
     if (this.arraySymbols[this.arraySymbols.length - 1] !== "*" && this.arraySymbols[this.arraySymbols.length - 1] !== "/" && this.arraySymbols[this.arraySymbols.length - 1] !== "+" && this.arraySymbols[this.arraySymbols.length - 1] !== "-") {
       if (this.checkSymbols(this.arraySymbols[this.arraySymbols.length - 1]) === true) {
         this.arraySymbols[this.arraySymbols.length - 1] = this.arraySymbols[this.arraySymbols.length - 1].replace(/-/i, "");
-        console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.arraySymbols[this.arraySymbols.length - 1]");
         this.input.value = "";
 
         for (this.b = 0; this.b < this.arraySymbols.length; this.b++) {
           this.input.value += this.arraySymbols[this.b];
         }
-
-        console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.arraySymbols[this.arraySymbols.length - 1]1");
-        console.log(this.numbersExpression + " - this.numbersExpression1");
       } else {
         this.variable = this.arraySymbols[this.arraySymbols.length - 1];
         this.arraySymbols[this.arraySymbols.length - 1] = "-";
@@ -303,9 +269,6 @@ function Calculator() {
     this.input.value = this.input.value.replace(/ /gi, "");
 
     if (this.symbol !== "=") {
-      console.log(/\d/gi.test(this.symbol));
-      console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.number");
-
       if (this.arraySymbols.length === 0 || /\d/gi.test(this.symbol) === false && this.symbol !== "." || /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === false) {
         if (this.symbol === "." && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === false) {
           this.arraySymbols.push("0");
@@ -315,76 +278,63 @@ function Calculator() {
           this.arrayAllSymbols[this.arraySymbols.length - 1] += this.symbol;
           this.input.value += this.symbol;
         } else if (this.symbol === "+" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true || this.symbol === "-" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true || this.symbol === "*" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true || this.symbol === "/" && /\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === true) {
-          console.log(this.arraySymbols[0] + " - this.arraySymbols2");
           this.arraySymbols.push(this.symbol);
           this.arrayAllSymbols.push(this.symbol);
           this.input.value += this.symbol;
-          console.log(this.arraySymbols);
         } else if (this.symbol !== "+" && this.symbol !== "-" && this.symbol !== "*" && this.symbol !== "/") {
-          console.log(this.arraySymbols[0] + " - this.arraySymbols2");
           this.arraySymbols.push(this.symbol);
           this.arrayAllSymbols.push(this.symbol);
           this.input.value += this.symbol;
-          console.log(this.arraySymbols);
         }
       } else {
         this.arraySymbols[this.arraySymbols.length - 1] += this.symbol;
         this.arrayAllSymbols[this.arrayAllSymbols.length - 1] += this.symbol;
         this.input.value += this.symbol;
-        console.log(this.arraySymbols);
       }
     } else {
-      this.input.value += this.symbol;
-      console.log(this.symbol);
-    }
+      if (/\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === false) {
+        return;
+      }
 
-    console.log(this.arraySymbols);
+      this.input.value += this.symbol;
+    }
   };
 
   this.calculateValue = function () {
-    this.counterFor = 0;
-    console.log(this.arraySymbols);
+    this.counterSymbols = 0;
 
     for (var a = 0; a < this.arraySymbols.length; a++) {
-      //console.log(Number(this.arraySymbols[a]));
       if (/\d/gi.test(this.arraySymbols[a]) === false && /\d/gi.test(this.arraySymbols[a + 1]) === true) {
-        this.counterFor++;
+        this.counterSymbols++;
 
-        if (this.counterFor <= 1 && /\d/.test(this.arraySymbols[a - 1]) === true) {
+        if (this.counterSymbols <= 1 && /\d/.test(this.arraySymbols[a - 1]) === true) {
           this.numbersExpression = Number(this.arraySymbols[a - 1]);
         }
 
         if (this.arraySymbols[a] === "+") {
-          console.log(this.numbersExpression + " - this.numbersExpression");
-          console.log(Number(this.arraySymbols[a + 1]) + " - Number(this.arraySymbols[a + 1]");
           this.numbersExpression = Number(this.numbersExpression) + Number(this.arraySymbols[a + 1]);
-          console.log(this.numbersExpression);
         } else if (this.arraySymbols[a] === "-") {
           this.numbersExpression = Number(this.numbersExpression) - Number(this.arraySymbols[a + 1]);
-          console.log(this.numbersExpression);
         } else if (this.arraySymbols[a] === "*") {
-          console.log(Number(this.numbersExpression) + " - Number(this.numbersExpression)");
-          console.log(Number(this.arraySymbols[a + 1]) + " - Number(this.arraySymbols[a + 1])");
           this.numbersExpression = Number(this.numbersExpression) * Number(this.arraySymbols[a + 1]);
-          console.log(this.numbersExpression);
         } else if (this.arraySymbols[a] === "/") {
           this.numbersExpression = Number(this.numbersExpression) / Number(this.arraySymbols[a + 1]);
-          console.log(this.numbersExpression);
         }
       } else if (/\d/gi.test(this.arraySymbols[a]) === true) {
         if (this.numbersExpression === 0 && this.arraySymbols.length - 1 !== a) {
-          console.log(a + " - this.numbersExpression");
           this.numbersExpression = Number(this.arraySymbols[a]);
-          console.log(this.numbersExpression);
         }
       }
+    }
+
+    if (/\d/gi.test(this.arraySymbols[this.arraySymbols.length - 1]) === false) {
+      return;
     }
 
     if (this.numbersExpression === Infinity) {
       this.numbersExpression = 0;
     }
 
-    console.log(this.numbersExpression + " - number");
     this.input.value += this.numbersExpression;
     this.resultOfExpression[0] = this.numbersExpression;
     this.arraySymbols = [];
@@ -403,7 +353,6 @@ var _libraryCalculator = require("./libraryCalculator.js");
   var elementFocus;
   var mainFocus;
   window.addEventListener('DOMContentLoaded', function () {
-    console.log("Hello");
     buttons = document.querySelectorAll(".main-blocks-buttons-button");
     mainFocus = document.querySelector(".input-hidden");
     elementFocus = document.querySelector(".main-blocks-input");
@@ -412,16 +361,15 @@ var _libraryCalculator = require("./libraryCalculator.js");
     var _loop = function _loop(i) {
       buttons[i].addEventListener('click', function () {
         buttonValue = buttons[i].dataset.name;
-        console.log(buttonValue);
 
         if (buttonValue === "clear-all") {
-          calculator.clearAllButton(buttonValue);
+          calculator.clearAllButton();
         } else if (buttonValue === "clear") {
-          calculator.clearButton(buttonValue);
+          calculator.clearButton();
         } else if (buttonValue === "delete") {
-          calculator.deleteButton(buttonValue);
+          calculator.deleteButton();
         } else if (buttonValue === "+/-") {
-          calculator.signChangeButton(buttonValue);
+          calculator.signChangeButton();
         } else {
           calculator.inputValue(buttonValue);
         }
@@ -436,25 +384,46 @@ var _libraryCalculator = require("./libraryCalculator.js");
       _loop(i);
     }
 
+    var buttonBackground = function buttonBackground(button) {
+      button.style.backgroundColor = "";
+    };
+
+    var clickEffect = function clickEffect(button, buttons) {
+      for (var _i = 0; _i < buttons.length; _i++) {
+        buttonValue = buttons[_i].dataset.name;
+
+        if (buttonValue === button) {
+          buttons[_i].style.backgroundColor = "#bfbfbf";
+          setTimeout(buttonBackground, 60, buttons[_i]);
+        }
+      }
+    };
+
     window.addEventListener('keydown', function (event) {
       calculator.focusDelete(elementFocus, mainFocus);
 
+      if (event.key === "Enter") {
+        elementFocus = document.querySelectorAll(".main-blocks-buttons-button");
+        calculator.focusDelete(elementFocus, mainFocus);
+        return;
+      }
+
       if (event.key === "delete" || event.key === "Backspace") {
-        calculator.clickEffect("delete", buttons);
+        clickEffect("delete", buttons);
         calculator.deleteButton(event.key);
-      } else if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" || event.key === "8" || event.key === "9" || event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/" || event.key === "." || event.key === "=" || event.key === "Enter") {
+      } else if (event.key === "0" || event.key === "1" || event.key === "2" || event.key === "3" || event.key === "4" || event.key === "5" || event.key === "6" || event.key === "7" || event.key === "8" || event.key === "9" || event.key === "+" || event.key === "-" || event.key === "*" || event.key === "/" || event.key === "." || event.key === "=") {
         if (event.key === "=") {
-          calculator.clickEffect(event.key, buttons);
+          clickEffect(event.key, buttons);
           buttonValue = "=";
           calculator.inputValue(buttonValue);
         } else {
-          calculator.clickEffect(event.key, buttons);
+          clickEffect(event.key, buttons);
           calculator.inputValue(event.key);
         }
       }
 
       if (event.key === "=") {
-        calculator.clickEffect(event.key, buttons);
+        clickEffect(event.key, buttons);
         calculator.calculateValue();
       }
     });
@@ -488,7 +457,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50687" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51209" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
