@@ -10,7 +10,6 @@ import { Calculator } from './libraryCalculator.js';
 
     window.addEventListener('DOMContentLoaded', () =>
     {
-        console.log("Hello");
         buttons = document.querySelectorAll(".main-blocks-buttons-button");
         mainFocus = document.querySelector(".input-hidden");
         elementFocus = document.querySelector(".main-blocks-input");
@@ -21,7 +20,7 @@ import { Calculator } from './libraryCalculator.js';
             buttons[i].addEventListener('click', () =>
             {
                 buttonValue = buttons[i].dataset.name;
-                console.log(buttonValue);
+
                 if (buttonValue === "clear-all")
                 {
                     calculator.clearAllButton();
