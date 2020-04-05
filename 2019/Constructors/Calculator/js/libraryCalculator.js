@@ -11,9 +11,6 @@ function Calculator()
     this.stringInput = "";
     this.checkSymbol = "";
     this.variable = "";
-    this.button;
-    this.buttons;
-    this.buttonValue;
     this.elementFocus;
     this.mainFocus;
 
@@ -22,33 +19,22 @@ function Calculator()
         this.elementFocus = elementFocus;
         this.mainFocus = mainFocus;
 
-        if (document.activeElement === this.elementFocus)
+        if (this.elementFocus.length === undefined && document.activeElement === this.elementFocus)
         {
             this.mainFocus.focus();
             console.log(document.activeElement);
             console.log(" - document.activeElement");
         }
-    }
-
-    this.clickEffect = function(button, buttons)
-    {
-        this.button = button;
-        this.buttons = buttons;
-        for (this.i = 0; this.i < this.buttons.length; this.i++)
+        else
         {
-            this.buttonValue = this.buttons[this.i].dataset.name;
-            if (this.buttonValue == this.button)
+            for (this.i = 0; this.i < this.elementFocus.length; this.i++)
             {
-                this.buttons[this.i].style.backgroundColor = "#bfbfbf";
-                setTimeout(this.buttonBackground, 60, this.buttons[this.i]);
+                if (document.activeElement === this.elementFocus[this.i])
+                {
+                    this.mainFocus.focus();
+                }
             }
         }
-    }
-
-    this.buttonBackground = function(button)
-    {
-        this.button = button;
-        this.button.style.backgroundColor = "";
     }
 
     this.checkSymbols = function(arraySymbols)
@@ -66,9 +52,8 @@ function Calculator()
         return false;
     }
 
-    this.clearAllButton = function(symbol)
+    this.clearAllButton = function()
     {
-        this.symbol = symbol;
         this.input.value = this.input.value.replace(/ /gi, "");
         this.input.value = "";
         this.arraySymbols = [];
@@ -76,15 +61,15 @@ function Calculator()
         this.numbersExpression = 0;
     }
 
-    this.clearButton = function(symbol)
+    this.clearButton = function()
     {
-        this.symbol = symbol;
         this.input.value = this.input.value.replace(/ /gi, "");
         this.stringInput = this.input.value;
         for(this.i = 0; this.i < this.stringInput.length; this.i++)
         {
-            if (this.stringInput[this.i] === "=")
+            if (this.stringInput[this.i] === "=" && typeof(this.stringInput[this.i + 1]) === "number")
             {
+                console.log(this.stringInput + " - this.stringInput");
                 this.input.value = "";
                 this.arraySymbols = [];
                 this.resultOfExpression = [];
@@ -92,6 +77,7 @@ function Calculator()
                 return;
             }
         }
+        console.log(this.stringInput + " - this.stringInput11");
         this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
         this.resultOfExpression = [];
         this.numbersExpression = 0;
@@ -103,21 +89,28 @@ function Calculator()
         return;
     }
 
-    this.deleteButton = function(symbol)
+    this.deleteButton = function()
     {
-        this.symbol = symbol;
         this.input.value = this.input.value.replace(/ /gi, "");
         this.stringInput = this.input.value;
         for(this.i = 0; this.i < this.stringInput.length; this.i++)
         {
-            if (this.stringInput[this.i] === "=")
+            if (this.stringInput[this.i] === "=" && typeof(this.stringInput[this.i + 1]) === "number")
             {
+                console.log(this.stringInput + " - this.stringInput2");
                 this.arraySymbols.splice(0, this.arraySymbols.length - 2);
                 this.input.value = this.arraySymbols[0];
                 this.numbersExpression = this.arraySymbols[0];
                 return;
             }
         }
+        if (typeof(Number(this.stringInput[this.stringInput.length - 1])) === "number" &&
+            String(this.stringInput[this.stringInput.length - 2]) === "-")
+        {
+            this.arraySymbols.splice(this.arraySymbols.length - 1, 1);
+            console.log(this.arraySymbols + " - ДЕФИС");
+        }
+        console.log(this.stringInput + " - this.stringInput22");
         console.log(this.arraySymbols);
         console.log(this.arraySymbols[0] + " - this.arraySymbols1");
         this.lastSymbol = this.arraySymbols[this.arraySymbols.length - 1];
@@ -150,7 +143,7 @@ function Calculator()
         return;
     }
 
-    this.signChangeButton = function(symbol)
+    this.signChangeButton = function()
     {
         console.log(this.arraySymbols[this.arraySymbols.length - 1] + " - this.checkSymbols(this.arraySymbols)");
         if (this.arraySymbols[this.arraySymbols.length - 1] !== "*" &&
@@ -240,6 +233,11 @@ function Calculator()
         }
         else
         {
+            if (/\d/gi.test(this.arraySymbols[this.arraySymbols.length-1]) === false)
+            {
+                console.log("ОТМЕНА");
+                return;
+            }
             this.input.value += this.symbol;
             console.log(this.symbol);
         }
@@ -248,16 +246,16 @@ function Calculator()
 
     this.calculateValue = function()
     {
-        this.counterFor = 0;
+        this.counterSymbols = 0;
         console.log(this.arraySymbols);
         for (let a = 0; a < this.arraySymbols.length; a++)
         {
             //console.log(Number(this.arraySymbols[a]));
             if (/\d/gi.test(this.arraySymbols[a]) === false && /\d/gi.test(this.arraySymbols[a + 1]) === true)
             {
-                this.counterFor++;
+                this.counterSymbols++;
 
-                if (this.counterFor <= 1 && /\d/.test(this.arraySymbols[a - 1]) === true)
+                if (this.counterSymbols <= 1 && /\d/.test(this.arraySymbols[a - 1]) === true)
                 {
                     this.numbersExpression = Number(this.arraySymbols[a - 1]);
                 }
@@ -297,6 +295,13 @@ function Calculator()
                 }
             }
         }
+
+        if (/\d/gi.test(this.arraySymbols[this.arraySymbols.length-1]) === false)
+        {
+            console.log("ОТМЕНА3");
+            return;
+        }
+
         if (this.numbersExpression === Infinity)
         {
             this.numbersExpression = 0;
