@@ -84,7 +84,7 @@ import { Calculator } from './libraryCalculator.js';
                 return;
             }
 
-            if (event.key === "delete" || event.key === "Backspace")
+            if (event.key === "Backspace")
             {
                 clickEffect("delete", buttons);
                 calculator.deleteButton(event.key);
