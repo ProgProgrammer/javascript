@@ -13,6 +13,7 @@ function Calculator()
     this.variable = "";
     this.elementFocus;
     this.mainFocus;
+    this.stringPoint;
 
     this.focusDelete = function(elementFocus, mainFocus)
     {
@@ -33,6 +34,19 @@ function Calculator()
                 }
             }
         }
+    }
+
+    this.pointCheck = function(symbol)
+    {
+        this.stringPoint = symbol;
+        for (this.i = 0; this.i < this.stringPoint.length; this.i++)
+        {
+            if (this.stringPoint[this.i] === ".")
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     this.checkSymbols = function(arraySymbols)
@@ -99,7 +113,8 @@ function Calculator()
 
         for(this.i = 0; this.i < this.stringInput.length; this.i++)
         {
-            if (this.stringInput[this.i] === "=" && this.stringInput[this.i + 1] !== "")
+            if (this.stringInput[this.i] === "=" && this.stringInput[this.i + 1] !== "" &&
+                this.arraySymbols.length <= 1)
             {
                 this.arraySymbols.splice(0, this.arraySymbols.length - 2);
                 this.input.value = this.arraySymbols[0];
@@ -239,9 +254,16 @@ function Calculator()
             }
             else
             {
-                this.arraySymbols[this.arraySymbols.length - 1] += this.symbol;
-                this.arrayAllSymbols[this.arrayAllSymbols.length - 1] += this.symbol;
-                this.input.value += this.symbol;
+                if (this.symbol === "." && this.pointCheck(this.arraySymbols[this.arraySymbols.length - 1]) === true)
+                {
+                    return;
+                }
+                else
+                {
+                    this.arraySymbols[this.arraySymbols.length - 1] += this.symbol;
+                    this.arrayAllSymbols[this.arrayAllSymbols.length - 1] += this.symbol;
+                    this.input.value += this.symbol;
+                }
             }
         }
         else
