@@ -117,7 +117,14 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"task.js":[function(require,module,exports) {
+})({"libraryMenu.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Menu = void 0;
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -234,6 +241,12 @@ var Menu = /*#__PURE__*/function () {
   return Menu;
 }();
 
+exports.Menu = Menu;
+},{}],"task.js":[function(require,module,exports) {
+"use strict";
+
+var _libraryMenu = require("./libraryMenu.js");
+
 (function () {
   var menu;
   var objectMenu = {};
@@ -268,7 +281,7 @@ var Menu = /*#__PURE__*/function () {
     objectMenu.menuBlock = document.querySelector(".header-div-ul");
     objectMenu.menuUl = document.querySelector(".header-ul");
     objectMenu.scrollFixedMenu = objectMenu.blockFixedMenu.getBoundingClientRect().bottom + window.pageYOffset;
-    menu = new Menu(objectMenu);
+    menu = new _libraryMenu.Menu(objectMenu);
     window.addEventListener('scroll', function () {
       menu.scrollMenu();
     });
@@ -283,7 +296,7 @@ var Menu = /*#__PURE__*/function () {
     });
   });
 })();
-},{}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./libraryMenu.js":"libraryMenu.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -311,7 +324,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50344" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52862" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
