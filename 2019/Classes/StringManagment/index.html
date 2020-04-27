@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Управление строками</title>
+    <meta name="description" content="Menu">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="container">
+    <div class="menu-top">
+        <button class="menu-top-buttons">
+            Editor
+        </button>
+        <button class="menu-top-buttons">
+            Preview
+        </button>
+        <hr class="menu-top-hr">
+    </div>
+    <div class="preview">
+        <div class="preview-adding">
+            <input type="text" class="preview-adding-input" placeholder="Enter item name">
+            <button class="preview-adding-button">
+                Add
+            </button>
+        </div>
+        <div class="preview-block">
+            <div class="preview-block-text">
+                <p class="preview-block-text-p">
+                    Item 1
+                </p>
+            </div>
+            <div class="preview-block-buttons">
+                <button class="preview-block-buttons-button"></button>
+                <button class="preview-block-buttons-button"></button>
+            </div>
+        </div>
+    </div>
+    <div class="editor">
+        <div class="editor-panel">
+            <div class="editor-panel-left">
+                <p class="editor-panel-left-p">
+                    Name
+                </p>
+            </div>
+            <div class="editor-panel-right">
+                <p class="editor-panel-right-p">
+                    Date
+                </p>
+            </div>
+        </div>
+        <div class="editor-block">
+            <div class="editor-block-left">
+                <p class="editor-block-left-p">
+                    Item 1
+                </p>
+            </div>
+            <div class="editor-block-right">
+                <p class="editor-block-right-p date">21.01.18</p>
+                <p class="editor-block-right-p time">23:15</p>
+                <button class="editor-block-right-button"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="dist/task.js"></script>
+</body>
+</html>
