@@ -3,4 +3,123 @@
   padding: 0;
   box-sizing: border-box;
 }
+input:focus,
+button:focus,
+a:focus {
+  outline: none;
+}
+button {
+  background: transparent;
+}
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1140px;
+  width: 100%;
+  display: flex;
+}
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-top: 0;
+}
+.menu-top {
+  width: 100%;
+  height: 45px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.menu-top-buttons {
+  max-width: 150px;
+  width: 100%;
+  height: 35px;
+  border: 1px solid black;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+}
+.menu-top-buttons:hover {
+  background: buttonface;
+}
+.menu-top-hr {
+  width: 100%;
+  height: 2px;
+  border: none;
+  background: black;
+  z-index: -1;
+}
+.preview {
+  padding: 10px 5px 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.preview-adding {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.preview-adding-input {
+  padding-left: 5px;
+  padding-right: 5px;
+  width: 100%;
+  height: 30px;
+  border: 2px solid grey;
+}
+.preview-adding-input::placeholder {
+  color: #BCB7B6;
+}
+.preview-adding-button {
+  margin-left: 20px;
+  width: 100px;
+  height: 34px;
+  border: 2px solid grey;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.preview-adding-button:hover {
+  background: buttonface;
+}
+.preview-block {
+  margin-top: 15px;
+  padding-left: 20px;
+  border-bottom: 2px solid black;
+  display: flex;
+  align-items: flex-end;
+}
+.preview-block-text {
+  width: 100%;
+  display: flex;
+}
+.preview-block-buttons {
+  display: flex;
+}
+.preview-block-buttons-button {
+  margin-left: 15px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  transform: scale(1);
+  transition: 0.2s linear;
+  cursor: pointer;
+}
+.preview-block-buttons-button-img {
+  width: 15px;
+}
+.preview-block-buttons-button-img.delete {
+  width: 20px;
+}
+.preview-block-buttons-button:hover .preview-block-buttons-button-img {
+  transform: scale(1.1);
+  transition: 0.2s linear;
+}
+.editor {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */
