@@ -53,7 +53,7 @@ button {
 .preview {
   padding: 10px 5px 50px;
   width: 100%;
-  display: none;
+  display: flex;
   flex-direction: column;
 }
 .preview-adding {
@@ -121,7 +121,7 @@ button {
 }
 .editor {
   padding: 5px 5px 50px;
-  display: flex;
+  display: none;
   flex-direction: column;
 }
 .editor-panel {
