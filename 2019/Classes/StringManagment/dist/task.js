@@ -138,6 +138,24 @@ var StringManagment = /*#__PURE__*/function () {
     this.buttonId;
     this.buttons = object.buttons;
     this.tabs = object.tabs;
+    this.input = object.input;
+    this.addBlockEditor;
+    this.addBlockPreview;
+    this.cloneBlock;
+    this.columnEditor = object.columnEditor;
+    this.stringsEditorText = object.stringsEditorText;
+    this.columnPreview = object.columnPreview;
+    this.stringsPreviewText = object.stringsPreviewText;
+    this.stringsPreviewDate = object.stringsPreviewDate;
+    this.stringsPreviewTime = object.stringsPreviewTime;
+    this.date;
+    this.elementDate;
+    this.variableDate;
+    this.day;
+    this.month;
+    this.year;
+    this.hours;
+    this.minutes;
   }
 
   _createClass(StringManagment, [{
@@ -156,6 +174,63 @@ var StringManagment = /*#__PURE__*/function () {
       this.buttons[this.buttonId].style.background = "buttonface";
       this.tabs[this.buttonId].style.display = "flex";
     }
+  }, {
+    key: "getDate",
+    value: function getDate(numberDate, number) {
+      this.elementDate = numberDate;
+      this.number = number;
+
+      if (this.elementDate < 10) {
+        if (this.number === 1) {
+          this.elementDate += 1;
+        }
+
+        return "0" + this.elementDate;
+      } else {
+        if (this.number === 1) {
+          this.elementDate += 1;
+        }
+
+        return this.elementDate;
+      }
+    }
+  }, {
+    key: "addDateTime",
+    value: function addDateTime() {
+      this.date = new Date();
+      this.variableDate = this.date.getDate();
+      this.day = this.getDate(this.variableDate);
+      this.variableDate = this.date.getMonth();
+      this.month = this.getDate(this.variableDate, 1);
+      this.year = this.date.getFullYear();
+      this.year = String(this.year);
+      this.year = this.year.substr(2, 2);
+      this.variableDate = this.date.getHours();
+      this.hours = this.getDate(this.variableDate);
+      this.variableDate = this.date.getMinutes();
+      this.minutes = this.getDate(this.variableDate);
+      this.stringsPreviewDate.innerHTML = this.day;
+      this.stringsPreviewDate.innerHTML += ".";
+      this.stringsPreviewDate.innerHTML += this.month;
+      this.stringsPreviewDate.innerHTML += ".";
+      this.stringsPreviewDate.innerHTML += this.year;
+      this.stringsPreviewTime.innerHTML = this.hours;
+      this.stringsPreviewTime.innerHTML += ":";
+      this.stringsPreviewTime.innerHTML += this.minutes;
+    }
+  }, {
+    key: "addString",
+    value: function addString(editorBlock, previewBlock) {
+      this.addBlockEditor = editorBlock;
+      this.addBlockPreview = previewBlock;
+      this.stringsEditorText.innerHTML = this.input.value;
+      this.stringsPreviewText.innerHTML = this.input.value;
+      this.addDateTime();
+      this.cloneBlock = this.addBlockEditor.cloneNode(true);
+      this.columnEditor.appendChild(this.cloneBlock);
+      this.cloneBlock = this.addBlockPreview.cloneNode(true);
+      this.columnPreview.appendChild(this.cloneBlock);
+    }
   }]);
 
   return StringManagment;
@@ -172,9 +247,28 @@ var _libraryStringManagment = require("./libraryStringManagment.js");
   var objectStringManagment = {};
   objectStringManagment.buttons;
   objectStringManagment.tabs;
+  var addButton;
+  objectStringManagment.input;
+  objectStringManagment.addBlock;
+  objectStringManagment.stringsEditor;
+  objectStringManagment.stringsEditorText;
+  objectStringManagment.stringsPreview;
+  objectStringManagment.stringsPreviewText;
+  objectStringManagment.stringsPreviewDate;
+  objectStringManagment.stringsPreviewTime;
   window.addEventListener('DOMContentLoaded', function () {
     objectStringManagment.buttons = document.querySelectorAll(".button");
     objectStringManagment.tabs = document.querySelectorAll(".tab");
+    addButton = document.querySelector(".preview-adding-button");
+    objectStringManagment.input = document.querySelector(".preview-adding-input");
+    objectStringManagment.columnEditor = document.querySelector(".preview-column");
+    objectStringManagment.editorBlock = document.querySelector(".preview-block");
+    objectStringManagment.stringsEditorText = objectStringManagment.editorBlock.querySelector(".text");
+    objectStringManagment.columnPreview = document.querySelector(".editor-column");
+    objectStringManagment.previewBlock = document.querySelector(".editor-block");
+    objectStringManagment.stringsPreviewText = objectStringManagment.previewBlock.querySelector(".text");
+    objectStringManagment.stringsPreviewDate = document.querySelector(".date");
+    objectStringManagment.stringsPreviewTime = document.querySelector(".time");
     stringManagment = new _libraryStringManagment.StringManagment(objectStringManagment);
 
     var _loop = function _loop(i) {
@@ -186,6 +280,10 @@ var _libraryStringManagment = require("./libraryStringManagment.js");
     for (var i = 0; i < objectStringManagment.buttons.length; i++) {
       _loop(i);
     }
+
+    addButton.addEventListener("click", function () {
+      stringManagment.addString(objectStringManagment.editorBlock, objectStringManagment.previewBlock);
+    });
   });
 })();
 },{"./libraryStringManagment.js":"libraryStringManagment.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -216,7 +314,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55467" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58512" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
