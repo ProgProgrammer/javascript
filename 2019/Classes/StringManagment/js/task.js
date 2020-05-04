@@ -8,13 +8,13 @@ import { StringManagment } from "./libraryStringManagment.js";
     objectStringManagment.tabs;
     let addButton;
     objectStringManagment.input;
-    objectStringManagment.addBlock;
-    objectStringManagment.stringsEditor;
+    objectStringManagment.columnEditor;
     objectStringManagment.stringsEditorText;
-    objectStringManagment.stringsPreview;
+    objectStringManagment.columnPreview;
     objectStringManagment.stringsPreviewText;
     objectStringManagment.stringsPreviewDate;
     objectStringManagment.stringsPreviewTime;
+    objectStringManagment.copy;
 
     window.addEventListener('DOMContentLoaded', () =>
     {
@@ -23,13 +23,14 @@ import { StringManagment } from "./libraryStringManagment.js";
         addButton = document.querySelector(".preview-adding-button");
         objectStringManagment.input = document.querySelector(".preview-adding-input");
         objectStringManagment.columnEditor = document.querySelector(".preview-column");
-        objectStringManagment.editorBlock = document.querySelector(".preview-block");
-        objectStringManagment.stringsEditorText = objectStringManagment.editorBlock.querySelector(".text");
+        objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
+        objectStringManagment.stringsEditorText = objectStringManagment.editorBlock[objectStringManagment.editorBlock.length - 1].querySelector(".text");
         objectStringManagment.columnPreview = document.querySelector(".editor-column");
-        objectStringManagment.previewBlock = document.querySelector(".editor-block");
-        objectStringManagment.stringsPreviewText = objectStringManagment.previewBlock.querySelector(".text");
-        objectStringManagment.stringsPreviewDate = document.querySelector(".date");
-        objectStringManagment.stringsPreviewTime = document.querySelector(".time");
+        objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
+        objectStringManagment.stringsPreviewText = objectStringManagment.previewBlock[objectStringManagment.previewBlock.length - 1].querySelector(".text");
+        objectStringManagment.stringsPreviewDate = document.querySelectorAll(".date");
+        objectStringManagment.stringsPreviewTime = document.querySelectorAll(".time");
+        objectStringManagment.copy = document.querySelectorAll(".copy");
 
         stringManagment = new StringManagment(objectStringManagment);
 
@@ -41,10 +42,29 @@ import { StringManagment } from "./libraryStringManagment.js";
             });
         }
 
+        const copyBlock = () =>
+        {
+            objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
+            objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
+            for (let a = 0; a < objectStringManagment.copy.length; a++)
+            {
+                objectStringManagment.copy[a].onclick = () =>
+                {
+                    stringManagment.copyString(objectStringManagment.editorBlock[a], objectStringManagment.previewBlock[a]);
+                    objectStringManagment.copy = document.querySelectorAll(".copy");
+                    copyBlock();
+                };
+            }
+        }
+
         addButton.addEventListener("click", () =>
         {
-            stringManagment.addString(objectStringManagment.editorBlock, objectStringManagment.previewBlock);
+            stringManagment.addString(objectStringManagment.editorBlock[objectStringManagment.editorBlock.length - 1], objectStringManagment.previewBlock[objectStringManagment.previewBlock.length - 1]);
+            objectStringManagment.copy = document.querySelectorAll(".copy");
+            copyBlock();
         });
+
+        copyBlock();
     });
 })
 
