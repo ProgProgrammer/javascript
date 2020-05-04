@@ -62,7 +62,9 @@ class StringManagment
         }
     }
 
-    addDateTime() {
+    addDateTime(id)
+    {
+        this.buttonId = id;
         this.date = new Date();
         this.variableDate = this.date.getDate();
         this.day = this.getDate(this.variableDate);
@@ -75,25 +77,55 @@ class StringManagment
         this.hours = this.getDate(this.variableDate);
         this.variableDate = this.date.getMinutes();
         this.minutes = this.getDate(this.variableDate);
-        this.stringsPreviewDate.innerHTML = this.day;
-        this.stringsPreviewDate.innerHTML += ".";
-        this.stringsPreviewDate.innerHTML += this.month;
-        this.stringsPreviewDate.innerHTML += ".";
-        this.stringsPreviewDate.innerHTML += this.year;
-        this.stringsPreviewTime.innerHTML = this.hours;
-        this.stringsPreviewTime.innerHTML += ":";
-        this.stringsPreviewTime.innerHTML += this.minutes;
+
+        if (this.buttonId === true)
+        {
+            this.stringsPreviewDate = document.querySelectorAll(".date");
+            this.stringsPreviewTime = document.querySelectorAll(".time");
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML = this.day;
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML += ".";
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML += this.month;
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML += ".";
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML += this.year;
+            this.stringsPreviewTime[this.stringsPreviewTime.length - 2].innerHTML = this.hours;
+            this.stringsPreviewTime[this.stringsPreviewTime.length - 2].innerHTML += ":";
+            this.stringsPreviewTime[this.stringsPreviewTime.length - 2].innerHTML += this.minutes;
+        }
+        else
+        {
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML = this.day;
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML += ".";
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML += this.month;
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML += ".";
+            this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML += this.year;
+            this.stringsPreviewTime[this.stringsPreviewTime.length - 1].innerHTML = this.hours;
+            this.stringsPreviewTime[this.stringsPreviewTime.length - 1].innerHTML += ":";
+            this.stringsPreviewTime[this.stringsPreviewTime.length - 1].innerHTML += this.minutes;
+        }
     }
 
-    addString(editorBlock, previewBlock) {
+    addString(editorBlock, previewBlock)
+    {
         this.addBlockEditor = editorBlock;
         this.addBlockPreview = previewBlock;
         this.stringsEditorText.innerHTML = this.input.value;
         this.stringsPreviewText.innerHTML = this.input.value;
         this.addDateTime();
         this.cloneBlock = this.addBlockEditor.cloneNode(true);
-        this.columnEditor.appendChild(this.cloneBlock);
+        this.columnEditor.append(this.cloneBlock);
         this.cloneBlock = this.addBlockPreview.cloneNode(true);
-        this.columnPreview.appendChild(this.cloneBlock);
+        this.columnPreview.append(this.cloneBlock);
+    }
+
+    copyString(editorBlock, previewBlock)
+    {
+        this.buttonId = true;
+        this.addBlockEditor = editorBlock;
+        this.addBlockPreview = previewBlock;
+        this.cloneBlock = this.addBlockEditor.cloneNode(true);
+        this.columnEditor.append(this.cloneBlock);
+        this.cloneBlock = this.addBlockPreview.cloneNode(true);
+        this.columnPreview.append(this.cloneBlock);
+        this.addDateTime(this.buttonId);
     }
 }

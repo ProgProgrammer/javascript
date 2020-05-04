@@ -196,7 +196,8 @@ var StringManagment = /*#__PURE__*/function () {
     }
   }, {
     key: "addDateTime",
-    value: function addDateTime() {
+    value: function addDateTime(id) {
+      this.buttonId = id;
       this.date = new Date();
       this.variableDate = this.date.getDate();
       this.day = this.getDate(this.variableDate);
@@ -209,14 +210,28 @@ var StringManagment = /*#__PURE__*/function () {
       this.hours = this.getDate(this.variableDate);
       this.variableDate = this.date.getMinutes();
       this.minutes = this.getDate(this.variableDate);
-      this.stringsPreviewDate.innerHTML = this.day;
-      this.stringsPreviewDate.innerHTML += ".";
-      this.stringsPreviewDate.innerHTML += this.month;
-      this.stringsPreviewDate.innerHTML += ".";
-      this.stringsPreviewDate.innerHTML += this.year;
-      this.stringsPreviewTime.innerHTML = this.hours;
-      this.stringsPreviewTime.innerHTML += ":";
-      this.stringsPreviewTime.innerHTML += this.minutes;
+
+      if (this.buttonId === true) {
+        this.stringsPreviewDate = document.querySelectorAll(".date");
+        this.stringsPreviewTime = document.querySelectorAll(".time");
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML = this.day;
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML += ".";
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML += this.month;
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML += ".";
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 2].innerHTML += this.year;
+        this.stringsPreviewTime[this.stringsPreviewTime.length - 2].innerHTML = this.hours;
+        this.stringsPreviewTime[this.stringsPreviewTime.length - 2].innerHTML += ":";
+        this.stringsPreviewTime[this.stringsPreviewTime.length - 2].innerHTML += this.minutes;
+      } else {
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML = this.day;
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML += ".";
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML += this.month;
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML += ".";
+        this.stringsPreviewDate[this.stringsPreviewDate.length - 1].innerHTML += this.year;
+        this.stringsPreviewTime[this.stringsPreviewTime.length - 1].innerHTML = this.hours;
+        this.stringsPreviewTime[this.stringsPreviewTime.length - 1].innerHTML += ":";
+        this.stringsPreviewTime[this.stringsPreviewTime.length - 1].innerHTML += this.minutes;
+      }
     }
   }, {
     key: "addString",
@@ -227,9 +242,21 @@ var StringManagment = /*#__PURE__*/function () {
       this.stringsPreviewText.innerHTML = this.input.value;
       this.addDateTime();
       this.cloneBlock = this.addBlockEditor.cloneNode(true);
-      this.columnEditor.appendChild(this.cloneBlock);
+      this.columnEditor.append(this.cloneBlock);
       this.cloneBlock = this.addBlockPreview.cloneNode(true);
-      this.columnPreview.appendChild(this.cloneBlock);
+      this.columnPreview.append(this.cloneBlock);
+    }
+  }, {
+    key: "copyString",
+    value: function copyString(editorBlock, previewBlock) {
+      this.buttonId = true;
+      this.addBlockEditor = editorBlock;
+      this.addBlockPreview = previewBlock;
+      this.cloneBlock = this.addBlockEditor.cloneNode(true);
+      this.columnEditor.append(this.cloneBlock);
+      this.cloneBlock = this.addBlockPreview.cloneNode(true);
+      this.columnPreview.append(this.cloneBlock);
+      this.addDateTime(this.buttonId);
     }
   }]);
 
@@ -249,26 +276,27 @@ var _libraryStringManagment = require("./libraryStringManagment.js");
   objectStringManagment.tabs;
   var addButton;
   objectStringManagment.input;
-  objectStringManagment.addBlock;
-  objectStringManagment.stringsEditor;
+  objectStringManagment.columnEditor;
   objectStringManagment.stringsEditorText;
-  objectStringManagment.stringsPreview;
+  objectStringManagment.columnPreview;
   objectStringManagment.stringsPreviewText;
   objectStringManagment.stringsPreviewDate;
   objectStringManagment.stringsPreviewTime;
+  objectStringManagment.copy;
   window.addEventListener('DOMContentLoaded', function () {
     objectStringManagment.buttons = document.querySelectorAll(".button");
     objectStringManagment.tabs = document.querySelectorAll(".tab");
     addButton = document.querySelector(".preview-adding-button");
     objectStringManagment.input = document.querySelector(".preview-adding-input");
     objectStringManagment.columnEditor = document.querySelector(".preview-column");
-    objectStringManagment.editorBlock = document.querySelector(".preview-block");
-    objectStringManagment.stringsEditorText = objectStringManagment.editorBlock.querySelector(".text");
+    objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
+    objectStringManagment.stringsEditorText = objectStringManagment.editorBlock[objectStringManagment.editorBlock.length - 1].querySelector(".text");
     objectStringManagment.columnPreview = document.querySelector(".editor-column");
-    objectStringManagment.previewBlock = document.querySelector(".editor-block");
-    objectStringManagment.stringsPreviewText = objectStringManagment.previewBlock.querySelector(".text");
-    objectStringManagment.stringsPreviewDate = document.querySelector(".date");
-    objectStringManagment.stringsPreviewTime = document.querySelector(".time");
+    objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
+    objectStringManagment.stringsPreviewText = objectStringManagment.previewBlock[objectStringManagment.previewBlock.length - 1].querySelector(".text");
+    objectStringManagment.stringsPreviewDate = document.querySelectorAll(".date");
+    objectStringManagment.stringsPreviewTime = document.querySelectorAll(".time");
+    objectStringManagment.copy = document.querySelectorAll(".copy");
     stringManagment = new _libraryStringManagment.StringManagment(objectStringManagment);
 
     var _loop = function _loop(i) {
@@ -281,9 +309,29 @@ var _libraryStringManagment = require("./libraryStringManagment.js");
       _loop(i);
     }
 
+    var copyBlock = function copyBlock() {
+      objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
+      objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
+
+      var _loop2 = function _loop2(a) {
+        objectStringManagment.copy[a].onclick = function () {
+          stringManagment.copyString(objectStringManagment.editorBlock[a], objectStringManagment.previewBlock[a]);
+          objectStringManagment.copy = document.querySelectorAll(".copy");
+          copyBlock();
+        };
+      };
+
+      for (var a = 0; a < objectStringManagment.copy.length; a++) {
+        _loop2(a);
+      }
+    };
+
     addButton.addEventListener("click", function () {
-      stringManagment.addString(objectStringManagment.editorBlock, objectStringManagment.previewBlock);
+      stringManagment.addString(objectStringManagment.editorBlock[objectStringManagment.editorBlock.length - 1], objectStringManagment.previewBlock[objectStringManagment.previewBlock.length - 1]);
+      objectStringManagment.copy = document.querySelectorAll(".copy");
+      copyBlock();
     });
+    copyBlock();
   });
 })();
 },{"./libraryStringManagment.js":"libraryStringManagment.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
