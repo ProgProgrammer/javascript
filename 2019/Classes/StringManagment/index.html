@@ -7,7 +7,6 @@
     <title>Управление строками</title>
     <meta name="description" content="Menu">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -30,21 +29,7 @@
                     Add
                 </button>
             </div>
-            <div class="preview-block">
-                <div class="preview-block-text">
-                    <p class="preview-block-text-p">
-                        Item 1
-                    </p>
-                </div>
-                <div class="preview-block-buttons">
-                    <button class="preview-block-buttons-button">
-                        <img class="preview-block-buttons-button-img" src="icons/copy.svg" alt="copy">
-                    </button>
-                    <button class="preview-block-buttons-button">
-                        <img class="preview-block-buttons-button-img delete" src="icons/delete.svg" alt="delete">
-                    </button>
-                </div>
-            </div>
+            <div class="preview-column"></div>
         </div>
         <div class="editor tab">
             <div class="editor-panel">
@@ -59,36 +44,52 @@
                     </p>
                 </div>
             </div>
-            <div class="editor-block">
-                <div class="editor-block-left">
-                    <p class="editor-block-left-p">
-                        Item 1
-                    </p>
+            <div class="editor-column"></div>
+        </div>
+        <div class="preview-block">
+            <div class="preview-block-text">
+                <p class="preview-block-text-p text">
+                    Item 1
+                </p>
+            </div>
+            <div class="preview-block-buttons">
+                <button class="preview-block-buttons-button">
+                    <img class="preview-block-buttons-button-img" src="icons/copy.svg" alt="copy">
+                </button>
+                <button class="preview-block-buttons-button">
+                    <img class="preview-block-buttons-button-img delete" src="icons/delete.svg" alt="delete">
+                </button>
+            </div>
+        </div>
+        <div class="editor-block">
+            <div class="editor-block-left">
+                <p class="editor-block-left-p text">
+                    Item 1
+                </p>
+            </div>
+            <div class="editor-block-right">
+                <div class="editor-block-right-text">
+                    <p class="editor-block-right-text-p date">21.01.18</p>
+                    <p class="editor-block-right-text-p time">23:15</p>
                 </div>
-                <div class="editor-block-right">
-                    <div class="editor-block-right-text">
-                        <p class="editor-block-right-text-p date">21.01.18</p>
-                        <p class="editor-block-right-text-p time">23:15</p>
+                <button class="editor-block-right-button">
+                    <img class="editor-block-right-button-img" src="icons/dots.svg" alt="dots">
+                </button>
+                <div class="editor-block-right-window">
+                    <div class="editor-block-right-window-block">
+                        <div class="editor-block-right-window-block-triangle"></div>
+                        <div class="editor-block-right-window-block-triangle-border"></div>
                     </div>
-                    <button class="editor-block-right-button">
-                        <img class="editor-block-right-button-img" src="icons/dots.svg" alt="dots">
-                    </button>
-                    <div class="editor-block-right-window">
-                        <div class="editor-block-right-window-block">
-                            <div class="editor-block-right-window-block-triangle"></div>
-                            <div class="editor-block-right-window-block-triangle-border"></div>
-                        </div>
-                        <a href="#" class="editor-block-right-window-a">
+                    <a href="#" class="editor-block-right-window-a">
                             <span class="editor-block-right-window-a-span">
                                 Move to top
                             </span>
-                        </a>
-                        <a href="#" class="editor-block-right-window-a">
+                    </a>
+                    <a href="#" class="editor-block-right-window-a">
                             <span class="editor-block-right-window-a-span">
                                 Move to bottom
                             </span>
-                        </a>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
