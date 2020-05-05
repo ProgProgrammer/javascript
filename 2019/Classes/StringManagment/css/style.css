@@ -123,7 +123,7 @@ button {
 .preview-block-buttons-button-img {
   width: 15px;
 }
-.preview-block-buttons-button-img.delete {
+.preview-block-buttons-button-img.remove {
   width: 20px;
 }
 .preview-block-buttons-button:hover .preview-block-buttons-button-img {
