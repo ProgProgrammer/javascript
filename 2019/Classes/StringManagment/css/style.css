@@ -197,6 +197,7 @@ button {
   border: none;
   background: transparent;
   cursor: pointer;
+  z-index: 2;
 }
 .editor-block-right-button-img {
   width: 20px;
@@ -218,7 +219,10 @@ button {
   text-decoration: none;
   color: black;
 }
-.editor-block-right-window-a:hover .editor-block-right-window-a-span {
+.editor-block-right-window-a-span {
+  cursor: pointer;
+}
+.editor-block-right-window-a-span:hover {
   border-bottom: 1px solid black;
 }
 .editor-block-right-window-block {

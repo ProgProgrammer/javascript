@@ -227,6 +227,7 @@ button {
         border: none;
         background: transparent;
         cursor: pointer;
+        z-index: 2;
 
         &-img {
           width: 20px;
@@ -250,8 +251,12 @@ button {
           text-decoration: none;
           color: black;
 
-          &:hover .editor-block-right-window-a-span {
-            border-bottom: 1px solid black;
+          &-span {
+            cursor: pointer;
+
+            &:hover {
+              border-bottom: 1px solid black;
+            }
           }
         }
 
