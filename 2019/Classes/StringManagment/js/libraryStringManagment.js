@@ -8,8 +8,8 @@ class StringManagment
         this.buttons = object.buttons;
         this.tabs = object.tabs;
         this.input = object.input;
-        this.addBlockEditor;
-        this.addBlockPreview;
+        this.blockEditor;
+        this.blockPreview;
         this.cloneBlock;
         this.columnEditor = object.columnEditor;
         this.stringsEditorText = object.stringsEditorText;
@@ -106,26 +106,34 @@ class StringManagment
 
     addString(editorBlock, previewBlock)
     {
-        this.addBlockEditor = editorBlock;
-        this.addBlockPreview = previewBlock;
+        this.blockEditor = editorBlock;
+        this.blockPreview = previewBlock;
         this.stringsEditorText.innerHTML = this.input.value;
         this.stringsPreviewText.innerHTML = this.input.value;
         this.addDateTime();
-        this.cloneBlock = this.addBlockEditor.cloneNode(true);
+        this.cloneBlock = this.blockEditor.cloneNode(true);
         this.columnEditor.append(this.cloneBlock);
-        this.cloneBlock = this.addBlockPreview.cloneNode(true);
+        this.cloneBlock = this.blockPreview.cloneNode(true);
         this.columnPreview.append(this.cloneBlock);
     }
 
     copyString(editorBlock, previewBlock)
     {
         this.buttonId = true;
-        this.addBlockEditor = editorBlock;
-        this.addBlockPreview = previewBlock;
-        this.cloneBlock = this.addBlockEditor.cloneNode(true);
+        this.blockEditor = editorBlock;
+        this.blockPreview = previewBlock;
+        this.cloneBlock = this.blockEditor.cloneNode(true);
         this.columnEditor.append(this.cloneBlock);
-        this.cloneBlock = this.addBlockPreview.cloneNode(true);
+        this.cloneBlock = this.blockPreview.cloneNode(true);
         this.columnPreview.append(this.cloneBlock);
         this.addDateTime(this.buttonId);
+    }
+
+    removeString(editorBlock, previewBlock)
+    {
+        this.blockEditor = editorBlock;
+        this.blockPreview = previewBlock;
+        this.blockEditor.remove();
+        this.blockPreview.remove();
     }
 }

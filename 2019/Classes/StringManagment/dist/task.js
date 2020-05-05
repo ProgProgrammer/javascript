@@ -139,8 +139,8 @@ var StringManagment = /*#__PURE__*/function () {
     this.buttons = object.buttons;
     this.tabs = object.tabs;
     this.input = object.input;
-    this.addBlockEditor;
-    this.addBlockPreview;
+    this.blockEditor;
+    this.blockPreview;
     this.cloneBlock;
     this.columnEditor = object.columnEditor;
     this.stringsEditorText = object.stringsEditorText;
@@ -236,27 +236,35 @@ var StringManagment = /*#__PURE__*/function () {
   }, {
     key: "addString",
     value: function addString(editorBlock, previewBlock) {
-      this.addBlockEditor = editorBlock;
-      this.addBlockPreview = previewBlock;
+      this.blockEditor = editorBlock;
+      this.blockPreview = previewBlock;
       this.stringsEditorText.innerHTML = this.input.value;
       this.stringsPreviewText.innerHTML = this.input.value;
       this.addDateTime();
-      this.cloneBlock = this.addBlockEditor.cloneNode(true);
+      this.cloneBlock = this.blockEditor.cloneNode(true);
       this.columnEditor.append(this.cloneBlock);
-      this.cloneBlock = this.addBlockPreview.cloneNode(true);
+      this.cloneBlock = this.blockPreview.cloneNode(true);
       this.columnPreview.append(this.cloneBlock);
     }
   }, {
     key: "copyString",
     value: function copyString(editorBlock, previewBlock) {
       this.buttonId = true;
-      this.addBlockEditor = editorBlock;
-      this.addBlockPreview = previewBlock;
-      this.cloneBlock = this.addBlockEditor.cloneNode(true);
+      this.blockEditor = editorBlock;
+      this.blockPreview = previewBlock;
+      this.cloneBlock = this.blockEditor.cloneNode(true);
       this.columnEditor.append(this.cloneBlock);
-      this.cloneBlock = this.addBlockPreview.cloneNode(true);
+      this.cloneBlock = this.blockPreview.cloneNode(true);
       this.columnPreview.append(this.cloneBlock);
       this.addDateTime(this.buttonId);
+    }
+  }, {
+    key: "removeString",
+    value: function removeString(editorBlock, previewBlock) {
+      this.blockEditor = editorBlock;
+      this.blockPreview = previewBlock;
+      this.blockEditor.remove();
+      this.blockPreview.remove();
     }
   }]);
 
@@ -283,6 +291,7 @@ var _libraryStringManagment = require("./libraryStringManagment.js");
   objectStringManagment.stringsPreviewDate;
   objectStringManagment.stringsPreviewTime;
   objectStringManagment.copy;
+  objectStringManagment.delete;
   window.addEventListener('DOMContentLoaded', function () {
     objectStringManagment.buttons = document.querySelectorAll(".button");
     objectStringManagment.tabs = document.querySelectorAll(".tab");
@@ -297,6 +306,7 @@ var _libraryStringManagment = require("./libraryStringManagment.js");
     objectStringManagment.stringsPreviewDate = document.querySelectorAll(".date");
     objectStringManagment.stringsPreviewTime = document.querySelectorAll(".time");
     objectStringManagment.copy = document.querySelectorAll(".copy");
+    objectStringManagment.delete = document.querySelectorAll(".delete");
     stringManagment = new _libraryStringManagment.StringManagment(objectStringManagment);
 
     var _loop = function _loop(i) {
@@ -317,7 +327,9 @@ var _libraryStringManagment = require("./libraryStringManagment.js");
         objectStringManagment.copy[a].onclick = function () {
           stringManagment.copyString(objectStringManagment.editorBlock[a], objectStringManagment.previewBlock[a]);
           objectStringManagment.copy = document.querySelectorAll(".copy");
+          objectStringManagment.delete = document.querySelectorAll(".delete");
           copyBlock();
+          deleteBlock();
         };
       };
 
@@ -326,12 +338,35 @@ var _libraryStringManagment = require("./libraryStringManagment.js");
       }
     };
 
+    var deleteBlock = function deleteBlock() {
+      objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
+      objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
+
+      var _loop3 = function _loop3(b) {
+        objectStringManagment.delete[b].onclick = function () {
+          stringManagment.removeString(objectStringManagment.editorBlock[b], objectStringManagment.previewBlock[b]);
+          objectStringManagment.copy = document.querySelectorAll(".copy");
+          objectStringManagment.delete = document.querySelectorAll(".delete");
+          copyBlock();
+          deleteBlock();
+          return false;
+        };
+      };
+
+      for (var b = 0; b < objectStringManagment.delete.length; b++) {
+        _loop3(b);
+      }
+    };
+
     addButton.addEventListener("click", function () {
       stringManagment.addString(objectStringManagment.editorBlock[objectStringManagment.editorBlock.length - 1], objectStringManagment.previewBlock[objectStringManagment.previewBlock.length - 1]);
       objectStringManagment.copy = document.querySelectorAll(".copy");
+      objectStringManagment.delete = document.querySelectorAll(".delete");
       copyBlock();
+      deleteBlock();
     });
     copyBlock();
+    deleteBlock();
   });
 })();
 },{"./libraryStringManagment.js":"libraryStringManagment.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -362,7 +397,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58512" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60262" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

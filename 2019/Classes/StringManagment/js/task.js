@@ -15,6 +15,7 @@ import { StringManagment } from "./libraryStringManagment.js";
     objectStringManagment.stringsPreviewDate;
     objectStringManagment.stringsPreviewTime;
     objectStringManagment.copy;
+    objectStringManagment.delete;
 
     window.addEventListener('DOMContentLoaded', () =>
     {
@@ -31,6 +32,7 @@ import { StringManagment } from "./libraryStringManagment.js";
         objectStringManagment.stringsPreviewDate = document.querySelectorAll(".date");
         objectStringManagment.stringsPreviewTime = document.querySelectorAll(".time");
         objectStringManagment.copy = document.querySelectorAll(".copy");
+        objectStringManagment.delete = document.querySelectorAll(".delete");
 
         stringManagment = new StringManagment(objectStringManagment);
 
@@ -52,7 +54,27 @@ import { StringManagment } from "./libraryStringManagment.js";
                 {
                     stringManagment.copyString(objectStringManagment.editorBlock[a], objectStringManagment.previewBlock[a]);
                     objectStringManagment.copy = document.querySelectorAll(".copy");
+                    objectStringManagment.delete = document.querySelectorAll(".delete");
                     copyBlock();
+                    deleteBlock();
+                };
+            }
+        }
+
+        const deleteBlock = () =>
+        {
+            objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
+            objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
+            for (let b = 0; b < objectStringManagment.delete.length; b++)
+            {
+                objectStringManagment.delete[b].onclick = () =>
+                {
+                    stringManagment.removeString(objectStringManagment.editorBlock[b], objectStringManagment.previewBlock[b]);
+                    objectStringManagment.copy = document.querySelectorAll(".copy");
+                    objectStringManagment.delete = document.querySelectorAll(".delete");
+                    copyBlock();
+                    deleteBlock();
+                    return false;
                 };
             }
         }
@@ -61,10 +83,13 @@ import { StringManagment } from "./libraryStringManagment.js";
         {
             stringManagment.addString(objectStringManagment.editorBlock[objectStringManagment.editorBlock.length - 1], objectStringManagment.previewBlock[objectStringManagment.previewBlock.length - 1]);
             objectStringManagment.copy = document.querySelectorAll(".copy");
+            objectStringManagment.delete = document.querySelectorAll(".delete");
             copyBlock();
+            deleteBlock();
         });
 
         copyBlock();
+        deleteBlock();
     });
 })
 
