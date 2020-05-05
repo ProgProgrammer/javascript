@@ -238,13 +238,18 @@ var StringManagment = /*#__PURE__*/function () {
     value: function addString(editorBlock, previewBlock) {
       this.blockEditor = editorBlock;
       this.blockPreview = previewBlock;
-      this.stringsEditorText.innerHTML = this.input.value;
-      this.stringsPreviewText.innerHTML = this.input.value;
-      this.addDateTime();
-      this.cloneBlock = this.blockEditor.cloneNode(true);
-      this.columnEditor.append(this.cloneBlock);
-      this.cloneBlock = this.blockPreview.cloneNode(true);
-      this.columnPreview.append(this.cloneBlock);
+
+      if (this.input.value !== "") {
+        this.stringsEditorText.innerHTML = this.input.value;
+        this.stringsPreviewText.innerHTML = this.input.value;
+        this.addDateTime();
+        this.cloneBlock = this.blockEditor.cloneNode(true);
+        this.columnEditor.append(this.cloneBlock);
+        this.cloneBlock = this.blockPreview.cloneNode(true);
+        this.columnPreview.append(this.cloneBlock);
+      } else {
+        return;
+      }
     }
   }, {
     key: "copyString",
@@ -277,96 +282,166 @@ exports.StringManagment = StringManagment;
 
 var _libraryStringManagment = require("./libraryStringManagment.js");
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
+  _inherits(AdditionalApertunity, _StringManagment);
+
+  function AdditionalApertunity(object) {
+    var _this;
+
+    _classCallCheck(this, AdditionalApertunity);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(AdditionalApertunity).call(this, object));
+    _this.ellipsisButton;
+    _this.ellipsiswindows;
+    return _this;
+  }
+
+  _createClass(AdditionalApertunity, [{
+    key: "openCloseWindow",
+    value: function openCloseWindow(ellipsiswindows) {
+      this.ellipsiswindows = ellipsiswindows;
+
+      if (this.ellipsiswindows.style.display !== "flex") {
+        this.ellipsiswindows.style.display = "flex";
+      } else {
+        this.ellipsiswindows.style.display = "none";
+      }
+    }
+  }]);
+
+  return AdditionalApertunity;
+}(_libraryStringManagment.StringManagment);
+
 (function () {
-  var stringManagment;
-  var objectStringManagment = {};
-  objectStringManagment.buttons;
-  objectStringManagment.tabs;
+  var additionalApertunity;
+  var objectAdditionalApertunity = {};
+  objectAdditionalApertunity.buttons;
+  objectAdditionalApertunity.tabs;
   var addButton;
-  objectStringManagment.input;
-  objectStringManagment.columnEditor;
-  objectStringManagment.stringsEditorText;
-  objectStringManagment.columnPreview;
-  objectStringManagment.stringsPreviewText;
-  objectStringManagment.stringsPreviewDate;
-  objectStringManagment.stringsPreviewTime;
-  objectStringManagment.copy;
-  objectStringManagment.delete;
+  objectAdditionalApertunity.input;
+  objectAdditionalApertunity.columnEditor;
+  objectAdditionalApertunity.stringsEditorText;
+  objectAdditionalApertunity.columnPreview;
+  objectAdditionalApertunity.stringsPreviewText;
+  objectAdditionalApertunity.stringsPreviewDate;
+  objectAdditionalApertunity.stringsPreviewTime;
+  objectAdditionalApertunity.copy;
+  objectAdditionalApertunity.delete;
+  objectAdditionalApertunity.ellipsisButtons;
+  objectAdditionalApertunity.ellipsiswindows;
   window.addEventListener('DOMContentLoaded', function () {
-    objectStringManagment.buttons = document.querySelectorAll(".button");
-    objectStringManagment.tabs = document.querySelectorAll(".tab");
+    objectAdditionalApertunity.buttons = document.querySelectorAll(".button");
+    objectAdditionalApertunity.tabs = document.querySelectorAll(".tab");
     addButton = document.querySelector(".preview-adding-button");
-    objectStringManagment.input = document.querySelector(".preview-adding-input");
-    objectStringManagment.columnEditor = document.querySelector(".preview-column");
-    objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
-    objectStringManagment.stringsEditorText = objectStringManagment.editorBlock[objectStringManagment.editorBlock.length - 1].querySelector(".text");
-    objectStringManagment.columnPreview = document.querySelector(".editor-column");
-    objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
-    objectStringManagment.stringsPreviewText = objectStringManagment.previewBlock[objectStringManagment.previewBlock.length - 1].querySelector(".text");
-    objectStringManagment.stringsPreviewDate = document.querySelectorAll(".date");
-    objectStringManagment.stringsPreviewTime = document.querySelectorAll(".time");
-    objectStringManagment.copy = document.querySelectorAll(".copy");
-    objectStringManagment.delete = document.querySelectorAll(".delete");
-    stringManagment = new _libraryStringManagment.StringManagment(objectStringManagment);
+    objectAdditionalApertunity.input = document.querySelector(".preview-adding-input");
+    objectAdditionalApertunity.columnEditor = document.querySelector(".preview-column");
+    objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
+    objectAdditionalApertunity.stringsEditorText = objectAdditionalApertunity.editorBlock[objectAdditionalApertunity.editorBlock.length - 1].querySelector(".text");
+    objectAdditionalApertunity.columnPreview = document.querySelector(".editor-column");
+    objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
+    objectAdditionalApertunity.stringsPreviewText = objectAdditionalApertunity.previewBlock[objectAdditionalApertunity.previewBlock.length - 1].querySelector(".text");
+    objectAdditionalApertunity.stringsPreviewDate = document.querySelectorAll(".date");
+    objectAdditionalApertunity.stringsPreviewTime = document.querySelectorAll(".time");
+    objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+    objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
+    objectAdditionalApertunity.ellipsisButtons = document.querySelectorAll(".editor-block-right-button");
+    objectAdditionalApertunity.ellipsiswindows = document.querySelectorAll(".editor-block-right-window");
+    additionalApertunity = new AdditionalApertunity(objectAdditionalApertunity);
 
     var _loop = function _loop(i) {
-      objectStringManagment.buttons[i].addEventListener('click', function () {
-        stringManagment.tabSwitching(i);
+      objectAdditionalApertunity.buttons[i].addEventListener('click', function () {
+        additionalApertunity.tabSwitching(i);
       });
     };
 
-    for (var i = 0; i < objectStringManagment.buttons.length; i++) {
+    for (var i = 0; i < objectAdditionalApertunity.buttons.length; i++) {
       _loop(i);
     }
 
     var copyBlock = function copyBlock() {
-      objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
-      objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
+      objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
+      objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
 
       var _loop2 = function _loop2(a) {
-        objectStringManagment.copy[a].onclick = function () {
-          stringManagment.copyString(objectStringManagment.editorBlock[a], objectStringManagment.previewBlock[a]);
-          objectStringManagment.copy = document.querySelectorAll(".copy");
-          objectStringManagment.delete = document.querySelectorAll(".delete");
+        objectAdditionalApertunity.copy[a].onclick = function () {
+          additionalApertunity.copyString(objectAdditionalApertunity.editorBlock[a], objectAdditionalApertunity.previewBlock[a]);
+          objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+          objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
           copyBlock();
           deleteBlock();
+          openCloseWindow();
         };
       };
 
-      for (var a = 0; a < objectStringManagment.copy.length; a++) {
+      for (var a = 0; a < objectAdditionalApertunity.copy.length; a++) {
         _loop2(a);
       }
     };
 
     var deleteBlock = function deleteBlock() {
-      objectStringManagment.editorBlock = document.querySelectorAll(".preview-block");
-      objectStringManagment.previewBlock = document.querySelectorAll(".editor-block");
+      objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
+      objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
 
       var _loop3 = function _loop3(b) {
-        objectStringManagment.delete[b].onclick = function () {
-          stringManagment.removeString(objectStringManagment.editorBlock[b], objectStringManagment.previewBlock[b]);
-          objectStringManagment.copy = document.querySelectorAll(".copy");
-          objectStringManagment.delete = document.querySelectorAll(".delete");
+        objectAdditionalApertunity.delete[b].onclick = function () {
+          additionalApertunity.removeString(objectAdditionalApertunity.editorBlock[b], objectAdditionalApertunity.previewBlock[b]);
+          objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+          objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
           copyBlock();
           deleteBlock();
-          return false;
+          openCloseWindow();
         };
       };
 
-      for (var b = 0; b < objectStringManagment.delete.length; b++) {
+      for (var b = 0; b < objectAdditionalApertunity.delete.length; b++) {
         _loop3(b);
       }
     };
 
+    var openCloseWindow = function openCloseWindow() {
+      objectAdditionalApertunity.ellipsisButtons = document.querySelectorAll(".editor-block-right-button");
+      objectAdditionalApertunity.ellipsiswindows = document.querySelectorAll(".editor-block-right-window");
+
+      var _loop4 = function _loop4(c) {
+        objectAdditionalApertunity.ellipsisButtons[c].onclick = function () {
+          additionalApertunity.openCloseWindow(objectAdditionalApertunity.ellipsiswindows[c]);
+        };
+      };
+
+      for (var c = 0; c < objectAdditionalApertunity.ellipsisButtons.length; c++) {
+        _loop4(c);
+      }
+    };
+
     addButton.addEventListener("click", function () {
-      stringManagment.addString(objectStringManagment.editorBlock[objectStringManagment.editorBlock.length - 1], objectStringManagment.previewBlock[objectStringManagment.previewBlock.length - 1]);
-      objectStringManagment.copy = document.querySelectorAll(".copy");
-      objectStringManagment.delete = document.querySelectorAll(".delete");
+      additionalApertunity.addString(objectAdditionalApertunity.editorBlock[objectAdditionalApertunity.editorBlock.length - 1], objectAdditionalApertunity.previewBlock[objectAdditionalApertunity.previewBlock.length - 1]);
+      objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+      objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
       copyBlock();
       deleteBlock();
+      openCloseWindow();
     });
     copyBlock();
     deleteBlock();
+    openCloseWindow();
   });
 })();
 },{"./libraryStringManagment.js":"libraryStringManagment.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {

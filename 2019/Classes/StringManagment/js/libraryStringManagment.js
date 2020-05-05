@@ -108,13 +108,20 @@ class StringManagment
     {
         this.blockEditor = editorBlock;
         this.blockPreview = previewBlock;
-        this.stringsEditorText.innerHTML = this.input.value;
-        this.stringsPreviewText.innerHTML = this.input.value;
-        this.addDateTime();
-        this.cloneBlock = this.blockEditor.cloneNode(true);
-        this.columnEditor.append(this.cloneBlock);
-        this.cloneBlock = this.blockPreview.cloneNode(true);
-        this.columnPreview.append(this.cloneBlock);
+        if (this.input.value !== "")
+        {
+            this.stringsEditorText.innerHTML = this.input.value;
+            this.stringsPreviewText.innerHTML = this.input.value;
+            this.addDateTime();
+            this.cloneBlock = this.blockEditor.cloneNode(true);
+            this.columnEditor.append(this.cloneBlock);
+            this.cloneBlock = this.blockPreview.cloneNode(true);
+            this.columnPreview.append(this.cloneBlock);
+        }
+        else
+        {
+            return;
+        }
     }
 
     copyString(editorBlock, previewBlock)
