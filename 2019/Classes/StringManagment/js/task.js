@@ -6,22 +6,64 @@ class AdditionalApertunity extends StringManagment
     constructor(object)
     {
         super(object);
-        this.ellipsisButton;
-        this.ellipsiswindows;
+        this.ellipsisWindow;
+        this.ellipsisWindows;
+        this.blockEditor;
+        this.blockPreview;
     }
 
-    openCloseWindow(ellipsiswindows)
+    closeWindows(ellipsisWindows)
     {
-        this.ellipsiswindows = ellipsiswindows;
-
-        if (this.ellipsiswindows.style.display !== "flex")
+        this.ellipsisWindows = ellipsisWindows;
+        for(let i = 0; i < this.ellipsisWindows.length; i++)
         {
-            this.ellipsiswindows.style.display = "flex";
+            if (this.ellipsisWindows[i].style.display === "flex")
+            {
+                this.ellipsisWindows[i].style.display = "none";
+            }
+        }
+    }
+
+    openCloseWindow(ellipsisWindow, ellipsisWindows)
+    {
+        this.ellipsisWindow = ellipsisWindow;
+        this.ellipsisWindows = ellipsisWindows;
+
+        if (this.ellipsisWindow.style.display !== "flex")
+        {
+            if (this.ellipsisWindows !== undefined)
+            {
+                this.closeWindows(this.ellipsisWindows);
+            }
+            this.ellipsisWindow.style.display = "flex";
         }
         else
         {
-            this.ellipsiswindows.style.display = "none";
+            this.ellipsisWindow.style.display = "none";
         }
+    }
+
+    movingBlockTop(editorBlock, previewBlock, ellipsisWindow)
+    {
+        this.blockEditor = editorBlock;
+        this.blockPreview = previewBlock;
+        this.ellipsisWindow = ellipsisWindow;
+        this.openCloseWindow(this.ellipsisWindow);
+        this.cloneBlock = this.blockEditor.cloneNode(true);
+        this.columnEditor.prepend(this.cloneBlock);
+        this.cloneBlock = this.blockPreview.cloneNode(true);
+        this.columnPreview.prepend(this.cloneBlock);
+        super.removeString(this.blockEditor, this.blockPreview);
+    }
+
+    movingBlockBottom(editorBlock, previewBlock, ellipsisWindow)
+    {
+        this.blockEditor = editorBlock;
+        this.blockPreview = previewBlock;
+        this.ellipsisWindow = ellipsisWindow;
+        this.openCloseWindow(this.ellipsisWindow);
+        super.copyString(this.blockEditor, this.blockPreview, "noTime")
+        super.removeString(this.blockEditor, this.blockPreview);
     }
 }
 
@@ -42,7 +84,10 @@ class AdditionalApertunity extends StringManagment
     objectAdditionalApertunity.copy;
     objectAdditionalApertunity.delete;
     objectAdditionalApertunity.ellipsisButtons;
-    objectAdditionalApertunity.ellipsiswindows;
+    objectAdditionalApertunity.ellipsisWindows;
+    objectAdditionalApertunity.triangle;
+    objectAdditionalApertunity.movingTop;
+    objectAdditionalApertunity.movingBottom;
 
     window.addEventListener('DOMContentLoaded', () =>
     {
@@ -60,8 +105,6 @@ class AdditionalApertunity extends StringManagment
         objectAdditionalApertunity.stringsPreviewTime = document.querySelectorAll(".time");
         objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
         objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
-        objectAdditionalApertunity.ellipsisButtons = document.querySelectorAll(".editor-block-right-button");
-        objectAdditionalApertunity.ellipsiswindows = document.querySelectorAll(".editor-block-right-window");
 
         additionalApertunity = new AdditionalApertunity(objectAdditionalApertunity);
 
@@ -77,16 +120,17 @@ class AdditionalApertunity extends StringManagment
         {
             objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
             objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
+            objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+            objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
             for (let a = 0; a < objectAdditionalApertunity.copy.length; a++)
             {
                 objectAdditionalApertunity.copy[a].onclick = () =>
                 {
                     additionalApertunity.copyString(objectAdditionalApertunity.editorBlock[a], objectAdditionalApertunity.previewBlock[a]);
-                    objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
-                    objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
                     copyBlock();
                     deleteBlock();
                     openCloseWindow();
+                    movingBlocks();
                 };
             }
         }
@@ -95,16 +139,17 @@ class AdditionalApertunity extends StringManagment
         {
             objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
             objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
+            objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+            objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
             for (let b = 0; b < objectAdditionalApertunity.delete.length; b++)
             {
                 objectAdditionalApertunity.delete[b].onclick = () =>
                 {
                     additionalApertunity.removeString(objectAdditionalApertunity.editorBlock[b], objectAdditionalApertunity.previewBlock[b]);
-                    objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
-                    objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
                     copyBlock();
                     deleteBlock();
                     openCloseWindow();
+                    movingBlocks();
                 };
             }
         }
@@ -112,12 +157,53 @@ class AdditionalApertunity extends StringManagment
         const openCloseWindow = () =>
         {
             objectAdditionalApertunity.ellipsisButtons = document.querySelectorAll(".editor-block-right-button");
-            objectAdditionalApertunity.ellipsiswindows = document.querySelectorAll(".editor-block-right-window");
+            objectAdditionalApertunity.ellipsisWindows = document.querySelectorAll(".editor-block-right-window");
+            objectAdditionalApertunity.triangle = document.querySelectorAll(".editor-block-right-window-block");
             for (let c = 0; c < objectAdditionalApertunity.ellipsisButtons.length; c++)
             {
                 objectAdditionalApertunity.ellipsisButtons[c].onclick = () =>
                 {
-                    additionalApertunity.openCloseWindow(objectAdditionalApertunity.ellipsiswindows[c]);
+                    additionalApertunity.openCloseWindow(objectAdditionalApertunity.ellipsisWindows[c], objectAdditionalApertunity.ellipsisWindows);
+                }
+            }
+
+            for (let d = 0; d < objectAdditionalApertunity.triangle.length; d++)
+            {
+                objectAdditionalApertunity.triangle[d].onclick = ()=>
+                {
+                    additionalApertunity.openCloseWindow(objectAdditionalApertunity.ellipsisWindows[d], objectAdditionalApertunity.ellipsisWindows);
+                }
+            }
+        }
+
+        const movingBlocks = () =>
+        {
+            objectAdditionalApertunity.movingTop = document.querySelectorAll(".top");
+            objectAdditionalApertunity.movingBottom = document.querySelectorAll(".bottom");
+            objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
+            objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
+            objectAdditionalApertunity.ellipsisWindows = document.querySelectorAll(".editor-block-right-window");
+            for (let e = 0; e < objectAdditionalApertunity.movingTop.length; e++)
+            {
+                objectAdditionalApertunity.movingTop[e].onclick = ()=>
+                {
+                    additionalApertunity.movingBlockTop(objectAdditionalApertunity.editorBlock[e], objectAdditionalApertunity.previewBlock[e], objectAdditionalApertunity.ellipsisWindows[e]);
+                    copyBlock();
+                    deleteBlock();
+                    openCloseWindow();
+                    movingBlocks();
+                }
+            }
+
+            for (let f = 0; f < objectAdditionalApertunity.movingBottom.length; f++)
+            {
+                objectAdditionalApertunity.movingBottom[f].onclick = ()=>
+                {
+                    additionalApertunity.movingBlockBottom(objectAdditionalApertunity.editorBlock[f], objectAdditionalApertunity.previewBlock[f], objectAdditionalApertunity.ellipsisWindows[f]);
+                    copyBlock();
+                    deleteBlock();
+                    openCloseWindow();
+                    movingBlocks();
                 }
             }
         }
@@ -130,11 +216,13 @@ class AdditionalApertunity extends StringManagment
             copyBlock();
             deleteBlock();
             openCloseWindow();
+            movingBlocks();
         });
 
         copyBlock();
         deleteBlock();
         openCloseWindow();
+        movingBlocks();
     });
 })
 

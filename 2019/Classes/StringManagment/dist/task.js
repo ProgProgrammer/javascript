@@ -136,6 +136,7 @@ var StringManagment = /*#__PURE__*/function () {
     _classCallCheck(this, StringManagment);
 
     this.buttonId;
+    this.time;
     this.buttons = object.buttons;
     this.tabs = object.tabs;
     this.input = object.input;
@@ -253,15 +254,19 @@ var StringManagment = /*#__PURE__*/function () {
     }
   }, {
     key: "copyString",
-    value: function copyString(editorBlock, previewBlock) {
+    value: function copyString(editorBlock, previewBlock, time) {
       this.buttonId = true;
+      this.time = time;
       this.blockEditor = editorBlock;
       this.blockPreview = previewBlock;
       this.cloneBlock = this.blockEditor.cloneNode(true);
       this.columnEditor.append(this.cloneBlock);
       this.cloneBlock = this.blockPreview.cloneNode(true);
       this.columnPreview.append(this.cloneBlock);
-      this.addDateTime(this.buttonId);
+
+      if (this.time === undefined) {
+        this.addDateTime(this.buttonId);
+      }
     }
   }, {
     key: "removeString",
@@ -294,6 +299,10 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
@@ -309,21 +318,65 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
     _classCallCheck(this, AdditionalApertunity);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(AdditionalApertunity).call(this, object));
-    _this.ellipsisButton;
-    _this.ellipsiswindows;
+    _this.ellipsisWindow;
+    _this.ellipsisWindows;
+    _this.blockEditor;
+    _this.blockPreview;
     return _this;
   }
 
   _createClass(AdditionalApertunity, [{
-    key: "openCloseWindow",
-    value: function openCloseWindow(ellipsiswindows) {
-      this.ellipsiswindows = ellipsiswindows;
+    key: "closeWindows",
+    value: function closeWindows(ellipsisWindows) {
+      this.ellipsisWindows = ellipsisWindows;
 
-      if (this.ellipsiswindows.style.display !== "flex") {
-        this.ellipsiswindows.style.display = "flex";
-      } else {
-        this.ellipsiswindows.style.display = "none";
+      for (var i = 0; i < this.ellipsisWindows.length; i++) {
+        if (this.ellipsisWindows[i].style.display === "flex") {
+          this.ellipsisWindows[i].style.display = "none";
+        }
       }
+    }
+  }, {
+    key: "openCloseWindow",
+    value: function openCloseWindow(ellipsisWindow, ellipsisWindows) {
+      this.ellipsisWindow = ellipsisWindow;
+      this.ellipsisWindows = ellipsisWindows;
+
+      if (this.ellipsisWindow.style.display !== "flex") {
+        if (this.ellipsisWindows !== undefined) {
+          this.closeWindows(this.ellipsisWindows);
+        }
+
+        this.ellipsisWindow.style.display = "flex";
+      } else {
+        this.ellipsisWindow.style.display = "none";
+      }
+    }
+  }, {
+    key: "movingBlockTop",
+    value: function movingBlockTop(editorBlock, previewBlock, ellipsisWindow) {
+      this.blockEditor = editorBlock;
+      this.blockPreview = previewBlock;
+      this.ellipsisWindow = ellipsisWindow;
+      this.openCloseWindow(this.ellipsisWindow);
+      this.cloneBlock = this.blockEditor.cloneNode(true);
+      this.columnEditor.prepend(this.cloneBlock);
+      this.cloneBlock = this.blockPreview.cloneNode(true);
+      this.columnPreview.prepend(this.cloneBlock);
+
+      _get(_getPrototypeOf(AdditionalApertunity.prototype), "removeString", this).call(this, this.blockEditor, this.blockPreview);
+    }
+  }, {
+    key: "movingBlockBottom",
+    value: function movingBlockBottom(editorBlock, previewBlock, ellipsisWindow) {
+      this.blockEditor = editorBlock;
+      this.blockPreview = previewBlock;
+      this.ellipsisWindow = ellipsisWindow;
+      this.openCloseWindow(this.ellipsisWindow);
+
+      _get(_getPrototypeOf(AdditionalApertunity.prototype), "copyString", this).call(this, this.blockEditor, this.blockPreview, "noTime");
+
+      _get(_getPrototypeOf(AdditionalApertunity.prototype), "removeString", this).call(this, this.blockEditor, this.blockPreview);
     }
   }]);
 
@@ -346,7 +399,10 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
   objectAdditionalApertunity.copy;
   objectAdditionalApertunity.delete;
   objectAdditionalApertunity.ellipsisButtons;
-  objectAdditionalApertunity.ellipsiswindows;
+  objectAdditionalApertunity.ellipsisWindows;
+  objectAdditionalApertunity.triangle;
+  objectAdditionalApertunity.movingTop;
+  objectAdditionalApertunity.movingBottom;
   window.addEventListener('DOMContentLoaded', function () {
     objectAdditionalApertunity.buttons = document.querySelectorAll(".button");
     objectAdditionalApertunity.tabs = document.querySelectorAll(".tab");
@@ -362,8 +418,6 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
     objectAdditionalApertunity.stringsPreviewTime = document.querySelectorAll(".time");
     objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
     objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
-    objectAdditionalApertunity.ellipsisButtons = document.querySelectorAll(".editor-block-right-button");
-    objectAdditionalApertunity.ellipsiswindows = document.querySelectorAll(".editor-block-right-window");
     additionalApertunity = new AdditionalApertunity(objectAdditionalApertunity);
 
     var _loop = function _loop(i) {
@@ -379,15 +433,16 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
     var copyBlock = function copyBlock() {
       objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
       objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
+      objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+      objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
 
       var _loop2 = function _loop2(a) {
         objectAdditionalApertunity.copy[a].onclick = function () {
           additionalApertunity.copyString(objectAdditionalApertunity.editorBlock[a], objectAdditionalApertunity.previewBlock[a]);
-          objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
-          objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
           copyBlock();
           deleteBlock();
           openCloseWindow();
+          movingBlocks();
         };
       };
 
@@ -399,15 +454,16 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
     var deleteBlock = function deleteBlock() {
       objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
       objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
+      objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+      objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
 
       var _loop3 = function _loop3(b) {
         objectAdditionalApertunity.delete[b].onclick = function () {
           additionalApertunity.removeString(objectAdditionalApertunity.editorBlock[b], objectAdditionalApertunity.previewBlock[b]);
-          objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
-          objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
           copyBlock();
           deleteBlock();
           openCloseWindow();
+          movingBlocks();
         };
       };
 
@@ -418,16 +474,63 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
 
     var openCloseWindow = function openCloseWindow() {
       objectAdditionalApertunity.ellipsisButtons = document.querySelectorAll(".editor-block-right-button");
-      objectAdditionalApertunity.ellipsiswindows = document.querySelectorAll(".editor-block-right-window");
+      objectAdditionalApertunity.ellipsisWindows = document.querySelectorAll(".editor-block-right-window");
+      objectAdditionalApertunity.triangle = document.querySelectorAll(".editor-block-right-window-block");
 
       var _loop4 = function _loop4(c) {
         objectAdditionalApertunity.ellipsisButtons[c].onclick = function () {
-          additionalApertunity.openCloseWindow(objectAdditionalApertunity.ellipsiswindows[c]);
+          additionalApertunity.openCloseWindow(objectAdditionalApertunity.ellipsisWindows[c], objectAdditionalApertunity.ellipsisWindows);
         };
       };
 
       for (var c = 0; c < objectAdditionalApertunity.ellipsisButtons.length; c++) {
         _loop4(c);
+      }
+
+      var _loop5 = function _loop5(d) {
+        objectAdditionalApertunity.triangle[d].onclick = function () {
+          additionalApertunity.openCloseWindow(objectAdditionalApertunity.ellipsisWindows[d], objectAdditionalApertunity.ellipsisWindows);
+        };
+      };
+
+      for (var d = 0; d < objectAdditionalApertunity.triangle.length; d++) {
+        _loop5(d);
+      }
+    };
+
+    var movingBlocks = function movingBlocks() {
+      objectAdditionalApertunity.movingTop = document.querySelectorAll(".top");
+      objectAdditionalApertunity.movingBottom = document.querySelectorAll(".bottom");
+      objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
+      objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
+      objectAdditionalApertunity.ellipsisWindows = document.querySelectorAll(".editor-block-right-window");
+
+      var _loop6 = function _loop6(e) {
+        objectAdditionalApertunity.movingTop[e].onclick = function () {
+          additionalApertunity.movingBlockTop(objectAdditionalApertunity.editorBlock[e], objectAdditionalApertunity.previewBlock[e], objectAdditionalApertunity.ellipsisWindows[e]);
+          copyBlock();
+          deleteBlock();
+          openCloseWindow();
+          movingBlocks();
+        };
+      };
+
+      for (var e = 0; e < objectAdditionalApertunity.movingTop.length; e++) {
+        _loop6(e);
+      }
+
+      var _loop7 = function _loop7(f) {
+        objectAdditionalApertunity.movingBottom[f].onclick = function () {
+          additionalApertunity.movingBlockBottom(objectAdditionalApertunity.editorBlock[f], objectAdditionalApertunity.previewBlock[f], objectAdditionalApertunity.ellipsisWindows[f]);
+          copyBlock();
+          deleteBlock();
+          openCloseWindow();
+          movingBlocks();
+        };
+      };
+
+      for (var f = 0; f < objectAdditionalApertunity.movingBottom.length; f++) {
+        _loop7(f);
       }
     };
 
@@ -438,10 +541,12 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
       copyBlock();
       deleteBlock();
       openCloseWindow();
+      movingBlocks();
     });
     copyBlock();
     deleteBlock();
     openCloseWindow();
+    movingBlocks();
   });
 })();
 },{"./libraryStringManagment.js":"libraryStringManagment.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -472,7 +577,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60262" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62664" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -5,6 +5,7 @@ class StringManagment
     constructor(object)
     {
         this.buttonId;
+        this.time;
         this.buttons = object.buttons;
         this.tabs = object.tabs;
         this.input = object.input;
@@ -124,16 +125,20 @@ class StringManagment
         }
     }
 
-    copyString(editorBlock, previewBlock)
+    copyString(editorBlock, previewBlock, time)
     {
         this.buttonId = true;
+        this.time = time;
         this.blockEditor = editorBlock;
         this.blockPreview = previewBlock;
         this.cloneBlock = this.blockEditor.cloneNode(true);
         this.columnEditor.append(this.cloneBlock);
         this.cloneBlock = this.blockPreview.cloneNode(true);
         this.columnPreview.append(this.cloneBlock);
-        this.addDateTime(this.buttonId);
+        if (this.time === undefined)
+        {
+            this.addDateTime(this.buttonId);
+        }
     }
 
     removeString(editorBlock, previewBlock)
