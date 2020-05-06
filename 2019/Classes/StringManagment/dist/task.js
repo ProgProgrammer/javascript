@@ -430,6 +430,13 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
       _loop(i);
     }
 
+    var startFunctions = function startFunctions() {
+      copyBlock();
+      deleteBlock();
+      openCloseWindow();
+      movingBlocks();
+    };
+
     var copyBlock = function copyBlock() {
       objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
       objectAdditionalApertunity.previewBlock = document.querySelectorAll(".editor-block");
@@ -439,10 +446,7 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
       var _loop2 = function _loop2(a) {
         objectAdditionalApertunity.copy[a].onclick = function () {
           additionalApertunity.copyString(objectAdditionalApertunity.editorBlock[a], objectAdditionalApertunity.previewBlock[a]);
-          copyBlock();
-          deleteBlock();
-          openCloseWindow();
-          movingBlocks();
+          startFunctions();
         };
       };
 
@@ -460,10 +464,7 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
       var _loop3 = function _loop3(b) {
         objectAdditionalApertunity.delete[b].onclick = function () {
           additionalApertunity.removeString(objectAdditionalApertunity.editorBlock[b], objectAdditionalApertunity.previewBlock[b]);
-          copyBlock();
-          deleteBlock();
-          openCloseWindow();
-          movingBlocks();
+          startFunctions();
         };
       };
 
@@ -508,10 +509,7 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
       var _loop6 = function _loop6(e) {
         objectAdditionalApertunity.movingTop[e].onclick = function () {
           additionalApertunity.movingBlockTop(objectAdditionalApertunity.editorBlock[e], objectAdditionalApertunity.previewBlock[e], objectAdditionalApertunity.ellipsisWindows[e]);
-          copyBlock();
-          deleteBlock();
-          openCloseWindow();
-          movingBlocks();
+          startFunctions();
         };
       };
 
@@ -522,10 +520,7 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
       var _loop7 = function _loop7(f) {
         objectAdditionalApertunity.movingBottom[f].onclick = function () {
           additionalApertunity.movingBlockBottom(objectAdditionalApertunity.editorBlock[f], objectAdditionalApertunity.previewBlock[f], objectAdditionalApertunity.ellipsisWindows[f]);
-          copyBlock();
-          deleteBlock();
-          openCloseWindow();
-          movingBlocks();
+          startFunctions();
         };
       };
 
@@ -538,15 +533,9 @@ var AdditionalApertunity = /*#__PURE__*/function (_StringManagment) {
       additionalApertunity.addString(objectAdditionalApertunity.editorBlock[objectAdditionalApertunity.editorBlock.length - 1], objectAdditionalApertunity.previewBlock[objectAdditionalApertunity.previewBlock.length - 1]);
       objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
       objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
-      copyBlock();
-      deleteBlock();
-      openCloseWindow();
-      movingBlocks();
+      startFunctions();
     });
-    copyBlock();
-    deleteBlock();
-    openCloseWindow();
-    movingBlocks();
+    startFunctions();
   });
 })();
 },{"./libraryStringManagment.js":"libraryStringManagment.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {

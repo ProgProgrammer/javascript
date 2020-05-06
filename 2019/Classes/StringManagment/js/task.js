@@ -116,6 +116,14 @@ class AdditionalApertunity extends StringManagment
             });
         }
 
+        const startFunctions = ()=>
+        {
+            copyBlock();
+            deleteBlock();
+            openCloseWindow();
+            movingBlocks();
+        }
+
         const copyBlock = () =>
         {
             objectAdditionalApertunity.editorBlock = document.querySelectorAll(".preview-block");
@@ -127,10 +135,7 @@ class AdditionalApertunity extends StringManagment
                 objectAdditionalApertunity.copy[a].onclick = () =>
                 {
                     additionalApertunity.copyString(objectAdditionalApertunity.editorBlock[a], objectAdditionalApertunity.previewBlock[a]);
-                    copyBlock();
-                    deleteBlock();
-                    openCloseWindow();
-                    movingBlocks();
+                    startFunctions();
                 };
             }
         }
@@ -146,10 +151,7 @@ class AdditionalApertunity extends StringManagment
                 objectAdditionalApertunity.delete[b].onclick = () =>
                 {
                     additionalApertunity.removeString(objectAdditionalApertunity.editorBlock[b], objectAdditionalApertunity.previewBlock[b]);
-                    copyBlock();
-                    deleteBlock();
-                    openCloseWindow();
-                    movingBlocks();
+                    startFunctions();
                 };
             }
         }
@@ -188,10 +190,7 @@ class AdditionalApertunity extends StringManagment
                 objectAdditionalApertunity.movingTop[e].onclick = ()=>
                 {
                     additionalApertunity.movingBlockTop(objectAdditionalApertunity.editorBlock[e], objectAdditionalApertunity.previewBlock[e], objectAdditionalApertunity.ellipsisWindows[e]);
-                    copyBlock();
-                    deleteBlock();
-                    openCloseWindow();
-                    movingBlocks();
+                    startFunctions();
                 }
             }
 
@@ -200,10 +199,7 @@ class AdditionalApertunity extends StringManagment
                 objectAdditionalApertunity.movingBottom[f].onclick = ()=>
                 {
                     additionalApertunity.movingBlockBottom(objectAdditionalApertunity.editorBlock[f], objectAdditionalApertunity.previewBlock[f], objectAdditionalApertunity.ellipsisWindows[f]);
-                    copyBlock();
-                    deleteBlock();
-                    openCloseWindow();
-                    movingBlocks();
+                    startFunctions();
                 }
             }
         }
@@ -213,16 +209,10 @@ class AdditionalApertunity extends StringManagment
             additionalApertunity.addString(objectAdditionalApertunity.editorBlock[objectAdditionalApertunity.editorBlock.length - 1], objectAdditionalApertunity.previewBlock[objectAdditionalApertunity.previewBlock.length - 1]);
             objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
             objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
-            copyBlock();
-            deleteBlock();
-            openCloseWindow();
-            movingBlocks();
+            startFunctions();
         });
 
-        copyBlock();
-        deleteBlock();
-        openCloseWindow();
-        movingBlocks();
+        startFunctions();
     });
 })
 
