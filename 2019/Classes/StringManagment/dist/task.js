@@ -162,9 +162,9 @@ var StringManagment = /*#__PURE__*/function () {
   _createClass(StringManagment, [{
     key: "openCloseTabs",
     value: function openCloseTabs() {
-      for (this.i = 0; this.i < this.tabs.length; this.i++) {
-        this.buttons[this.i].style.background = "transparent";
-        this.tabs[this.i].style.display = "none";
+      for (var i = 0; i < this.tabs.length; i++) {
+        this.buttons[i].style.background = "transparent";
+        this.tabs[i].style.display = "none";
       }
     }
   }, {

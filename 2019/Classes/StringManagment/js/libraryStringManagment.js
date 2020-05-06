@@ -30,10 +30,10 @@ class StringManagment
 
     openCloseTabs()
     {
-        for (this.i = 0; this.i < this.tabs.length; this.i++)
+        for (let i = 0; i < this.tabs.length; i++)
         {
-            this.buttons[this.i].style.background = "transparent";
-            this.tabs[this.i].style.display = "none";
+            this.buttons[i].style.background = "transparent";
+            this.tabs[i].style.display = "none";
         }
     }
 
