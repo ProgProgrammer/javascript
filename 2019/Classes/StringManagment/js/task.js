@@ -212,6 +212,17 @@ class AdditionalApertunity extends StringManagment
             startFunctions();
         });
 
+        window.addEventListener("keydown", (event) =>
+        {
+            if (event.key === "Enter")
+            {
+                additionalApertunity.addString(objectAdditionalApertunity.editorBlock[objectAdditionalApertunity.editorBlock.length - 1], objectAdditionalApertunity.previewBlock[objectAdditionalApertunity.previewBlock.length - 1]);
+                objectAdditionalApertunity.copy = document.querySelectorAll(".copy");
+                objectAdditionalApertunity.delete = document.querySelectorAll(".delete");
+                startFunctions();
+            }
+        });
+
         startFunctions();
     });
 })
