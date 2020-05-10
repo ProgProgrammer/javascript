@@ -15,8 +15,13 @@ button:focus {
   display: flex;
   flex-direction: column;
 }
-.text {
+.text,
+.text-bottom {
   font-size: 16px;
+}
+.text-bottom,
+.text-bottom-bottom {
+  margin-top: 20px;
 }
 .form {
   margin-top: 20px;

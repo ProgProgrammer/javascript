@@ -163,7 +163,7 @@ var FormSubmition = /*#__PURE__*/function () {
         }
       };
 
-      this.xhr.send('form_input=' + this.textInput);
+      this.xhr.send("form_input=" + this.textInput);
     }
   }]);
 

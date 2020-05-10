@@ -35,7 +35,7 @@ class FormSubmition
                 this.text.textContent = this.xhr.responseText;
             }
         }
-        this.xhr.send('form_input=' + this.textInput);
+        this.xhr.send("form_input=" + this.textInput);
     }
 }
 
