@@ -26,9 +26,16 @@ class FormSubmition
         this.textInput = textInput;
         this.textInput = encodeURIComponent(this.textInput);
         this.xhr = new XMLHttpRequest();
-        this.xhr.open("POST", "form.php");
+        this.xhr.open("POST", "form.php", true);
         this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        this.xhr.send("form_input=" + this.textInput);
+        this.xhr.onreadystatechange = () =>
+        {
+            if (this.xhr.readyState === 4 && this.xhr.status === 200)
+            {
+                this.text.textContent = this.xhr.responseText;
+            }
+        }
+        this.xhr.send('form_input=' + this.textInput);
     }
 }
 
