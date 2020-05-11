@@ -1,6 +1,11 @@
 <?php
 
+$input = "";
+$textFile;
 $text = "";
+$textLines;
+$arraySize = 100;
+
 
 if ($_POST['form_input'] !== undefined)
 {
@@ -13,9 +18,17 @@ if ($_POST['form_input'] !== undefined)
 
 $textLines = file("text.txt");
 
+if (count($textLines) >= $arraySize)
+{
+    unset($textLines[0]);
+    $textLines = array_values($textLines);
+    file_put_contents("text.txt", $textLines);
+    $textLines = file("text.txt");
+}
+
 for ($i = 0; $i < count($textLines); $i++)
 {
-    $text .= '<span class="text-span">' . $textLines[$i] . '</span><br/>';
+    $text .= '<p class="text-p">' . $textLines[$i] . '</p>';
 }
 
 echo $text;

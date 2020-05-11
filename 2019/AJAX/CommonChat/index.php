@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="container">
-        <p class="text" id="answer"></p>
+        <div class="text" id="answer"></div>
         <form class="form" name="form">
             <input class="input" type="text" name="form_input" placeholder="Введите текст">
             <button class="button" type="submit" name="form_button">
