@@ -160,7 +160,6 @@ var FormSubmition = /*#__PURE__*/function () {
 
       this.xhr.onreadystatechange = function () {
         if (_this.xhr.readyState === 4 && _this.xhr.status === 200) {
-          //this.textLine = this.text.innerHTML;
           _this.textLine = _this.xhr.responseText;
           _this.text.innerHTML = _this.textLine;
         }
@@ -193,6 +192,7 @@ var FormSubmition = /*#__PURE__*/function () {
       if (objectForm.formInput.value !== "") {
         objectForm.formInputText = objectForm.formInput.value;
         formSubmition.formProcessing(objectForm.formInputText);
+        objectForm.formInput.value = "";
       } else {
         objectForm.formInput.style.borderColor = "red";
       }

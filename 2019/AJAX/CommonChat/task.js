@@ -33,7 +33,6 @@ class FormSubmition
         {
             if (this.xhr.readyState === 4 && this.xhr.status === 200)
             {
-                //this.textLine = this.text.innerHTML;
                 this.textLine = this.xhr.responseText;
                 this.text.innerHTML = this.textLine;
             }
@@ -67,6 +66,7 @@ class FormSubmition
             {
                 objectForm.formInputText = objectForm.formInput.value;
                 formSubmition.formProcessing(objectForm.formInputText);
+                objectForm.formInput.value = "";
             }
             else
             {
