@@ -17,14 +17,39 @@ input:focus, button:focus {
   flex-direction: column;
 }
 
-.text-bottom {
-  margin-top: 20px;
-  font-size: 16px;
+.row {
+  padding: 5px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+
+  &-window {
+    min-height: 75vh;
+    max-height: 75vh;
+    overflow: hidden;
+    overflow-y: auto;
+  }
 }
 
-.text-p {
-  margin-top: 20px;
+.text {
+  padding: 0 10px 20px;
+  width: 100%;
+  min-height: 75vh;
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  &-bottom {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  &-p {
+    margin-top: 20px;
+  }
 }
+
 
 .form {
   margin-top: 20px;
