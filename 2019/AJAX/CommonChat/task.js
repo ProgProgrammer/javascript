@@ -25,6 +25,7 @@ class FormSubmition
     formProcessing(textInput)
     {
         this.textInput = textInput;
+        let string = "";
         this.textInput = encodeURIComponent(this.textInput);
         this.xhr = new XMLHttpRequest();
         this.xhr.open("POST", "form.php", true);
@@ -33,8 +34,14 @@ class FormSubmition
         {
             if (this.xhr.readyState === 4 && this.xhr.status === 200)
             {
-                this.textLine = this.xhr.responseText;
-                this.text.innerHTML = this.textLine;
+                this.textLine = JSON.parse(this.xhr.responseText);
+
+                for (let i = 0; i < this.textLine.length; i++)
+                {
+                    string += '<p class="text-p">' + this.textLine[i] + '</p>';
+                }
+
+                this.text.innerHTML = string;
             }
         }
         this.xhr.send("form_input=" + this.textInput);
