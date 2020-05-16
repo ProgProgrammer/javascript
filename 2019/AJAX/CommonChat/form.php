@@ -2,12 +2,12 @@
 
 $input = "";
 $textFile;
-$text = "";
+$textArray = [];
 $textLines;
 $arraySize = 100;
 
 
-if ($_POST['form_input'] !== undefined)
+if ($_POST['form_input'] !== undefined && $_POST['form_input'] !== "")
 {
     $input = htmlentities($_POST['form_input'], ENT_QUOTES, 'UTF-8');
     $input .= "\r\n";
@@ -28,8 +28,9 @@ if (count($textLines) >= $arraySize)
 
 for ($i = 0; $i < count($textLines); $i++)
 {
-    $text .= '<p class="text-p">' . $textLines[$i] . '</p>';
+    if ($textLines[$i] !== "\r\n" && $textLines[$i] !== "")
+        array_push($textArray, $textLines[$i]);
 }
 
-echo $text;
+echo json_encode($textArray);
 ?>
