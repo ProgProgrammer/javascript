@@ -154,7 +154,9 @@ var FormSubmition = /*#__PURE__*/function () {
 
       this.textInput = textInput;
       var string = "";
+      var arrayText = [];
       this.textInput = encodeURIComponent(this.textInput);
+      arrayText[0] = this.textInput;
       this.xhr = new XMLHttpRequest();
       this.xhr.open("POST", "form.php", true);
       this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -171,7 +173,7 @@ var FormSubmition = /*#__PURE__*/function () {
         }
       };
 
-      this.xhr.send("form_input=" + this.textInput);
+      this.xhr.send("form_input=" + JSON.stringify(arrayText));
     }
   }]);
 
@@ -237,7 +239,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64685" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57304" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
