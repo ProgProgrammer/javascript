@@ -26,7 +26,9 @@ class FormSubmition
     {
         this.textInput = textInput;
         let string = "";
+        let arrayText = [];
         this.textInput = encodeURIComponent(this.textInput);
+        arrayText[0] = this.textInput;
         this.xhr = new XMLHttpRequest();
         this.xhr.open("POST", "form.php", true);
         this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -44,7 +46,7 @@ class FormSubmition
                 this.text.innerHTML = string;
             }
         }
-        this.xhr.send("form_input=" + this.textInput);
+        this.xhr.send("form_input=" + JSON.stringify(arrayText));
     }
 }
 
