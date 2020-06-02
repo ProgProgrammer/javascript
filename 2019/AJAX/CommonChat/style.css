@@ -7,6 +7,9 @@ input:focus,
 button:focus {
   outline: none;
 }
+.margin-top-10 {
+  margin-top: 10px;
+}
 .container {
   margin: 0 auto;
   padding: 15px;
@@ -40,8 +43,9 @@ button:focus {
   margin-top: 20px;
   font-size: 16px;
 }
-.text-p {
+.text-main {
   margin-top: 20px;
+  font-weight: 700;
 }
 .form {
   margin-top: 20px;
@@ -53,6 +57,18 @@ button:focus {
   display: flex;
   border: 1px solid black;
   background: transparent;
+}
+.input.textarea {
+  margin-top: 15px;
+  padding: 5px 15px;
+  width: 100%;
+  min-height: 50px;
+  height: auto;
+  display: flex;
+  font-family: Arial;
+  border: 1px solid black;
+  background: transparent;
+  resize: none;
 }
 .button {
   margin-top: 15px;
