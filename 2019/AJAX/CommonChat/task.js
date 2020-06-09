@@ -2,14 +2,19 @@ class FormSubmition
 {
     constructor(object)
     {
+        this.windowChat = object.windowChat;
         this.text = object.text;
         this.formInput = object.formInput;
         this.formText = object.formText;
+        this.arrow = object.arrow;
         this.borderColorError;
         this.borderColor;
         this.textInput = [];
         this.xhr;
         this.textLine;
+        this.noscroll = object.noscroll;
+        //this.scroll = object.scroll;
+        this.scrollValue;
     }
 
     checkForm(colorError, color)
@@ -27,12 +32,21 @@ class FormSubmition
         }
     }
 
+    scrollChat()
+    {
+        let scrollingValue;
+        scrollingValue = this.text.clientHeight - this.windowChat.scrollTop;
+        this.windowChat.scrollBy(0, scrollingValue);
+        this.arrow.style.display = "none";
+    }
+
     formProcessing(textInput)
     {
         this.textInput = textInput;
         let string = "";
         let array = [];
         let countText = 0;
+        let scrollingValue;
         console.log(this.textInput);
         if (this.textInput !== undefined)
         {
@@ -64,11 +78,31 @@ class FormSubmition
                     }
                 }
 
+                scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
+
                 this.text.innerHTML = string;
+
+                if (scrollingValue <= 0)
+                {
+                    this.scrollChat();
+                }
             }
         }
         console.log(JSON.stringify(array));
         this.xhr.send("form_input=" + JSON.stringify(array));
+    }
+
+    scrollProcessing(scrollValue)
+    {
+        this.scrollValue = scrollValue;
+        if (this.noscroll === this.scrollValue)
+        {
+            this.arrow.style.display = "flex";
+        }
+        /*else if (this.scroll === this.scrollValue)
+        {
+            this.scrollChat();
+        }*/
     }
 }
 
@@ -76,21 +110,29 @@ class FormSubmition
 {
     let formSubmition;
     let arrayText = [];
+    let scrollingValue;
+    let topArrow;
     const error = "red";
     const noError = "black";
     objectForm = {};
+    objectForm.windowChat;
     objectForm.text;
     objectForm.form;
     objectForm.formName;
     objectForm.formInput;
     objectForm.formText;
+    objectForm.arrow;
+    objectForm.noscroll = "noscroll";
+    //objectForm.scroll = "scroll";
 
     window.addEventListener("DOMContentLoaded", () =>
     {
+        objectForm.windowChat = document.querySelector(".row-window");
         objectForm.text = document.querySelector(".text");
         objectForm.form = document.forms.form;
         objectForm.formInput = objectForm.form.form_input;
         objectForm.formText = objectForm.form.form_text;
+        objectForm.arrow = document.querySelector(".arrow");
 
         formSubmition = new FormSubmition(objectForm);
 
@@ -122,6 +164,7 @@ class FormSubmition
                 }
                 arrayText[1] = objectForm.formText.value;
                 formSubmition.formProcessing(arrayText);
+                formSubmition.scrollChat();
                 console.log(arrayText);
                 objectForm.formText.value = "";
             }
@@ -138,6 +181,25 @@ class FormSubmition
             }
         }
 
+        objectForm.arrow.addEventListener('click', () =>
+        {
+            formSubmition.scrollChat();
+        });
+
+        objectForm.windowChat.addEventListener('scroll', () =>
+        {
+            scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
+
+            if (scrollingValue > 0)
+            {
+                formSubmition.scrollProcessing(objectForm.noscroll);
+            }
+
+            topArrow = objectForm.windowChat.scrollTop + objectForm.windowChat.clientHeight - (objectForm.arrow.clientHeight + 10);
+            objectForm.arrow.style.top = topArrow + "px";
+        });
+
+        formSubmition.scrollProcessing(objectForm.noscroll);
         setInterval(() => formSubmition.formProcessing(), 500, [undefined, undefined]);
     });
 })

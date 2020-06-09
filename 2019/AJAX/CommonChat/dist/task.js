@@ -128,14 +128,19 @@ var FormSubmition = /*#__PURE__*/function () {
   function FormSubmition(object) {
     _classCallCheck(this, FormSubmition);
 
+    this.windowChat = object.windowChat;
     this.text = object.text;
     this.formInput = object.formInput;
     this.formText = object.formText;
+    this.arrow = object.arrow;
     this.borderColorError;
     this.borderColor;
     this.textInput = [];
     this.xhr;
     this.textLine;
+    this.noscroll = object.noscroll; //this.scroll = object.scroll;
+
+    this.scrollValue;
   }
 
   _createClass(FormSubmition, [{
@@ -153,6 +158,14 @@ var FormSubmition = /*#__PURE__*/function () {
       }
     }
   }, {
+    key: "scrollChat",
+    value: function scrollChat() {
+      var scrollingValue;
+      scrollingValue = this.text.clientHeight - this.windowChat.scrollTop;
+      this.windowChat.scrollBy(0, scrollingValue);
+      this.arrow.style.display = "none";
+    }
+  }, {
     key: "formProcessing",
     value: function formProcessing(textInput) {
       var _this = this;
@@ -161,6 +174,7 @@ var FormSubmition = /*#__PURE__*/function () {
       var string = "";
       var array = [];
       var countText = 0;
+      var scrollingValue;
       console.log(this.textInput);
 
       if (this.textInput !== undefined) {
@@ -189,12 +203,31 @@ var FormSubmition = /*#__PURE__*/function () {
             }
           }
 
+          scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
           _this.text.innerHTML = string;
+
+          if (scrollingValue <= 0) {
+            _this.scrollChat();
+          }
         }
       };
 
       console.log(JSON.stringify(array));
       this.xhr.send("form_input=" + JSON.stringify(array));
+    }
+  }, {
+    key: "scrollProcessing",
+    value: function scrollProcessing(scrollValue) {
+      this.scrollValue = scrollValue;
+
+      if (this.noscroll === this.scrollValue) {
+        this.arrow.style.display = "flex";
+      }
+      /*else if (this.scroll === this.scrollValue)
+      {
+          this.scrollChat();
+      }*/
+
     }
   }]);
 
@@ -204,19 +237,27 @@ var FormSubmition = /*#__PURE__*/function () {
 (function () {
   var formSubmition;
   var arrayText = [];
+  var scrollingValue;
+  var topArrow;
   var error = "red";
   var noError = "black";
   objectForm = {};
+  objectForm.windowChat;
   objectForm.text;
   objectForm.form;
   objectForm.formName;
   objectForm.formInput;
   objectForm.formText;
+  objectForm.arrow;
+  objectForm.noscroll = "noscroll"; //objectForm.scroll = "scroll";
+
   window.addEventListener("DOMContentLoaded", function () {
+    objectForm.windowChat = document.querySelector(".row-window");
     objectForm.text = document.querySelector(".text");
     objectForm.form = document.forms.form;
     objectForm.formInput = objectForm.form.form_input;
     objectForm.formText = objectForm.form.form_text;
+    objectForm.arrow = document.querySelector(".arrow");
     formSubmition = new FormSubmition(objectForm);
 
     objectForm.form.onsubmit = function (event) {
@@ -241,6 +282,7 @@ var FormSubmition = /*#__PURE__*/function () {
 
         arrayText[1] = objectForm.formText.value;
         formSubmition.formProcessing(arrayText);
+        formSubmition.scrollChat();
         console.log(arrayText);
         objectForm.formText.value = "";
       } else {
@@ -254,6 +296,20 @@ var FormSubmition = /*#__PURE__*/function () {
       }
     };
 
+    objectForm.arrow.addEventListener('click', function () {
+      formSubmition.scrollChat();
+    });
+    objectForm.windowChat.addEventListener('scroll', function () {
+      scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
+
+      if (scrollingValue > 0) {
+        formSubmition.scrollProcessing(objectForm.noscroll);
+      }
+
+      topArrow = objectForm.windowChat.scrollTop + objectForm.windowChat.clientHeight - (objectForm.arrow.clientHeight + 10);
+      objectForm.arrow.style.top = topArrow + "px";
+    });
+    formSubmition.scrollProcessing(objectForm.noscroll);
     setInterval(function () {
       return formSubmition.formProcessing();
     }, 500, [undefined, undefined]);
@@ -287,7 +343,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58459" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50004" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
