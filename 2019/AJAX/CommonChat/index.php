@@ -11,6 +11,12 @@
     <div class="row">
         <div class="row-window">
             <div class="text" id="answer"></div>
+            <div class="arrow">
+                <div>
+                    <div class="arrow-line-left"></div>
+                    <div class="arrow-line-right"></div>
+                </div>
+            </div>
         </div>
         <form class="form" name="form">
             <input class="input" type="text" name="form_input" placeholder="Введите имя">
