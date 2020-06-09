@@ -98,3 +98,35 @@ input:focus, button:focus {
     color: white;
   }
 }
+
+.row-window {
+  position: relative;
+}
+
+.arrow {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px 0px #000000;
+  display: none;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  justify-content: center;
+  cursor: pointer;
+
+  &-line-left {
+    width: 10px;
+    height: 1px;
+    background: black;
+    transform: rotate(45deg) translate(-1px, 4px);
+  }
+
+  &-line-right {
+    width: 10px;
+    height: 1px;
+    background: black;
+    transform: rotate(-45deg) translate(2.5px, 3px);
+  }
+}
