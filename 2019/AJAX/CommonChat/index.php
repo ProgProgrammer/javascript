@@ -12,10 +12,7 @@
         <div class="row-window">
             <div class="text" id="answer"></div>
             <div class="arrow">
-                <div>
-                    <div class="arrow-line-left"></div>
-                    <div class="arrow-line-right"></div>
-                </div>
+                <img class="arrow-image" src="images/arrow.svg" alt="arrow">
             </div>
         </div>
         <form class="form" name="form">
