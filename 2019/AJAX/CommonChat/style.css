@@ -101,16 +101,11 @@ button:focus {
   justify-content: center;
   cursor: pointer;
 }
-.arrow-line-left {
-  width: 10px;
-  height: 1px;
-  background: black;
-  transform: rotate(45deg) translate(-1px, 4px);
+.arrow-image {
+  width: 17px;
+  height: 17px;
 }
-.arrow-line-right {
-  width: 10px;
-  height: 1px;
-  background: black;
-  transform: rotate(-45deg) translate(2.5px, 3px);
+.arrow:hover {
+  background-color: #CFCCCB;
 }
 /*# sourceMappingURL=style.css.map */
