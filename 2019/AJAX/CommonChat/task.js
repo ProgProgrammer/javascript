@@ -47,6 +47,7 @@ class FormSubmition
         let array = [];
         let countText = 0;
         let scrollingValue;
+        let textLine;
         console.log(this.textInput);
         if (this.textInput !== undefined)
         {
@@ -63,32 +64,35 @@ class FormSubmition
         {
             if (this.xhr.readyState === 4 && this.xhr.status === 200)
             {
-                this.textLine = JSON.parse(this.xhr.responseText);
+                this.textLines = JSON.parse(this.xhr.responseText);
 
-                for (let i = 0; i < this.textLine.length; i++)
+                for (let i = 0; i < this.textLines.length; i++)
                 {
                     countText++;
                     if (countText % 2 === 0)
                     {
-                        string += '<p class="text-p">' + this.textLine[i] + '</p>';
+                        textLine = this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+                        textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+                        textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+                        string += '<div class="text-p">' + textLine + '</div>';
                     }
                     else
                     {
-                        string += '<p class="text-main">' + this.textLine[i] + '</p>';
+                        string += '<div class="text-main">' + this.textLines[i] + '</div>';
                     }
                 }
 
-                scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
-
+                scrollingValue = this.text.clientHeight - this.windowChat.scrollTop - this.windowChat.clientHeight;
+                //console.log(scrollingValue);
                 this.text.innerHTML = string;
 
-                if (scrollingValue <= 0)
+                if (scrollingValue <= 1)
                 {
                     this.scrollChat();
                 }
             }
         }
-        console.log(JSON.stringify(array));
+        //console.log(JSON.stringify(array));
         this.xhr.send("form_input=" + JSON.stringify(array));
     }
 
@@ -98,6 +102,7 @@ class FormSubmition
         if (this.noscroll === this.scrollValue)
         {
             this.arrow.style.display = "flex";
+            console.log(this.arrow.style.display);
         }
         /*else if (this.scroll === this.scrollValue)
         {
@@ -131,7 +136,7 @@ class FormSubmition
         objectForm.text = document.querySelector(".text");
         objectForm.form = document.forms.form;
         objectForm.formInput = objectForm.form.form_input;
-        objectForm.formText = objectForm.form.form_text;
+        objectForm.formText = document.querySelector(".input.textarea");
         objectForm.arrow = document.querySelector(".arrow");
 
         formSubmition = new FormSubmition(objectForm);
@@ -140,7 +145,7 @@ class FormSubmition
         {
             event.preventDefault();
             formSubmition.checkForm(error, noError);
-            if (objectForm.formText.value !== "")
+            if (objectForm.formText.innerHTML !== "")
             {
                 if (objectForm.formInput.value !== "")
                 {
@@ -162,11 +167,18 @@ class FormSubmition
                 {
                     arrayText[0] = objectForm.formName;
                 }
-                arrayText[1] = objectForm.formText.value;
+                arrayText[1] = objectForm.formText.innerHTML;
+                console.log(arrayText[1]);
                 formSubmition.formProcessing(arrayText);
-                formSubmition.scrollChat();
+                scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
+                console.log(scrollingValue);
+
+                if (scrollingValue <= 1)
+                {
+                    formSubmition.scrollChat();
+                }
                 console.log(arrayText);
-                objectForm.formText.value = "";
+                objectForm.formText.innerText = "";
             }
             else
             {
@@ -174,7 +186,7 @@ class FormSubmition
                 {
                     objectForm.formInput.style.borderColor = "red";
                 }
-                if (objectForm.formText.value === "")
+                if (objectForm.formText.innerHTML === "")
                 {
                     objectForm.formText.style.borderColor = "red";
                 }
@@ -187,6 +199,23 @@ class FormSubmition
         });
 
         objectForm.windowChat.addEventListener('scroll', () =>
+        {
+            scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
+
+            if (scrollingValue > 1)
+            {
+                formSubmition.scrollProcessing(objectForm.noscroll);
+            }
+            else
+            {
+                objectForm.arrow.style.display = "none";
+            }
+
+            topArrow = objectForm.windowChat.scrollTop + objectForm.windowChat.clientHeight - (objectForm.arrow.clientHeight + 10);
+            objectForm.arrow.style.top = topArrow + "px";
+        });
+
+        window.addEventListener('resize', () =>
         {
             scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
 
