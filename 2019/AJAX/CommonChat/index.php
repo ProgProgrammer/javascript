@@ -15,12 +15,13 @@
                 <img class="arrow-image" src="images/arrow.svg" alt="arrow">
             </div>
         </div>
+        <div class="line"></div>
         <form class="form" name="form">
             <input class="input" type="text" name="form_input" placeholder="Введите имя">
-            <input class="input textarea" type="text" name="form_text" placeholder="Введите сообщение">
-            <button class="button" type="submit">
-                Отправить
-            </button>
+            <div class="form-text-button">
+                <div class="input textarea" contenteditable="true" type="text" name="form_text" placeholder="Введите сообщение"></div>
+                <button class="button" type="submit"></button>
+            </div>
         </form>
     </div>
 </div>
