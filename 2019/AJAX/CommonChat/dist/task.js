@@ -201,9 +201,14 @@ var FormSubmition = /*#__PURE__*/function () {
               textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
               textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
               textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+              textLine = textLine.replace(/&lt;br&gt;/gi, '');
               string += '<div class="text-p">' + textLine + '</div>';
             } else {
-              string += '<div class="text-main">' + _this.textLines[i] + '</div>';
+              textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+              textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+              textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+              textLine = textLine.replace(/&lt;br&gt;/gi, '');
+              string += '<div class="text-main">' + textLine + '</div>';
             }
           }
 
@@ -264,7 +269,13 @@ var FormSubmition = /*#__PURE__*/function () {
     objectForm.formInput = objectForm.form.form_input;
     objectForm.formText = document.querySelector(".input.textarea");
     objectForm.arrow = document.querySelector(".arrow");
+    objectForm.button = document.querySelector(".button");
     formSubmition = new FormSubmition(objectForm);
+    objectForm.form.addEventListener('keydown', function (event) {
+      if (event.code === "Enter" && event.ctrlKey) {
+        objectForm.button.click();
+      }
+    });
 
     objectForm.form.onsubmit = function (event) {
       event.preventDefault();
@@ -368,7 +379,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56704" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62578" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
