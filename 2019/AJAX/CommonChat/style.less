@@ -93,6 +93,15 @@ input:focus, button:focus,
   }
 }
 
+.input.textarea[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #555;
+}
+
+.input.textarea[placeholder]:empty:focus:before {
+  content: '';
+}
+
 .button {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
