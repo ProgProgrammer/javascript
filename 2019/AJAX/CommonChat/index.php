@@ -19,7 +19,7 @@
         <form class="form" name="form">
             <input class="input" type="text" name="form_input" placeholder="Введите имя">
             <div class="form-text-button">
-                <div class="input textarea" contenteditable="true" type="text" name="form_text" placeholder="Введите сообщение"></div>
+                <div class="input textarea" contenteditable="true" type="text" name="form_text" placeholder="Введите сообщение и нажмите Ctrl + Enter"></div>
                 <button class="button" type="submit"></button>
             </div>
         </form>
