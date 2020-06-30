@@ -13,7 +13,7 @@ header("Content-Type: application/json; charset=UTF-8");
 $array = json_decode($_POST['form_input'], true);
 if (count($array) !== 0)
 {
-    $textLines = file("text2.txt");
+    $textLines = file("text.txt");
     $numberLine = $textLines[count($textLines) - 1];
     $numberLine = intval($numberLine);
     $numberLine = $numberLine + 1;

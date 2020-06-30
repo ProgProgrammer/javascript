@@ -391,7 +391,7 @@ var _libraryCommonChat = require("./libraryCommonChat.js");
     formSubmition.scrollProcessing(objectForm.noscroll);
     setInterval(function () {
       return formSubmition.formProcessing();
-    }, 5000);
+    }, 500);
   });
 })();
 },{"./libraryCommonChat.js":"libraryCommonChat.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -422,7 +422,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60778" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54952" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

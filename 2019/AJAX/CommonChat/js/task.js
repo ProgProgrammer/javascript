@@ -129,7 +129,7 @@ import { FormSubmition } from "./libraryCommonChat.js";
         });
 
         formSubmition.scrollProcessing(objectForm.noscroll);
-        setInterval(() => formSubmition.formProcessing(), 5000);
+        setInterval(() => formSubmition.formProcessing(), 500);
     });
 })
 
