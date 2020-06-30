@@ -117,7 +117,14 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"task.js":[function(require,module,exports) {
+})({"libraryCommonChat.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FormSubmition = void 0;
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -245,6 +252,12 @@ var FormSubmition = /*#__PURE__*/function () {
   return FormSubmition;
 }();
 
+exports.FormSubmition = FormSubmition;
+},{}],"task.js":[function(require,module,exports) {
+"use strict";
+
+var _libraryCommonChat = require("./libraryCommonChat.js");
+
 (function () {
   var formSubmition;
   var arrayText = [];
@@ -252,7 +265,7 @@ var FormSubmition = /*#__PURE__*/function () {
   var topArrow;
   var error = "red";
   var noError = "black";
-  objectForm = {};
+  var objectForm = {};
   objectForm.windowChat;
   objectForm.text;
   objectForm.form;
@@ -270,7 +283,7 @@ var FormSubmition = /*#__PURE__*/function () {
     objectForm.formText = document.querySelector(".input.textarea");
     objectForm.arrow = document.querySelector(".arrow");
     objectForm.button = document.querySelector(".button");
-    formSubmition = new FormSubmition(objectForm);
+    formSubmition = new _libraryCommonChat.FormSubmition(objectForm);
     objectForm.form.addEventListener('keydown', function (event) {
       if (event.code === "Enter" && event.ctrlKey) {
         objectForm.button.click();
@@ -348,10 +361,10 @@ var FormSubmition = /*#__PURE__*/function () {
     formSubmition.scrollProcessing(objectForm.noscroll);
     setInterval(function () {
       return formSubmition.formProcessing();
-    }, 500, [undefined, undefined]);
+    }, 500);
   });
 })();
-},{}],"../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./libraryCommonChat.js":"libraryCommonChat.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -379,7 +392,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62578" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60778" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -555,5 +568,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js","task.js"], null)
+},{}]},{},["../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js","task.js"], null)
 //# sourceMappingURL=/task.js.map
