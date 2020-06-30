@@ -45,9 +45,14 @@ class FormSubmition
     formProcessing(textInput)
     {
         this.textInput = textInput;
+        const numberOfLines = 4;
         let string = "";
         let array = [];
         let countText = 0;
+        let countHeading = 1;
+        let text = 0;
+        let date = 0;
+        let numberLine = 0;
         let scrollingValue;
         let textLine;
         console.log(this.textInput);
@@ -55,8 +60,10 @@ class FormSubmition
         {
             this.textInput[0] = encodeURIComponent(this.textInput[0]);
             this.textInput[1] = encodeURIComponent(this.textInput[1]);
+            this.textInput[2] = encodeURIComponent(this.textInput[2]);
             array[0] = this.textInput[0];
             array[1] = this.textInput[1];
+            array[2] = this.textInput[2];
         }
         console.log(array);
         this.xhr = new XMLHttpRequest();
@@ -67,11 +74,14 @@ class FormSubmition
             if (this.xhr.readyState === 4 && this.xhr.status === 200)
             {
                 this.textLines = JSON.parse(this.xhr.responseText);
-
+                console.log(this.textLines);
                 for (let i = 0; i < this.textLines.length; i++)
                 {
                     countText++;
-                    if (countText % 2 === 0)
+                    text = countHeading + 1;
+                    date = countHeading + 2;
+                    numberLine = countHeading + 3;
+                    if (countText % text === 0 && countText !== numberLine)
                     {
                         textLine = this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
                         textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
@@ -79,13 +89,34 @@ class FormSubmition
                         textLine = textLine.replace(/&lt;br&gt;/gi, '');
                         string += '<div class="text-p">' + textLine + '</div>';
                     }
+                    else if (countText % date === 0)
+                    {
+                        textLine = this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+                        textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+                        textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+                        textLine = textLine.replace(/&lt;br&gt;/gi, '');
+                        string += '<div class="text-p date">' + textLine + '</div>';
+                    }
+                    else if (countText % numberLine === 0)
+                    {
+                        //console.log(this.textLines[i]);
+                        textLine = this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+                        textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+                        textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+                        textLine = textLine.replace(/&lt;br&gt;/gi, '');
+                        string += '<input type="hidden" class="input-hidden" value="' + textLine + '">';
+                    }
                     else
                     {
                         textLine = this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
                         textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
                         textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
                         textLine = textLine.replace(/&lt;br&gt;/gi, '');
-                        string += '<div class="text-main">' + textLine + '</div>';
+                        string += '<div class="text-heading">' + textLine + '</div>';
+                    }
+                    if (countText % numberOfLines === 0)
+                    {
+                        countHeading += numberOfLines;
                     }
                 }
 

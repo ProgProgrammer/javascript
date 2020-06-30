@@ -178,9 +178,14 @@ var FormSubmition = /*#__PURE__*/function () {
       var _this = this;
 
       this.textInput = textInput;
+      var numberOfLines = 4;
       var string = "";
       var array = [];
       var countText = 0;
+      var countHeading = 1;
+      var text = 0;
+      var date = 0;
+      var numberLine = 0;
       var scrollingValue;
       var textLine;
       console.log(this.textInput);
@@ -188,8 +193,10 @@ var FormSubmition = /*#__PURE__*/function () {
       if (this.textInput !== undefined) {
         this.textInput[0] = encodeURIComponent(this.textInput[0]);
         this.textInput[1] = encodeURIComponent(this.textInput[1]);
+        this.textInput[2] = encodeURIComponent(this.textInput[2]);
         array[0] = this.textInput[0];
         array[1] = this.textInput[1];
+        array[2] = this.textInput[2];
       }
 
       console.log(array);
@@ -200,22 +207,43 @@ var FormSubmition = /*#__PURE__*/function () {
       this.xhr.onreadystatechange = function () {
         if (_this.xhr.readyState === 4 && _this.xhr.status === 200) {
           _this.textLines = JSON.parse(_this.xhr.responseText);
+          console.log(_this.textLines);
 
           for (var i = 0; i < _this.textLines.length; i++) {
             countText++;
+            text = countHeading + 1;
+            date = countHeading + 2;
+            numberLine = countHeading + 3;
 
-            if (countText % 2 === 0) {
+            if (countText % text === 0 && countText !== numberLine) {
               textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
               textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
               textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
               textLine = textLine.replace(/&lt;br&gt;/gi, '');
               string += '<div class="text-p">' + textLine + '</div>';
+            } else if (countText % date === 0) {
+              textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+              textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+              textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+              textLine = textLine.replace(/&lt;br&gt;/gi, '');
+              string += '<div class="text-p date">' + textLine + '</div>';
+            } else if (countText % numberLine === 0) {
+              //console.log(this.textLines[i]);
+              textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+              textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+              textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+              textLine = textLine.replace(/&lt;br&gt;/gi, '');
+              string += '<input type="hidden" class="input-hidden" value="' + textLine + '">';
             } else {
               textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
               textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
               textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
               textLine = textLine.replace(/&lt;br&gt;/gi, '');
-              string += '<div class="text-main">' + textLine + '</div>';
+              string += '<div class="text-heading">' + textLine + '</div>';
+            }
+
+            if (countText % numberOfLines === 0) {
+              countHeading += numberOfLines;
             }
           }
 
@@ -311,7 +339,9 @@ var _libraryCommonChat = require("./libraryCommonChat.js");
         }
 
         arrayText[1] = objectForm.formText.innerHTML;
+        arrayText[2] = new Date().toLocaleString();
         console.log(arrayText[1]);
+        console.log(arrayText[2]);
         formSubmition.formProcessing(arrayText);
         scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
         console.log(scrollingValue);
@@ -361,7 +391,7 @@ var _libraryCommonChat = require("./libraryCommonChat.js");
     formSubmition.scrollProcessing(objectForm.noscroll);
     setInterval(function () {
       return formSubmition.formProcessing();
-    }, 500);
+    }, 5000);
   });
 })();
 },{"./libraryCommonChat.js":"libraryCommonChat.js"}],"../../../../../../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {

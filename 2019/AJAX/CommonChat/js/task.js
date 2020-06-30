@@ -66,7 +66,9 @@ import { FormSubmition } from "./libraryCommonChat.js";
                     arrayText[0] = objectForm.formName;
                 }
                 arrayText[1] = objectForm.formText.innerHTML;
+                arrayText[2] = new Date().toLocaleString();
                 console.log(arrayText[1]);
+                console.log(arrayText[2]);
                 formSubmition.formProcessing(arrayText);
                 scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
                 console.log(scrollingValue);
@@ -127,7 +129,7 @@ import { FormSubmition } from "./libraryCommonChat.js";
         });
 
         formSubmition.scrollProcessing(objectForm.noscroll);
-        setInterval(() => formSubmition.formProcessing(), 500);
+        setInterval(() => formSubmition.formProcessing(), 5000);
     });
 })
 

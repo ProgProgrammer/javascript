@@ -43,9 +43,17 @@ button:focus,
   margin-top: 20px;
   font-size: 16px;
 }
-.text-main {
+.text-heading {
   margin-top: 20px;
   font-weight: 700;
+}
+.text-p {
+  margin-top: 3px;
+}
+.date {
+  margin-top: 5px;
+  font-size: 12px;
+  color: blue;
 }
 .line {
   margin-left: -5px;
@@ -130,5 +138,20 @@ button:focus,
 }
 .arrow:hover {
   background-color: #CFCCCB;
+}
+.container2 {
+  padding: 15px;
+}
+.enter {
+  padding: 0 10px;
+  width: 250px;
+  height: 30px;
+}
+.text2 {
+  margin-top: 20px;
+  padding: 5px;
+  max-width: 500px;
+  min-height: 50px;
+  border: 1px solid red;
 }
 /*# sourceMappingURL=style.css.map */
