@@ -6,6 +6,8 @@ import { FormSubmition } from "./libraryCommonChat.js";
     let arrayText = [];
     let scrollingValue;
     let topArrow;
+    let inputsHidden;
+    let valueInput;
     const error = "red";
     const noError = "black";
     const objectForm = {};
@@ -69,9 +71,18 @@ import { FormSubmition } from "./libraryCommonChat.js";
                 arrayText[2] = new Date().toLocaleString();
                 console.log(arrayText[1]);
                 console.log(arrayText[2]);
+                inputsHidden = document.querySelectorAll(".input-hidden");
+
+                if (inputsHidden.length !== 0)
+                {
+                    valueInput = inputsHidden[inputsHidden.length - 1].getAttribute("value");
+                    arrayText[3] = valueInput;
+                }
+                console.log(arrayText);
                 formSubmition.formProcessing(arrayText);
                 scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
                 console.log(scrollingValue);
+                console.log(valueInput);
 
                 if (scrollingValue <= 1)
                 {
@@ -128,8 +139,33 @@ import { FormSubmition } from "./libraryCommonChat.js";
             objectForm.arrow.style.top = topArrow + "px";
         });
 
+        const sendRequest = (value) =>
+        {
+            inputsHidden = document.querySelectorAll(".input-hidden");
+            console.log(value);
+            if (inputsHidden.length !== 0 || value !== undefined)
+            {
+                arrayText[0] = " ";
+                arrayText[1] = " ";
+                arrayText[2] = " ";
+                if (value === undefined) {
+                    valueInput = inputsHidden[inputsHidden.length - 1].getAttribute("value");
+                    arrayText[3] = valueInput;
+                    console.log(typeof(arrayText[3]));
+                }
+                else
+                {
+                    arrayText[3] = value;
+                    console.log(typeof(value));
+                }
+                console.log(arrayText);
+                formSubmition.formProcessing(arrayText);
+            }
+        }
+
         formSubmition.scrollProcessing(objectForm.noscroll);
-        setInterval(() => formSubmition.formProcessing(), 500);
+        setTimeout(() => sendRequest("0"), 1);
+        setInterval(() => sendRequest(), 500);
     });
 })
 

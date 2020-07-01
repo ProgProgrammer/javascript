@@ -197,62 +197,70 @@ var FormSubmition = /*#__PURE__*/function () {
         array[0] = this.textInput[0];
         array[1] = this.textInput[1];
         array[2] = this.textInput[2];
+
+        if (this.textInput[3] !== undefined) {
+          this.textInput[3] = encodeURIComponent(this.textInput[3]);
+          array[3] = this.textInput[3];
+          array[3] = array[3].replace('%0A', '');
+        }
       }
 
       console.log(array);
       this.xhr = new XMLHttpRequest();
-      this.xhr.open("POST", "form.php", true);
+      this.xhr.open("POST", "form2.php", true);
       this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
       this.xhr.onreadystatechange = function () {
         if (_this.xhr.readyState === 4 && _this.xhr.status === 200) {
           _this.textLines = JSON.parse(_this.xhr.responseText);
-          console.log(_this.textLines);
+          console.log(_this.textLines.length);
 
-          for (var i = 0; i < _this.textLines.length; i++) {
-            countText++;
-            text = countHeading + 1;
-            date = countHeading + 2;
-            numberLine = countHeading + 3;
+          if (_this.textLines.length > 0) {
+            for (var i = 0; i < _this.textLines.length; i++) {
+              countText++;
+              text = countHeading + 1;
+              date = countHeading + 2;
+              numberLine = countHeading + 3;
 
-            if (countText % text === 0 && countText !== numberLine) {
-              textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
-              textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
-              textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
-              textLine = textLine.replace(/&lt;br&gt;/gi, '');
-              string += '<div class="text-p">' + textLine + '</div>';
-            } else if (countText % date === 0) {
-              textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
-              textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
-              textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
-              textLine = textLine.replace(/&lt;br&gt;/gi, '');
-              string += '<div class="text-p date">' + textLine + '</div>';
-            } else if (countText % numberLine === 0) {
-              //console.log(this.textLines[i]);
-              textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
-              textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
-              textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
-              textLine = textLine.replace(/&lt;br&gt;/gi, '');
-              string += '<input type="hidden" class="input-hidden" value="' + textLine + '">';
-            } else {
-              textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
-              textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
-              textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
-              textLine = textLine.replace(/&lt;br&gt;/gi, '');
-              string += '<div class="text-heading">' + textLine + '</div>';
+              if (countText % text === 0 && countText !== numberLine) {
+                textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+                textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+                textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+                textLine = textLine.replace(/&lt;br&gt;/gi, '');
+                string += '<div class="text-p">' + textLine + '</div>';
+              } else if (countText % date === 0) {
+                textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+                textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+                textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+                textLine = textLine.replace(/&lt;br&gt;/gi, '');
+                string += '<div class="text-p date">' + textLine + '</div>';
+              } else if (countText % numberLine === 0) {
+                //console.log(this.textLines[i]);
+                textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+                textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+                textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+                textLine = textLine.replace(/&lt;br&gt;/gi, '');
+                string += '<input type="hidden" class="input-hidden" value="' + textLine + '">';
+              } else {
+                textLine = _this.textLines[i].replace(/&lt;div&gt;/gi, '<div>');
+                textLine = textLine.replace(/&lt;\/div&gt;/gi, '</div>');
+                textLine = textLine.replace(/&amp;nbsp;/gi, ' ');
+                textLine = textLine.replace(/&lt;br&gt;/gi, '');
+                string += '<div class="text-heading">' + textLine + '</div>';
+              }
+
+              if (countText % numberOfLines === 0) {
+                countHeading += numberOfLines;
+              }
             }
 
-            if (countText % numberOfLines === 0) {
-              countHeading += numberOfLines;
+            scrollingValue = _this.text.clientHeight - _this.windowChat.scrollTop - _this.windowChat.clientHeight; //console.log(scrollingValue);
+
+            _this.text.insertAdjacentHTML('beforeend', string);
+
+            if (scrollingValue <= 1) {
+              _this.scrollChat();
             }
-          }
-
-          scrollingValue = _this.text.clientHeight - _this.windowChat.scrollTop - _this.windowChat.clientHeight; //console.log(scrollingValue);
-
-          _this.text.innerHTML = string;
-
-          if (scrollingValue <= 1) {
-            _this.scrollChat();
           }
         }
       }; //console.log(JSON.stringify(array));
@@ -286,11 +294,15 @@ exports.FormSubmition = FormSubmition;
 
 var _libraryCommonChat = require("./libraryCommonChat.js");
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 (function () {
   var formSubmition;
   var arrayText = [];
   var scrollingValue;
   var topArrow;
+  var inputsHidden;
+  var valueInput;
   var error = "red";
   var noError = "black";
   var objectForm = {};
@@ -342,9 +354,18 @@ var _libraryCommonChat = require("./libraryCommonChat.js");
         arrayText[2] = new Date().toLocaleString();
         console.log(arrayText[1]);
         console.log(arrayText[2]);
+        inputsHidden = document.querySelectorAll(".input-hidden");
+
+        if (inputsHidden.length !== 0) {
+          valueInput = inputsHidden[inputsHidden.length - 1].getAttribute("value");
+          arrayText[3] = valueInput;
+        }
+
+        console.log(arrayText);
         formSubmition.formProcessing(arrayText);
         scrollingValue = objectForm.text.clientHeight - objectForm.windowChat.scrollTop - objectForm.windowChat.clientHeight;
         console.log(scrollingValue);
+        console.log(valueInput);
 
         if (scrollingValue <= 1) {
           formSubmition.scrollChat();
@@ -388,9 +409,36 @@ var _libraryCommonChat = require("./libraryCommonChat.js");
       topArrow = objectForm.windowChat.scrollTop + objectForm.windowChat.clientHeight - (objectForm.arrow.clientHeight + 10);
       objectForm.arrow.style.top = topArrow + "px";
     });
+
+    var sendRequest = function sendRequest(value) {
+      inputsHidden = document.querySelectorAll(".input-hidden");
+      console.log(value);
+
+      if (inputsHidden.length !== 0 || value !== undefined) {
+        arrayText[0] = " ";
+        arrayText[1] = " ";
+        arrayText[2] = " ";
+
+        if (value === undefined) {
+          valueInput = inputsHidden[inputsHidden.length - 1].getAttribute("value");
+          arrayText[3] = valueInput;
+          console.log(_typeof(arrayText[3]));
+        } else {
+          arrayText[3] = value;
+          console.log(_typeof(value));
+        }
+
+        console.log(arrayText);
+        formSubmition.formProcessing(arrayText);
+      }
+    };
+
     formSubmition.scrollProcessing(objectForm.noscroll);
+    setTimeout(function () {
+      return sendRequest("0");
+    }, 1);
     setInterval(function () {
-      return formSubmition.formProcessing();
+      return sendRequest();
     }, 500);
   });
 })();
@@ -422,7 +470,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54952" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57779" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
