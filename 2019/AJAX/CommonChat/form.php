@@ -2,17 +2,21 @@
 
 $array;
 $input = "";
+$valueInput = "";
 $textFile;
 $textArray = [];
 $textLines;
-$arraySize = 101;
+$arraySize = 404;
 $numberLine = 0;
 $stringNumber = "";
+$counterCyrcle = 0;
+$numberOfLines = 4;
 $dataFile = "text.txt";
 
 header("Content-Type: application/json; charset=UTF-8");
 $array = json_decode($_POST['form_input'], true);
-if (count($array) !== 0)
+if (count($array) > 3 &&
+    htmlentities($array[0], ENT_QUOTES, 'UTF-8') !== " ")
 {
     $textLines = file($dataFile);
     $numberLine = $textLines[count($textLines) - 1];
@@ -35,6 +39,10 @@ if (count($array) !== 0)
 
 $textLines = file($dataFile);
 
+$valueInput = htmlentities($array[3], ENT_QUOTES, 'UTF-8');
+$valueInput = intval($valueInput);
+$valueInput++;
+
 if (count($textLines) >= $arraySize)
 {
     unset($textLines[0]);
@@ -43,11 +51,39 @@ if (count($textLines) >= $arraySize)
     $textLines = file($dataFile);
 }
 
-for ($i = 0; $i < count($textLines); $i++)
+if ($valueInput === 1)
 {
-    if ($textLines[$i] !== "\r\n" && $textLines[$i] !== "")
-        array_push($textArray, $textLines[$i]);
+    for ($i = 0; $i < count($textLines); $i++)
+    {
+        if ($textLines[$i] !== "\r\n" && $textLines[$i] !== "")
+        {
+            array_push($textArray, $textLines[$i]);
+        }
+    }
+    echo json_encode($textArray);
+}
+else
+{
+    for ($a = 0; $a < count($textLines); $a++)
+    {
+        $counterCyrcle++;
+
+        if ($counterCyrcle % $numberOfLines == 0)
+        {
+            if ($valueInput === intval($textLines[$a]) + 1)
+            {
+                for ($i = $a + 1; $i < count($textLines); $i++)
+                {
+                    if ($textLines[$i] !== "\r\n" && $textLines[$i] !== "")
+                    {
+                        array_push($textArray, $textLines[$i]);
+                    }
+                }
+                echo json_encode($textArray);
+                return;
+            }
+        }
+    }
 }
 
-echo json_encode($textArray);
 ?>
