@@ -73,7 +73,7 @@ class FormSubmition
         }
         console.log(array);
         this.xhr = new XMLHttpRequest();
-        this.xhr.open("POST", "form2.php", true);
+        this.xhr.open("POST", "form.php", true);
         this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         this.xhr.onreadystatechange = () =>
         {

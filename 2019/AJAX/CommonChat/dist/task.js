@@ -207,7 +207,7 @@ var FormSubmition = /*#__PURE__*/function () {
 
       console.log(array);
       this.xhr = new XMLHttpRequest();
-      this.xhr.open("POST", "form2.php", true);
+      this.xhr.open("POST", "form.php", true);
       this.xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
       this.xhr.onreadystatechange = function () {
@@ -470,7 +470,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57779" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56304" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
