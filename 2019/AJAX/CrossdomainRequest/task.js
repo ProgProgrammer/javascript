@@ -4,7 +4,6 @@
     {
         const text2 = document.querySelector(".text");
         const textQuestion = text;
-        console.log(textQuestion);
         const xhr = new XMLHttpRequest();
         xhr.open("POST", "http://51.158.77.145/cross_domain_queries/form.php", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -13,10 +12,8 @@
             if (xhr.readyState === 4 && xhr.status === 200) 
             { 
                 text2.innerHTML += (`</br> <span style="border-bottom: 1px solid black;"> ${textQuestion} </span> </br> ${xhr.responseText} </br>`); 
-                console.log(xhr.responseText);
             }
         }
-        console.log(textQuestion);
         xhr.send("form_input=" + textQuestion);
     }
 
