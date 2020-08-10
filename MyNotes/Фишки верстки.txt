@@ -1,0 +1,162 @@
+
+ФИШКИ ВЕРСТКИ:
+
+1) rel="nofollow" - чтобы поисковик не стал индексировать ссылку на другой сайт нужно после target="_blank" поставить этот атрибут
+
+2) object-fit: fill | contain | cover | none - управляет соотношением сторон заменяемых элементов, таких как <img>, <video>, <object>, <input type="image">,
+   когда у них задана ширина или высота, а также способом масштабирования.
+
+3) mix-blend-mode: normal | multiply | screen | overlay | darken | lighten 
+  | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue 
+  | saturation | color | luminosity - определяет режим наложения исходного цвета на фоновый цвет или фоновое изображение.
+
+4) white-space - устанавливает, как отображать пробелы между словами.
+   Значения: normal | nowrap | pre | pre-line | pre-wrap | inherit - управляет учитыванием / неучитыванием пробелов и переносов в тексте.
+
+
+
+СДЕЛАТЬ ССЫЛКУ НЕ КЛИКАБЕЛЬНОЙ:
+
+1) присвоить классу стиль: pointer-events: none.
+
+
+
+
+УБРАТЬ СИНИЙ ФОН ПРИ КЛИКЕ:
+
+1) в верстке написать теги, из которых нужно убрать синий фон и вставить код:
+ 
+   -webkit-tap-highlight-color: rgba(0, 0, 0, 0).
+
+
+
+
+ПЕРЕЗАПИСАТЬ СТИЛИ У ПОЛЬЗОВАТЕЛЕЙ:
+
+1) в соответствующую строку тега head нужно вставить символы "?v=1" после расширения файла "css";
+
+2) например: <link rel="stylesheet" type="text/css" href="<?php echo $this->baseurl; ?>/templates/<?php echo $this->template; ?>/css/template.css?v=1" media="screen" />.
+
+
+
+СДЕЛАТЬ У ТЕКСТА ФОН (расположение свойств нужно укахывать в этом порядке):
+
+   background: linear-gradient(95.11deg, #5040B6 6.96%, #C10FCD 99.65%) !important;
+   -webkit-background-clip: text !important;
+   -webkit-text-fill-color: transparent !important;
+
+
+СТИЛИ ДЛЯ ПЕРЕЛИВАЮЩЕГОСЯ ПОДЧЕРКИВАНИЯ ПРИ НАВЕДЕНИИ
+
+.dynamic-animated-menu {
+        span {
+            position: relative;
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: #c7c7c7;
+                transform: scaleX(0);
+                transform-origin: right;
+                transition: transform .7s cubic-bezier(.19,1,.22,1),background .6s ease;
+            }
+        }
+        &:hover span {
+            &::after {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+        }
+        &.active {
+            cursor: default;
+            color: #d3d2d4;
+            span::after {
+                transform: scaleX(1) !important;
+                background: #d3d2d4;
+            }
+        }
+    }
+
+
+
+
+СОЗДАТЬ ЭФФЕКТ НАВЕДЕНИЯ С РАСТЯГИВАНИЕМ ФОНА НАЛЕВО И НАПРАВО ОТ БЛОКА:
+
+1) нужно создать пустой блок в блоке, который должен растягиваться при наведении;
+
+2) присвоить этому блоку следующие стили:
+
+	    	height: 100%;
+    		position: absolute;
+    		left: -15px;
+    		right: -15px;
+    		display: flex;
+    		flex-direction: column;
+    		cursor: pointer;
+    		text-decoration: none;
+    		z-index: 1;
+
+
+
+
+
+СТИЛИ ДЛЯ ВСТАВКИ ФОНОВОЙ КАРТИНКИ С ТЕКСТОМ ВНИЗУ:
+
+1) нужно создать блок div со свойствами:
+    width: 100%;
+    display: flex;
+    background-image: url(...);
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: cover !important;
+
+2) присвоить и этому блоку псевдокласс :before со свойствами:
+    content: "";
+    padding-top: 60%;
+    float: left;
+
+
+
+
+СМЕШИВАНИЕ BACKGROUND-IMAGE И BACKGROUND-COLOR:
+
+1) для этого в свойства блока с фоном нужно добавить свойства: background-blend-mode: multiply;
+
+
+
+
+ВКЛЮЧИТЬ СОБЫТИЯ МЫШИ В SWIPER:
+
+1) в файле стилей нужному блоку присвоить свойство: pointer-events: auto !important;
+
+
+
+
+СДЕЛАТЬ ССЫЛКУ НА КНОПКЕ BUTTON:
+
+1) в html-файле прописать тег form и указать в нем атрибуты href="" и target="_blank";
+
+2) внутри тега form тег button.
+
+
+
+НАСТРОИТЬ SWIPER И ЕГО СТРЕЛКИ:
+
+1) зайти в среду разработки -> добавить код вызова swiper, при этом не забыв указать класс, которым вызывается swiper;
+
+2) проверить, есть стоит ли дополнительный класс в других swiper, иначе swiper-слайдеры будут конфликтовать друг с другом;
+
+3) зайти в файл с версткой -> если нужно, чтобы стрелки swiper выходили за пределы блока с классом swiper-container, вывести стрелки swiper в отдельный блок
+   
+   под swiper-container.
+
+4) сохранить изменения.
+
+
+
+СДЕЛАТЬ MARGIN У ТЕГА TR ТАБЛИЦЫ:
+
+1) для этого нужно добавить тегу tr свойство display: block.

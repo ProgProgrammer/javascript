@@ -1,0 +1,13 @@
+НАСТРОИТЬ РЕДИРЕКТ ДЛЯ ПЕРЕХОДА СО СТАРОЙ ВЕРССИИ САЙТА НА НОВУЮ С SEO-ОПТИМИЗАЦИЕЙ:
+
+1) Нужно в файле .htaccess создать строки типа:
+	Redirect 301 /kitchen/garnituri "https://malinamebel.ru/catalog/kitchen/garnituri/"
+	Redirect 301 /kitchen "https://malinamebel.ru/catalog/kitchen/"
+	Redirect 301 /shkafy-kupe/sks "https://malinamebel.ru/catalog/shkafy-kupe/sks/"
+  	Redirect 301 /shkafy-kupe "https://malinamebel.ru/catalog/shkafy-kupe/"
+
+2) где /catalog - раздел нового сайта, /kitchen - группа, а /kitchen/garnituri  - подгруппа;
+
+3) более длинные адреса (/kitchen) должны находится выше более коротких (/kitchen/garnituri);
+
+4) при этом все ссылки должны быть расположены друг под другом. Например, сначала /kitchen с подгруппами, потом /shkafy-kupe и т.д.

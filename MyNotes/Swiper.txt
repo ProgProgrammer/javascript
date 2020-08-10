@@ -1,0 +1,16 @@
+ЕСЛИ НЕ РАБОТАЕТ AUTOPLAY:
+
+1) вставить в код вызова swiper:
+
+   autoplay: {
+    delay: 5000,
+  },
+
+
+КАК УМЕНЬШИТЬ РАЗМЕР СЛАЙДОВ И УБРАТЬ OVERFLOW:HIDDEN:
+
+1) на секцию со слайдом и заголовком к нему поставить "overflow: hidden";
+
+2) на контейнер со swiper-container внутри поставить свойство "padding: 0 17%";
+
+3) на сам swiper-container поставить overflow: visible.

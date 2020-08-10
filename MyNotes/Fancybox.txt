@@ -1,0 +1,2 @@
+Мануал fancybox:
+	https://codepen.io/fancyapps/pen/oPKVea?editors=1000

@@ -1,0 +1,114 @@
+Использование ГИТа:
+
+1) запустить Git Bash;
+
+2) ввести команду после знака $: cd D:/Проекты/Синергия/site;
+
+3) ввести команду после знака $: git clone https://bitbucket.org/bulletodds/halobactery-landing/src/master/
+
+   Эта команда склонирует удаленный репозиторий. После этого запустить командную строку по правилам, указанным ниже для cmd (если сайт с js-фреймворком).
+
+   Создать проект в IDE по правилам, указанным ниже;
+
+4) открыть локальную копию проекта в браузере набрав, например, http://localhost:4200/;
+
+5) после внесения исправлений в Гит Баш ввести команду: cd master - переключение на ветку "master";
+
+6) сделать git add . , если добавлял новые или изменял действующие файлы (во всех случаях, когда git status показывает изменения красным цветом);
+
+7) проверить количество модифицированных файлов командой git status;
+
+8) сделать коммит git commit -am 'Правки верстки';
+
+9) проверить количество незакоммичеснный файлов, если такие имеются, командой git status;
+
+10) запушить файлы командой: git push origin master.
+
+
+Например:
+
+andre@DESKTOP-PEH34EO MINGW64 ~
+$ cd /d/Проекты/Bulletodds/dashboard
+
+andre@DESKTOP-PEH34EO MINGW64 /d/Проекты/Bulletodds/dashboard
+$ git clone https://stingerbill1@bitbucket.org/bulletodds/bulletodds-dashboard.git
+Cloning into 'bulletodds-dashboard'...
+remote: Counting objects: 1531, done.
+remote: Compressing objects: 100% (1155/1155), done.
+remote: Total 1531 (delta 809), reused 0 (delta 0)
+Receiving objects: 100% (1531/1531), 886.74 KiB | 1.01 MiB/s, done.
+Resolving deltas: 100% (980/980), done.
+
+andre@DESKTOP-PEH34EO MINGW64 /d/Проекты/Bulletodds/dashboard
+$ cd bulletodds-dashboard
+
+andre@DESKTOP-PEH34EO MINGW64 /d/Проекты/Bulletodds/dashboard/bulletodds-dashboard (master)
+$ git add .
+
+andre@DESKTOP-PEH34EO MINGW64 /d/Проекты/Bulletodds/dashboard/bulletodds-dashboard (master)
+$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   package-lock.json
+        modified:   src/app/components/news/news-page/news-page.component.css
+        modified:   src/app/components/news/news-panel/news-panel.component.css
+        modified:   src/environments/environment.ts
+
+
+andre@DESKTOP-PEH34EO MINGW64 /d/Проекты/Bulletodds/dashboard/bulletodds-dashboard (master)
+$ git commit -am 'Настроен внешний вид списка новостей'
+[master d040184] Настроен внешний вид списка новостей
+ 4 files changed, 132 insertions(+), 11 deletions(-)
+
+andre@DESKTOP-PEH34EO MINGW64 /d/Проекты/Bulletodds/dashboard/bulletodds-dashboard (master)
+$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+andre@DESKTOP-PEH34EO MINGW64 /d/Проекты/Bulletodds/dashboard/bulletodds-dashboard (master)
+$ git push origin master
+Enumerating objects: 23, done.
+Counting objects: 100% (23/23), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (12/12), done.
+Writing objects: 100% (12/12), 1.63 KiB | 417.00 KiB/s, done.
+Total 12 (delta 10), reused 0 (delta 0)
+To https://bitbucket.org/bulletodds/bulletodds-dashboard.git
+   fbffc1d..d040184  master -> master
+
+
+
+В КОМАНДНОЙ СТРОКЕ УКАЗАТЬ СЛЕДУЮЩЕЕ:
+
+C:\Users\andre>d:
+
+D:\>cd \Проекты\Bulletodds\dashboard\
+
+D:\Проекты\Bulletodds\dashboard>cd bulletodds-dashboard\
+
+D:\Проекты\Bulletodds\dashboard\bulletodds-dashboard>npm i
+
+D:\Проекты\Bulletodds\dashboard\bulletodds-dashboard>npm start
+
+Если после всех манипуляций вышла ошибка: 
+"npm ERR! enoent ENOENT: no such file or directory, open 'D:\Проекты\SynergyNew\site\landing\package.json'
+npm ERR! enoent This is related to npm not being able to find a file.",
+то это говорит о том, что сайт на писан на чистом html, без использования js-фреймворков.
+
+
+
+
+Создать проект в IDE:
+
+1) выбрать создание проекта php из существующего кода -> далее;
+
+2) в разделе "Имя и расположение" поставить галку в пункте поместить метаданные NetBeans в отдельный каталог;
+
+   Для этого нажать на кнопку "Обзор" и создать папку в папке с склонированным проектом -> выбрать созданную папку -> Далее.
