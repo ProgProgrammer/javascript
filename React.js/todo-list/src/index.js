@@ -12,9 +12,9 @@ const App = () =>
     const loginBox = "Login, please.";
     const todoData =
     [
-        { label: 'Drink coffee', important: false },
-        { label: 'Make Awesome App', important: true },
-        { label: 'Have a lunch', important: false }
+        { label: 'Drink coffee', important: false, id: 'nb' },
+        { label: 'Make Awesome App', important: true, id: 'nm' },
+        { label: 'Have a lunch', important: false, id: 'nh' }
     ]
 
     return(
