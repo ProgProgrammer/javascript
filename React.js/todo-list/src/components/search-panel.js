@@ -8,7 +8,7 @@ const SearchPanel = () =>
     };
 
     return(
-        <input type="text" className="search" style={ searchStyle } disabled placeholder={ searchText } autoComplete="Hello" />
+        <input type="text" className="search" style={ searchStyle } placeholder={ searchText } autoComplete="Hello" />
     );
 }
 
