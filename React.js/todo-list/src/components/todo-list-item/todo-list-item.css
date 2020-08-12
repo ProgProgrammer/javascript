@@ -8,7 +8,6 @@
 }
 
 .todo-list-item-label {
-    margin-left: 1.25rem;
     line-height: 35px;
     cursor: pointer;
     user-select: none;
@@ -21,4 +20,11 @@
 .todo-list-item.important .todo-list-item-label {
     font-weight: bold;
     color: steelblue;
+}
+
+@media all and (max-width: 535px)
+{
+    .todo-list-item .todo-list-item-label {
+        font-size: 0.8rem;
+    }
 }

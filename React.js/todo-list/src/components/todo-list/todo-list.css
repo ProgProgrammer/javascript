@@ -1,3 +1,7 @@
+.list-group todo-list {
+    width: 100%;
+}
+
 .todo-list .list-group-item {
     padding: .25rem .75rem;
 }

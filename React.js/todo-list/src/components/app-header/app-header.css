@@ -10,3 +10,14 @@
     font-size: 1.2rem;
     color: grey;
 }
+
+@media all and (max-width: 535px)
+{
+    .app-header.d-flex h1 {
+        font-size: 1.5rem;
+    }
+
+    .app-header.d-flex h2 {
+        font-size: 1rem;
+    }
+}
