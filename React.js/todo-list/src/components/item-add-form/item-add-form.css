@@ -1,0 +1,24 @@
+.block-button {
+    width: 100%;
+}
+
+.add-button {
+    padding: 3px 12px;
+    margin-top: 30px;
+    border-radius: 3px;
+    border: none;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+    background: transparent;
+}
+
+.add-button:hover {
+    color: white;
+    background: #6c757d;
+}
+
+.add-button:active {
+    color: white;
+    border-color: #17a2b8;
+    background: #17a2b8;
+}
