@@ -4,6 +4,7 @@ import AppHeader from '../app-header';
 import SearchPanel from '../search-panel';
 import ItemStatusFilter from '../item-status-filter';
 import TodoList from '../todo-list';
+import ItemAddForm from '../item-add-form';
 
 import "./app.css";
 
@@ -40,6 +41,48 @@ export default class App extends Component
         });
     }
 
+    checkItem = (idMath) =>
+    {
+        this.state.todoData.map((item) =>
+        {
+            const { id } = item;
+            if (idMath === id)
+            {
+                return false;
+            }
+        });
+        return true;
+    }
+
+    addItem = (text) =>
+    {
+        let idMath = `${Math.random()}n`;
+        let result = this.checkItem(idMath);
+
+        if (result === false)
+        {
+            idMath = `${Math.random()}n`;
+            result = this.checkItem(idMath);
+            console.log(idMath);
+        }
+        else
+        {
+            const newItem = {
+                label: text,
+                id: idMath
+            }
+            console.log(idMath);
+            this.setState(( { todoData } ) =>
+            {
+                const newArray = [...todoData, newItem];
+                console.log(newArray);
+                return {
+                    todoData: newArray
+                };
+            });
+        }
+    }
+
     render()
     {
         return(
@@ -54,6 +97,8 @@ export default class App extends Component
                 <TodoList
                     todos={ this.state.todoData }
                     onDeleted={  this.deleteItem }/>
+                <ItemAddForm
+                    onAdded={ this.addItem }/>
             </div>
         );
     }
