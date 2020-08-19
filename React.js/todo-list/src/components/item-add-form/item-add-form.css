@@ -2,10 +2,14 @@
     width: 100%;
 }
 
+.block-button.item-add-form.d-flex {
+    margin-top: 16px;
+}
+
 .add-button {
     padding: 3px 12px;
-    margin-top: 30px;
     border-radius: 3px;
+    white-space: nowrap;
     border: none;
     border: 1px solid #6c757d;
     color: #6c757d;
@@ -21,4 +25,8 @@
     color: white;
     border-color: #17a2b8;
     background: #17a2b8;
+}
+
+.form-control {
+    margin-right: 5px;
 }
