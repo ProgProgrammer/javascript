@@ -18,9 +18,9 @@ export default class App extends Component
     {
         todoData:
         [
-            { label: 'Drink coffee', id: 'nb' },
-            { label: 'Make Awesome App', id: 'nm' },
-            { label: 'Have a lunch', id: 'nh' }
+            this.createTodoItem('Drink coffee', 'nb'),
+            this.createTodoItem('Make Awesome App', 'nm'),
+            this.createTodoItem('Have a lunch', 'nh')
         ]
     };
 
@@ -54,6 +54,16 @@ export default class App extends Component
         return true;
     }
 
+    createTodoItem(label, idMath)
+    {
+        return {
+            label: label,
+            important: false,
+            done: false,
+            id: idMath
+        }
+    }
+
     addItem = (text) =>
     {
         let idMath = `${Math.random()}n`;
@@ -63,19 +73,15 @@ export default class App extends Component
         {
             idMath = `${Math.random()}n`;
             result = this.checkItem(idMath);
-            console.log(idMath);
         }
         else
         {
-            const newItem = {
-                label: text,
-                id: idMath
-            }
-            console.log(idMath);
+            const newItem = this.createTodoItem(text, idMath);
+
             this.setState(( { todoData } ) =>
             {
                 const newArray = [...todoData, newItem];
-                console.log(newArray);
+
                 return {
                     todoData: newArray
                 };
@@ -83,20 +89,62 @@ export default class App extends Component
         }
     }
 
+    toggleProperty(array, id, propName)
+    {
+
+            const idx = array.findIndex((el) => el.id === id);
+
+            const oldItem = array[idx];
+
+            const newItem = { ...oldItem, [propName]: !oldItem[propName] };
+
+            return [
+                ...array.slice(0, idx),
+                newItem,
+                ...array.slice(idx + 1)
+            ];
+    }
+
+    onToggleDone = (id) =>
+    {
+        this.setState(( { todoData } ) =>
+        {
+            return {
+                todoData: this.toggleProperty(todoData, id, 'done')
+            };
+        });
+    }
+
+    onToggleImportant = (id) =>
+    {
+        this.setState(( { todoData } ) =>
+        {
+            return {
+                todoData: this.toggleProperty(todoData, id, 'important')
+            };
+        });
+    }
+
     render()
     {
+        const { todoData } = this.state;
+        const doneCount = todoData.filter((el) => el.done).length;
+        const todoCount = todoData.length - doneCount;
+
         return(
             <div className="todo-app">
                 <p>{ new Date().toString() }</p>
                 { this.isLoggedIn ? this.welcomeBox : this.loginBox }
-                <AppHeader toDo={1} done={3} />
+                <AppHeader toDo={ todoCount } done={ doneCount } />
                 <div className="top-panel d-flex">
                     <SearchPanel />
                     <ItemStatusFilter />
                 </div>
                 <TodoList
-                    todos={ this.state.todoData }
-                    onDeleted={  this.deleteItem }/>
+                    todos={ todoData }
+                    onDeleted={  this.deleteItem }
+                    onToggleImportant={ this.onToggleImportant }
+                    onToggleDone={ this.onToggleDone }/>
                 <ItemAddForm
                     onAdded={ this.addItem }/>
             </div>
