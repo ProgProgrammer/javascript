@@ -91,7 +91,6 @@ export default class App extends Component
 
     toggleProperty(array, id, propName)
     {
-
             const idx = array.findIndex((el) => el.id === id);
 
             const oldItem = array[idx];
