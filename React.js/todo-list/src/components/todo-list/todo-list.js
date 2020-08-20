@@ -8,10 +8,21 @@ const TodoList = ({ todos, onDeleted,
 {
     const elements = todos.map((item) =>
     {
-        const { id, ...itemProps } = item;
+        const { id, display, activeDone, ...itemProps } = item;
+        let classNames = "list-group-item";
+
+        if (!display)
+        {
+            classNames += ' none';
+        }
+
+        if (!activeDone)
+        {
+            classNames += ' none-done';
+        }
 
         return(
-            <li key={ id } className="list-group-item">
+            <li key={ id } className={classNames}>
                 <TodoListItem
                     { ...itemProps }
                     onDeleted={ () => onDeleted(id) }
