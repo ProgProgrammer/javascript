@@ -1,17 +1,25 @@
-import React from "react";
+import React, { Component } from "react";
 
 import "./search-panel.css";
 
-const SearchPanel = () =>
+export default class SearchPanel extends Component
 {
-    const searchText = 'Type here to search';
-    const searchStyle = {
+    searchText = 'Type here to search';
+    searchStyle = {
         fontSize: '16px'
     };
 
-    return(
-        <input type="text" className="search-input" style={ searchStyle } placeholder={ searchText } autoComplete="Hello" />
-    );
-}
+    onSearchItem = () =>
+    {
+        const inputSearch = document.querySelector(".search-input");
+        this.props.onSearchItem(inputSearch.value);
+    }
 
-export default SearchPanel;
+    render()
+    {
+        return(
+            <input type="text" className="search-input" style={ this.searchStyle } placeholder={ this.searchText } autoComplete="Hello"
+                   onChange={ this.onSearchItem }/>
+        );
+    }
+}
