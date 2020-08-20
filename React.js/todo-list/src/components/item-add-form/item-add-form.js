@@ -20,9 +20,14 @@ export default class ItemPropsForm extends Component
     onSubmit = (event) =>
     {
         event.preventDefault();
-        this.props.onAdded(this.state.label);
-        const inputText = document.querySelector(".form-control");
-        inputText.value = '';
+        if (this.state.label !== '')
+        {
+            this.props.onAdded(this.state.label);
+        }
+        this.setState(
+        {
+            label: ''
+        });
     }
 
     render()
@@ -32,7 +37,8 @@ export default class ItemPropsForm extends Component
                   onSubmit={ this.onSubmit } >
                 <input type="text" className="form-control"
                         onChange={this.onLabelChange}
-                        placeholder="What needs to be done"/>
+                        placeholder="What needs to be done"
+                        value={this.state.label} />
                 <button className="add-button">Add item</button>
             </form>
         );
