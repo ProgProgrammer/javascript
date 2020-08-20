@@ -54,12 +54,14 @@ export default class App extends Component
         return true;
     }
 
-    createTodoItem(label, idMath)
+    createTodoItem(label, idMath, displayProperty=true, activeDoneProperty=true)
     {
         return {
             label: label,
             important: false,
             done: false,
+            display: displayProperty,
+            activeDone: activeDoneProperty,
             id: idMath
         }
     }
@@ -124,6 +126,111 @@ export default class App extends Component
         });
     }
 
+    checkArray = (property, array) =>
+    {
+        for (let a = 0; a < array.length; a++)
+        {
+            if (array[a] === property)
+            {
+                return true;
+            }
+        }
+    }
+
+    changeSearch = (array, arrayFalse, propertyName) =>
+    {
+        let newItem;
+        let newArray = [];
+        for (let i = 0; i < array.length; i++)
+        {
+            if (this.checkArray(i, arrayFalse) === true) {
+                newItem = {...array[i], [propertyName]: false};
+            }
+            else
+            {
+                newItem = {...array[i], [propertyName]: true};
+            }
+
+            if (newArray.length > 0)
+            {
+                newArray = [
+                    ...newArray.slice(0, i),
+                    newItem,
+                    ...newArray.slice(i + 1)
+                ];
+            }
+            else
+            {
+                newArray = [
+                    ...array.slice(0, i),
+                    newItem,
+                    ...array.slice(i + 1)
+                ];
+            }
+        }
+
+        return newArray;
+    }
+
+    onSearchItem = (text) =>
+    {
+        let counter = 0;
+        const newArray = [];
+        this.setState(( { todoData } ) =>
+        {
+            const array = this.state.todoData;
+            for (let a = 0; a < array.length; a++)
+            {
+                const label = array[a].label;
+                const regexp = new RegExp(text, 'gi');
+                if (regexp.test(label) === false && text !== '')
+                {
+                    newArray[counter] = a;
+                    counter++;
+                }
+            }
+            return {
+                todoData: this.changeSearch(todoData, newArray, 'display')
+            };
+        });
+    }
+
+    changeActiveDone = (todoData, value) =>
+    {
+        const array = todoData;
+        const newArray = [];
+        for (let i = 0; i < array.length; i++)
+        {
+            if (value === 'all' && array[i].activeDone !== true)
+            {
+                newArray[i] = { ...array[i], 'activeDone': true };
+            }
+            else if (value === 'active' && array[i].done === true)
+            {
+                newArray[i] = { ...array[i], 'activeDone': false };
+            }
+            else if (value === 'done' && array[i].done === false)
+            {
+                newArray[i] = { ...array[i], 'activeDone': false };
+            }
+            else
+            {
+                newArray[i] = { ...array[i], 'activeDone': true };
+            }
+        }
+        return newArray;
+    }
+
+    onActiveDone = (value) =>
+    {
+        this.setState(( { todoData } ) =>
+        {
+            return {
+                todoData: this.changeActiveDone(todoData, value)
+            }
+        });
+    }
+
     render()
     {
         const { todoData } = this.state;
@@ -136,8 +243,10 @@ export default class App extends Component
                 { this.isLoggedIn ? this.welcomeBox : this.loginBox }
                 <AppHeader toDo={ todoCount } done={ doneCount } />
                 <div className="top-panel d-flex">
-                    <SearchPanel />
-                    <ItemStatusFilter />
+                    <SearchPanel
+                        onSearchItem={ this.onSearchItem } />
+                    <ItemStatusFilter
+                        onActiveDone={ this.onActiveDone } />
                 </div>
                 <TodoList
                     todos={ todoData }
