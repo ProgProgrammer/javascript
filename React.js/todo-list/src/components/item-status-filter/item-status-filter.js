@@ -4,57 +4,33 @@ import "./item-status-filter.css";
 
 export default class ItemStatusFilter extends Component
 {
-    activeClassName = 'btn btn-info';
-    defaultClassName = 'btn btn-outline-secondary';
-
-    stateButton =
-    {
-        all: this.activeClassName,
-        active: this.defaultClassName,
-        done: this.defaultClassName
-    }
-
-    defaultClass()
-    {
-        for (let variable in this.stateButton)
-        {
-            if (this.stateButton[variable] === this.activeClassName)
-            {
-                    this.stateButton[variable] = this.defaultClassName
-            }
-        }
-    }
-
-    onActiveDone(value)
-    {
-        this.props.onActiveDone(value);
-        if (value === 'all')
-        {
-            this.defaultClass();
-            this.stateButton.all = this.activeClassName;
-        }
-        else if (value === 'active')
-        {
-            this.defaultClass();
-            this.stateButton.active =  this.activeClassName;
-        }
-        else if (value === 'done')
-        {
-            this.defaultClass();
-            this.stateButton.done =  this.activeClassName;
-        }
-    }
+    buttons =
+    [
+        { name: 'all', label: 'All' },
+        { name: 'active', label: 'Active' },
+        { name: 'done', label: 'Done' }
+    ]
 
     render()
     {
+        const { filter, onFilterChange } = this.props;
+
+        const buttons = this.buttons.map(({ name, label }) =>
+        {
+            const isActive = filter === name;
+            const clazz = isActive ? 'btn-info' : 'btn-outline-secondary'
+            return(
+                <button type="button" className={`btn ${clazz}`}
+                        key={name}
+                        onClick={ () => onFilterChange(name) }>
+                        {label}
+                </button>
+            );
+        });
+
         return(
             <div className="btn-group">
-                <button className={ this.stateButton.all }
-                        onClick={ () => this.onActiveDone('all') }>All</button>
-                <button className={ this.stateButton.active }
-                        onClick={ () => this.onActiveDone('active') }>Active</button>
-                <button className={ this.stateButton.done }
-                        onClick={ () => this.onActiveDone('done') }>Done</button>
+                { buttons }
             </div>
         );
     }
