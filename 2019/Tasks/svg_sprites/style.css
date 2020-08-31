@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.icon
+{
+  margin: 15px;
+  width: 60px;
+  height: 60px;
+  fill: blue;
+  cursor: pointer;
+}
+
+.icon:hover
+{
+  fill: red;
+}
