@@ -6,6 +6,19 @@
   box-sizing: border-box;
 }
 
+.block_body {
+  height: 100%;
+  position: relative;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: red;
+  position: absolute;
+}
+
 h1 {
   color: blue;
   font-size: $font_size_big;
