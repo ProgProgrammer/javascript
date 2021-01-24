@@ -3,9 +3,9 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
 const config = {
-    entry: path.join(__dirname, 'js') + '/script.js',
+    entry: path.join(__dirname, 'src') + '/js/script.js',
     output: {
-        path: path.join(__dirname, 'dist_scripts'),
+        path: path.join(__dirname, 'dist/scripts'),
         filename: 'bundle.js'
     },
     plugins: [

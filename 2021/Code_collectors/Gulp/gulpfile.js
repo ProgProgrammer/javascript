@@ -7,10 +7,11 @@ const browser_sync = require('browser-sync').create();
 const gulp_webpack = require('gulp-webpack');
 const webpack = require('webpack');
 const webpack_config = require('./webpack.config.js');
+const pug = require('gulp-pug');
 
 function css_style(done)
 {
-    gulp.src('./scss/**/*.scss')
+    gulp.src('./src/scss/**/*.scss')
         .pipe(sourcemaps.init())
         .pipe(sass( {
             errorLogToConsole: true,
@@ -22,16 +23,30 @@ function css_style(done)
         }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./css/'))
+        .pipe(gulp.dest('./dist/css/'))
         .pipe(browser_sync.stream());
     done();
 }
 
 function scripts(done) {
-    gulp.src('./js/**/*.js')
+    gulp.src('./src/js/**/*.js')
         .pipe(gulp_webpack(webpack_config, webpack))
         .on('error', console.error.bind(console))
-        .pipe(gulp.dest('./dist_scripts/'))
+        .pipe(gulp.dest('./dist/scripts/'))
+        .pipe(browser_sync.stream());
+    done();
+}
+
+function pug_html(done)
+{
+    gulp.src('./src/templates/**/*.pug')
+        .pipe(pug(
+ {
+            pretty: false
+        }
+        ))
+        .on('error', console.error.bind(console))
+        .pipe(gulp.dest('./dist/'))
         .pipe(browser_sync.stream());
     done();
 }
@@ -41,7 +56,7 @@ function sync(done)
     browser_sync.init(
     {
         server: {
-            baseDir: "./"
+            baseDir: "./dist/"
         },
         port: 3000
     });
@@ -56,10 +71,10 @@ function browser_reload(done)
 
 function watch_scss()
 {
-    gulp.watch('./scss/**/*.scss', css_style);
-    gulp.watch('./**/*.html', browser_reload);
-    gulp.watch('./js/**/*.js', scripts);
+    gulp.watch('./src/scss/**/*.scss', css_style);
+    gulp.watch('./src/js/**/*.js', scripts);
+    gulp.watch('./src/templates/**/*.pug', pug_html);
     gulp.watch('./**/*.php', browser_reload);
 }
 
-gulp.task('default', gulp.parallel(watch_scss, scripts, sync));
+gulp.task('default', gulp.parallel(watch_scss, css_style, scripts, pug_html, sync));
