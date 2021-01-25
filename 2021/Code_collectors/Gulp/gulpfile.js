@@ -8,6 +8,7 @@ const gulp_webpack = require('gulp-webpack');
 const webpack = require('webpack');
 const webpack_config = require('./webpack.config.js');
 const pug = require('gulp-pug');
+const babel = require('gulp-babel');
 
 function css_style(done)
 {
@@ -18,6 +19,7 @@ function css_style(done)
             outputStyle: 'compressed'
         }))
         .on('error', console.error.bind(console))
+        .pipe(gulp.dest('./dist/css/'))
         .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], {
             cascade: false
         }))
@@ -30,6 +32,10 @@ function css_style(done)
 
 function scripts(done) {
     gulp.src('./src/js/**/*.js')
+        .pipe(gulp.dest('./dist/scripts/'))
+        .pipe(babel({
+            presents: ['es2015']
+        }))
         .pipe(gulp_webpack(webpack_config, webpack))
         .on('error', console.error.bind(console))
         .pipe(gulp.dest('./dist/scripts/'))
@@ -58,7 +64,8 @@ function sync(done)
         server: {
             baseDir: "./dist/"
         },
-        port: 3000
+        port: 3000,
+        notify: false
     });
     done();
 }
@@ -69,7 +76,7 @@ function browser_reload(done)
     done();
 }
 
-function watch_scss()
+function watch_files()
 {
     gulp.watch('./src/scss/**/*.scss', css_style);
     gulp.watch('./src/js/**/*.js', scripts);
@@ -77,4 +84,4 @@ function watch_scss()
     gulp.watch('./**/*.php', browser_reload);
 }
 
-gulp.task('default', gulp.parallel(watch_scss, css_style, scripts, pug_html, sync));
+gulp.task('default', gulp.parallel(watch_files, css_style, scripts, pug_html, sync));
