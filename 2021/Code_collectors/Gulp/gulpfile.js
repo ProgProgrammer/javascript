@@ -47,7 +47,7 @@ function pug_html(done)
 {
     gulp.src('./src/templates/**/*.pug')
         .pipe(pug(
- {
+        {
             pretty: false
         }
         ))
