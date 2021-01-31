@@ -1,0 +1,9 @@
+block header
+
+mixin menu_items(menu_values)
+  header.header
+    nav.nav
+      ul.ul
+          each value in menu_values
+            li.li
+              a(href=value.url).url #{ value.name }

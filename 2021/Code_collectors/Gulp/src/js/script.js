@@ -1,4 +1,4 @@
-import buttons from "./modules/library.js";
+import buttons from "./modules/_library.js";
 
 (function()
 {
@@ -9,6 +9,44 @@ import buttons from "./modules/library.js";
         let top_circle = 0;
         let additional_height = 0;
         let bloker = false;
+        let window_width = body_block.clientWidth - circle.offsetWidth;
+        let window_height = body_block.clientHeight - circle.offsetHeight;
+
+        const cursor_moving = (event) =>
+        {
+            if (window_width >= event.pageX - circle.offsetWidth / 2)
+            {
+                circle.style.left = event.pageX - circle.offsetWidth / 2 + 'px';
+                if (circle.style.opacity !== '1' &&
+                    window_height >= event.pageY - circle.offsetHeight / 2)
+                {
+                    circle.style.opacity = '1';
+                }
+            }
+            else
+            {
+                circle.style.opacity = '0';
+            }
+            if (window_height >= event.pageY - circle.offsetHeight / 2)
+            {
+                circle.style.top = event.pageY - circle.offsetHeight / 2 + 'px';
+                if (circle.style.opacity !== '1' &&
+                    window_width >= event.pageX - circle.offsetWidth / 2)
+                {
+                    circle.style.opacity = '1';
+                }
+            }
+            else
+            {
+                circle.style.opacity = '0';
+            }
+        }
+
+        window.addEventListener('resize', () =>
+        {
+            window_width = body_block.clientWidth - circle.offsetHeight;
+            window_height = body_block.clientHeight - circle.offsetHeight;
+        });
 
         window.addEventListener('scroll', () =>
         {
@@ -29,16 +67,19 @@ import buttons from "./modules/library.js";
 
         window.addEventListener('mouseover', (event) =>
         {
-            circle.style.left = event.pageX - circle.offsetWidth / 2 + 'px';
-            circle.style.top = event.pageY - circle.offsetHeight / 2 + 'px';
+            cursor_moving(event, '1');
+        });
+
+        window.addEventListener('mouseout', (event) =>
+        {
+            cursor_moving(event, '0');
         });
 
         window.addEventListener('mousemove', (event) =>
         {
             if (bloker === false)
             {
-                circle.style.left = event.pageX - circle.offsetWidth / 2 + 'px';
-                circle.style.top = event.pageY - circle.offsetHeight / 2 + 'px';
+                cursor_moving(event);
                 top_circle = event.pageY - circle.offsetHeight / 2;
             }
         });

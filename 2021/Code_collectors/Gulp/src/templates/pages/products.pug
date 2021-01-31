@@ -1,0 +1,22 @@
+extends ../common/base
+
+block base
+  - let set_title = 'Products'
+  - let styles = '../css/styles.min.css';
+
+block content
+    include ../common/header
+    - let menu_values = [ { name: 'Main', url: '/' }, { name: 'Contacts', url: '/pages/contacts.html' } ];
+      +menu_items(menu_values)
+
+    .circle
+    .container
+        h1 All products!
+        p Hello, world!
+        button.button PUT
+
+    include ../common/footer
+    - menu_values = [ { name: 'Main', url: '/' }, { name: 'Contacts', url: '/pages/contacts.html' } ];
+        +footer_menu_items(menu_values)
+
+    script(src='../scripts/bundle.js')

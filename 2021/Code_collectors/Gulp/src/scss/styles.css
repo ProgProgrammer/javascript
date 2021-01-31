@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box; }
 
+.header, .footer {
+  padding: 15px; }
+  .header .ul .li, .footer .ul .li {
+    list-style-type: none; }
+
 .block_body {
   height: 100%;
   position: relative; }
@@ -13,7 +18,8 @@
   border-radius: 50%;
   background: red;
   position: absolute;
-  pointer-events: none; }
+  pointer-events: none;
+  opacity: 0; }
 
 h1 {
   color: blue;

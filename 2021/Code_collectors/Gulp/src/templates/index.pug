@@ -1,15 +1,30 @@
-doctype html
-html(lang="ru-RU")
-    head
-        | <meta charset="UTF-8">
-        | <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        | <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        title Hello, world
-        link(rel='stylesheet' href='css/styles.min.css')
-    body.block_body
-        .circle
-        .container
-            h1 All working!
-            p Hello, world!
-            button.button PUT
-        script(src='scripts/bundle.js')
+extends common/base
+
+block content
+    include common/header
+    - let menu_values = [ { name: 'Products', url: '/pages/products.html' }, { name: 'Contacts', url: '/pages/contacts.html' } ];
+        +menu_items(menu_values)
+
+    .circle
+    .container
+        h1 All working!
+        p Hello, world!
+        button.button PUT
+    .container
+        h1 All working!
+        p Hello, world!
+        button.button PUT
+    .container
+        h1 All working!
+        p Hello, world!
+        button.button PUT
+    .container
+        h1 All working!
+        p Hello, world!
+        button.button PUT
+
+    include common/footer
+    - menu_values = [ { name: 'Products', url: '/pages/products.html' }, { name: 'Contacts', url: '/pages/contacts.html' } ];
+        +footer_menu_items(menu_values)
+
+    script(src='scripts/bundle.js')

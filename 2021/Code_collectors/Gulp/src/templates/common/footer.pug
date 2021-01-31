@@ -1,0 +1,8 @@
+block footer
+
+mixin footer_menu_items(menu_values)
+    footer.footer
+        ul.ul
+            each value in menu_values
+                li.li
+                    a(href=value.url).url #{ value.name }
