@@ -1,0 +1,15 @@
+block base
+    - let lang = 'ru-RU'
+    - let set_title = 'Drag and Drop'
+    - let styles = 'css/styles.min.css';
+
+doctype html
+html(lang=lang)
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible" content="ie=edge")
+        title #{ set_title }
+        link(rel='stylesheet' href=styles)
+    body.block_body
+        block content

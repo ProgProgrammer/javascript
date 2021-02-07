@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: darksalmon;
+}
+
+.head {
+  margin-bottom: 20px;
+  padding: 0 15px;
+  text-align: center;
+}
+
+.main {
+  margin: 30px auto 0;
+  max-width: 1170px;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  &__block {
+    margin: 20px 7.5px 0;
+    display: inline-block;
+    height: 160px;
+    width: 160px;
+    background: white;
+    position: relative;
+  }
+  &__background {
+    width: 100%;
+    height: 100%;
+    background: white;
+    position: absolute;
+  }
+  &__frame {
+    background-image: url('https://source.unsplash.com/random/150x150');
+    background-size: contain;
+    position: relative;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    height: 150px;
+    width: 150px;
+    cursor: pointer;
+  }
+  &__image {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+  }
+}
+
+.hold {
+  border: 4px solid black;
+}
+
+.hovered {
+  background: #f4f4f4;
+  border-style: dashed;
+}
+
+.invisible {
+  display: none;
+}
+
+/*@media all and (max-width: 1025px) {
+  .container {
+    &__block {
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+  }
+}
+
+@media all and (max-width: 767px) {
+  .container {
+    &__block {
+      flex: 0 0 33.33333333333333%;
+      max-width: 33.33333333333333%;
+    }
+  }
+}
+
+@media all and (max-width: 576px) {
+  .container {
+    &__block {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+}
+
+@media all and (max-width: 350px) {
+  .container {
+    &__block {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}*/

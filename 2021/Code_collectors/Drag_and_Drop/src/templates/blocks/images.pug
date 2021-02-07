@@ -1,0 +1,10 @@
+block images
+
+mixin images_block(images)
+    container.container
+        each value in images
+            .container__block
+                .container__background
+                    if value !== ''
+                        .container__frame(draggable='true', style=`background-image: ${ value }`)
+                    else

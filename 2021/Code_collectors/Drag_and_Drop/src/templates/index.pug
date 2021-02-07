@@ -1,0 +1,10 @@
+extends common/_base
+
+block content
+    main.main
+        h1.head Images
+        include blocks/images
+        - const images = ['https://source.unsplash.com/random/150x150', '', '', '', '', '', '', 'https://source.unsplash.com/random/150x150', '', '']
+            + images_block(images)
+
+    script(src='scripts/bundle.js')
