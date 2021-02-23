@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.scss"],"names":[],"mappings":"AAAA,EACE,QAAS,CACT,SAAU,CACV,6BAAY,CAAZ,qBAAsB,CACvB,QAGC,UAAW,CACX,WAAY","file":"styles.min.css","sourcesContent":["* {\r\n  margin: 0;\r\n  padding: 0;\r\n  box-sizing: border-box;\r\n}\r\n\r\n.canvas {\r\n  width: 100%;\r\n  height: 100%;\r\n}"]}
