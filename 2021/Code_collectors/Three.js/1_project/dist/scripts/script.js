@@ -1,5 +1,6 @@
 let canvas;
 let renderer;
+let mesh;
 
 const add_size = (element) =>
 {
@@ -16,14 +17,28 @@ const add_plane = (renderer) =>
     const light = new THREE.AmbientLight(0xffffff); // цвет света
     scene.add(light);   // добавление света на сцену
     // const geometry = new THREE.PlaneGeometry(300, 300, 12, 12);     // ширина, выота, количество секторов на количество секторов
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });     // цвет материала + грани (обтягивание объекта пленкой)
-    const geometry = new THREE.SphereGeometry(200, 12, 12);    // создание сферы
-    const mesh = new THREE.Mesh(geometry, material);
+    const geometry = new THREE.SphereGeometry(300, 12, 12);    // создание сферы
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });     // цвет материала + грани (обтягивание объекта пленкой) "wireframe: true" делает объект полым
+    console.log(geometry);
+    /*for (let i = 0; i < geometry.faces.length; i++)
+    {
+        geometry.faces[i].color.setRGB(Math.random(), Math.random(), Math.random());
+    }*/
+    mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
-    renderer.render(scene, camera);     // добавление в рендер сцены и камеры
+    function loop()
+    {
+        mesh.position.z -= 1;   // изменить позицию фигуры (меша), сместив ее на 1 пиксель назад по оси z
+        mesh.position.x -= 1;   // изменить позицию фигуры (меша), сместив ее на 1 пиксель влево по оси x
+        mesh.rotation.y -= Math.PI / 1000;   // изменить позицию фигуры (меша), вращая ее вокруг собственной оси y против часовой стрелки
+        //scene.add(mesh);
+        renderer.render(scene, camera);     // добавление в рендер сцены и камеры
+        requestAnimationFrame(() => { loop(); });   // запустить функцию "loop()" после полной загрузки анимации
+    }
+    loop();
 }
 
-window.addEventListener("DOMContentLoaded", () =>
+window.addEventListener("load", () =>
 {
     canvas = document.querySelector(".canvas");
     add_size(canvas);
