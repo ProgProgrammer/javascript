@@ -1,0 +1,19 @@
+﻿{
+    "manifest_version": 2,
+ 
+    "name": "Remove popup",
+    "version": "1.0.0.1",
+
+    "permissions": [
+      "tabs","https://www.investing.com/*","https://ru.investing.com/*"
+    ],
+ 
+    "content_scripts": [
+        {
+            "matches": [ "https://*.investing.com/*" ],
+            "js": [ "content_scripts/end.js" ],
+            "run_at": "document_end",
+			"all_frames": true
+        }
+    ]
+}
