@@ -1,0 +1,107 @@
+.footer {
+  &__part {
+    background-color: $typ-color;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+  &__blocks {
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  &__block {
+    margin-top: 100px;
+    max-width: 210px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  &__items {
+    margin-top: 25px;
+    &.contacts {
+      margin-top: 45px;
+    }
+  }
+  &__item {
+    display: flex;
+    list-style-type: none;
+    &.contacts {
+      margin-top: 10px;
+    }
+    &.address {
+      margin-top: 20px;
+      flex-direction: column;
+    }
+    &.social-nets {
+      margin-top: 15px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &.identification {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &__text {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 170%;
+    color: $white-color;
+    &.contacts {
+      opacity: $opacity-hover;
+      &.region {
+        margin-right: 5px;
+      }
+    }
+    &.link {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__link {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 170%;
+    text-decoration: none;
+    color: $white-color;
+    transition: opacity $time-hover linear;
+    &:hover {
+      opacity: $opacity-hover;
+    }
+    &.city {
+      border-bottom: 1px solid $white-color;
+      color: $white-color;
+    }
+    &.social-nets {
+      margin-top: 15px;
+      margin-right: 20px;
+      &:hover .header__icon.footer {
+        fill: $org-color;
+        opacity: 1;
+      }
+    }
+    &.copyright {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 120%;
+      color: $white-color;
+      opacity: 0.3;
+    }
+  }
+  &__ul-head {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 140%;
+    color: $white-color;
+    opacity: $opacity-hover;
+  }
+  &__copyright {
+    padding: 20px 0px 15px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat';
+  font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6, p, span, button, div {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+input {
+  outline:none;
+}
+
+.display-none {
+  display: none;
+}
+
+$org-color: #FF5900;
+$typ-color: #212121;
+$gray-color: #333333;
+$gray-l-color: #F4F4F4;
+$white-color: #FFFFFF;
+$hover-button: #CA4600;
+$time-hover: .3s;
+$opacity-hover: 0.5;
+$max-content-width: 1200px;
+$mobile-width: 692px;
+$mobile-phone-width: 384px;
+
+.header__block,
+.marketing__block,
+.digitals__container,
+.benefits__container,
+.footer__container {
+  margin: 0 auto;
+  max-width: $max-content-width;
+}
